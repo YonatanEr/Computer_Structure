@@ -1,22 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "utils/slice_utils.c"
+#include "slice_utils.c"
 
 
 int find_next_char_occurence(char*, char, int, int);
-
-char* line_split(char* line, int len){
-    if (line[len-1] == ":"){
-        return label_format()
-    }
-    if "$imm" in line{
-        return label_format()
-    }
-    if "$imm" in line{
-        return label_format()
-    }
-}
 
 
 char* coma_split(char* line, int len){
@@ -30,6 +18,7 @@ char* coma_split(char* line, int len){
         words[word_ind] = substring(line, i, j-1);                      // We don't want to copy ','
         i = j+1;
     }
+    return words;
 }
 
 int find_next_char_occurence(char* line, char x, int start, int len){
