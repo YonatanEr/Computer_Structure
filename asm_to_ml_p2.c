@@ -4,14 +4,14 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
-#define NUM_OF_COMMANDS 5
+#define INSTRUCTION_BYTES 5
 #define NUM_OF_OPCODES 22
 #define NUM_OF_REGISTERS 16
 
 char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$s0", "$s1", "$s2", "$gp", "$sp", "$ra" };
 char* opcodes[NUM_OF_OPCODES] = { "add", "sub", "mul","and" , "or" ,"xor", "sll", "sra", "srl", "beq", "bne", "blt", "bgt", "ble", "bge", "jal", "lw", "sw", "reti", "in", "out", "halt" }; //halt = 0x15000
 
-int* asm_line_to_ml(char* asm_line[NUM_OF_COMMANDS]) {
+int* asm_line_to_ml(char* asm_line[INSTRUCTION_BYTES]) {
 
 	int ml_line = 0x0; //output[0]
 	int imm_value = 0x0; //output[1]
@@ -28,19 +28,19 @@ int* asm_line_to_ml(char* asm_line[NUM_OF_COMMANDS]) {
 		}
 	}
 	
-	for (int command_index = 1; command_index < NUM_OF_COMMANDS - 1; command_index++) { //Loops over the 3 registers.
+	for (int command_index = 1; command_index < INSTRUCTION_BYTES - 1; command_index++) { //Loops over the 3 registers.
 		for (int register_index = 0; register_index < NUM_OF_REGISTERS; register_index++) {
 			//printf("compare %s with %s \n", asm_line[command_index], registers[register_index]);
 			if (asm_line[command_index] == registers[register_index]) {
 				ml_line += register_index;
-				if ((command_index != NUM_OF_COMMANDS - 2)) //Got to the last register.
+				if ((command_index != INSTRUCTION_BYTES - 2)) //Got to the last register.
 					ml_line = ml_line << 4;
 				break;
 			}
 		}
 	}
-	if (asm_line[NUM_OF_COMMANDS - 1] != "0")
-		imm_value = atoi(asm_line[NUM_OF_COMMANDS - 1]); //atio converts numeric strings to integers.
+	if (asm_line[INSTRUCTION_BYTES - 1] != "0")
+		imm_value = atoi(asm_line[INSTRUCTION_BYTES - 1]); //atio converts numeric strings to integers.
 
 
 	//printf("inside the function we got %X and %X \n", ml_line, imm_value);
@@ -77,9 +77,9 @@ void update_memin_file(char** asm_lines_array[3]) {
 
 
 int main() {
-	char* r_input1[NUM_OF_COMMANDS] = { "sub", "$t0", "$t1", "$s1", "0" };
-	char* i_input[NUM_OF_COMMANDS] = { "sub","$t0","$imm","$s1","16" };
-	char* r_input2[NUM_OF_COMMANDS] = { "ble", "$t0", "$t1", "$imm", "2538" };
+	char* r_input1[INSTRUCTION_BYTES] = { "sub", "$t0", "$t1", "$s1", "0" };
+	char* i_input[INSTRUCTION_BYTES] = { "sub","$t0","$imm","$s1","16" };
+	char* r_input2[INSTRUCTION_BYTES] = { "ble", "$t0", "$t1", "$imm", "2538" };
 	char** array_of_asm_inputs[3] = { r_input1, i_input, r_input2 };
 
 	update_memin_file(array_of_asm_inputs); 
