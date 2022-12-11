@@ -1,15 +1,8 @@
 
 //Input examples: {"add","$t0","$t1","$s1","0"} R-format or {"add","$t0","$imm","$s1","16"} I-foramt
 //Output should be opcode[19:12],rd[11:8],rs[7:4],rt[3:0] (8,4,4,4) in hex -> output example for input = 0078B
-#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <stdlib.h>
-#define INSTRUCTION_BYTES 5
-#define NUM_OF_OPCODES 22
-#define NUM_OF_REGISTERS 16
 
-char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$s0", "$s1", "$s2", "$gp", "$sp", "$ra" };
-char* opcodes[NUM_OF_OPCODES] = { "add", "sub", "mul","and" , "or" ,"xor", "sll", "sra", "srl", "beq", "bne", "blt", "bgt", "ble", "bge", "jal", "lw", "sw", "reti", "in", "out", "halt" }; //halt = 0x15000
+#include "header.h"
 
 int* asm_line_to_ml(char* asm_line[INSTRUCTION_BYTES]) {
 
@@ -40,7 +33,7 @@ int* asm_line_to_ml(char* asm_line[INSTRUCTION_BYTES]) {
 		}
 	}
 	if (asm_line[INSTRUCTION_BYTES - 1] != "0")
-		imm_value = atoi(asm_line[INSTRUCTION_BYTES - 1]); //atio converts numeric strings to integers.
+		imm_value = dec_string_to_int([INSTRUCTION_BYTES - 1]); //converts decimal strings to integers, won't use atoi cus this is 32 bits.
 
 
 	//printf("inside the function we got %X and %X \n", ml_line, imm_value);
