@@ -17,3 +17,10 @@ int hex_string_to_int(char* input) {
 		result = result * 16 + hex_char_to_int(input[i]);
 	return result;
 }
+
+int dec_string_to_int(char* input) {
+	int result = 0;
+	for (int i = 0; i < 5; i++)
+		result = result * 10 + hex_char_to_int(input[i]);
+	return result;
+}

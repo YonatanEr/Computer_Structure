@@ -1,24 +1,9 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <stdlib.h>
-#define NUM_OF_COMMANDS 5
-#define NUM_OF_BYTES 5
-#define NUM_OF_OPCODES 22
-#define NUM_OF_REGISTERS 16
-#define MAX_SIZE_OF_ASM_LINES_ARRAY 100
-
+#include "header.h"
 //Input is an instruction in ML such as "0178B"
-
-char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$s0", "$s1", "$s2", "$gp", "$sp", "$ra" };
-char* opcodes[NUM_OF_OPCODES] = { "add", "sub", "mul","and" , "or" ,"xor", "sll", "sra", "srl", "beq", "bne", "blt", "bgt", "ble", "bge", "jal", "lw", "sw", "reti", "in", "out", "halt" }; //halt = 0x15000
 
 // int pc = 0, inst = 0, $zero = 0, $imm = 0, $vo = 0, $a0 = 0, $a1 = 0, $a2 = 0, $a3 = 0, $t0 = 0, $t1 = 0, $t2 = 0, $s0 = 0, $s1 = 0, $s2 = 0, $gp = 0, $sp = 0, $ra = 0;
 int trace_line[NUM_OF_REGISTERS + 2] = {0}; // {pc, instruction, -all 16 registers sorted-}
 int next_pc = 0;
-
-void slice(const char* str, char* result, size_t start, size_t end) { //A function that slices a string, make sure end > start.
-	strncpy(result, str + start, end - start);
-}
 
 //example of how to call this function: opcode_operation(&next_pc, trace_line[0], 0, &(trace_line + 7), trace_line[8] , trace_line[12]), this was disection of 0078B
 void opcode_operation(int* next_pc, int current_pc, int opcode, int* rd, int rs, int rt) {
@@ -26,6 +11,8 @@ void opcode_operation(int* next_pc, int current_pc, int opcode, int* rd, int rs,
 		*next_pc = current_pc + 2;
 	else //R-format
 		*next_pc = current_pc + 1;
+
+	trace_line[1] = opcode;
 
 	switch (opcode) {
 	case 0: //add
@@ -56,7 +43,7 @@ void opcode_operation(int* next_pc, int current_pc, int opcode, int* rd, int rs,
 		*rd = rs << rt;
 		break;
 		/*
-	case 7: //sra - NOTE, THERE IS AN EQUATION FOR THIS, CANT FIND IT.
+	case 7: //sra - NOTE, THERE IS AN EQUATION FOR THIS, CAN'T FIND IT.
 		result = reg1 >> reg2;
 		break;
 		*/
@@ -93,13 +80,11 @@ void opcode_operation(int* next_pc, int current_pc, int opcode, int* rd, int rs,
 		if (rs >= rt)
 			*next_pc = rd;
 		break;
-
-		/*
-	case 15: //jal - Didnt understand the requirement.
-		if (rs <= rt)
-			*next_pc = rd;
+		
+	case 15: //jal
+		*rd = current_pc + 1;
+		*next_pc = rs;
 		break;
-		*/
 
 	case 16: //lw
 		break;
@@ -120,26 +105,55 @@ void opcode_operation(int* next_pc, int current_pc, int opcode, int* rd, int rs,
 
 void update_trace_file(int* trace_line) {
 	FILE* fptr;
-	fptr = fopen("trace.txt", "w");
+	fptr = fopen("trace.txt", "a");
 	if (fptr == NULL) {
-		printf("ERROR, COULDN'T OPEN THE FILE");
+		printf("Error, couldn't open trace.txt\n");
 		return;
 	}
-	for (int i = 0; i < NUM_OF_REGISTERS + 2; i++) {
-		//not finished
+	for (int i = 0; i < NUM_OF_REGISTERS + 2; i++) { //prints out into the trace.txt file the pc, inst and 16 registers.
+		if (i == 0) { //PC with 3 bytes.
+			for (int i = 0x100; i > trace_line[i]; i = i >> 4)  //Biggest number is 
+				fprintf(fptr, "%d", 0); //Will print the missing 0 in the hex representation
+			fprintf(fptr, "%X ", trace_line[i][0]); //Space is added here and not \t or \n.
+		}
+		else if (i == 1){ //Instruction with 5 bytes.
+			for (int i = 0x10000; i > trace_line[i]; i = i >> 4)  
+				fprintf(fptr, "%d", 0); 
+			fprintf(fptr, "%X ", trace_line[i]); 
+		}
+		else { //All the registers with 8 bytes.
+			for (int i = 0x10000000; i > trace_line[i]; i = i >> 4)
+				fprintf(fptr, "%d", 0);
+			if (i != NUM_OF_REGISTERS + 1)
+				fprintf(fptr, "%X ", trace_line[i]);
+			else
+				fprintf(fptr, "%X\n", trace_line[i]); //last register need to print thus going down a line.
+		}
+	}
+}
+
+int main() {
+	char instruction_string[NUM_OF_BYTES];
+
+	FILE* fptr1, fptr2;
+	fptr1 = fopen("memin.txt", "r");
+	fptr2 = fopen("trace.txt", "w");
+
+	if (fptr1 == NULL) {
+		printf("Error, couldn't open memin.txt\n");
+		return;
+	}
+	if (fptr2 == NULL) {
+		printf("Error, couldn't open trace.txt\n");
+		return;
+	}
+	for (int i = 0; i < 100; i++) {
+		fscanf(fptr1, "%s", &instruction_string); //read a line from the memin.txt instructions
+		instruction inst = parse_instruction(instruction_string); //convert it to the instruction structure.
+		opcode_operation(&next_pc, trace_line[0], inst.opcode, trace_line[TRACE_OFFSET + inst.rd], trace_line[TRACE_OFFSET + inst.rs], trace_line[TRACE_OFFSET + inst.rt]);
+		update_trace_file(trace_line);
 	}
 
-}
-int main() {
-	FILE* fptr;
-	fptr = fopen("memin.txt", "r");
-	if (fptr == NULL) {
-		printf("ERROR, COULDN'T OPEN THE FILE");
-		return;
-	}
-	char instruction_string[NUM_OF_BYTES];
-	fscanf(fptr, "%s", &instruction_string);
-	
 	return 0;
 }
 
