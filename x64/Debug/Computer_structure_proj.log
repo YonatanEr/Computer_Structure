@@ -1,0 +1,3 @@
+﻿  trace_generator.c
+C:\Computer_Structure\trace_generator.c(53,28): warning C4013: 'pow' undefined; assuming extern returning int
+  Computer_structure_proj.vcxproj -> C:\Computer_Structure\x64\Debug\Computer_structure_proj.exe

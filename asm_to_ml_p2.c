@@ -4,6 +4,9 @@
 
 #include "header.h"
 
+char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$s0", "$s1", "$s2", "$gp", "$sp", "$ra" };
+char* opcodes[NUM_OF_OPCODES] = { "add", "sub", "mul","and" , "or" ,"xor", "sll", "sra", "srl", "beq", "bne", "blt", "bgt", "ble", "bge", "jal", "lw", "sw", "reti", "in", "out", "halt" }; //halt = 0x15000
+
 int* asm_line_to_ml(char* asm_line[INSTRUCTION_BYTES]) {
 
 	int ml_line = 0x0; //output[0]
@@ -33,8 +36,7 @@ int* asm_line_to_ml(char* asm_line[INSTRUCTION_BYTES]) {
 		}
 	}
 	if (asm_line[INSTRUCTION_BYTES - 1] != "0")
-		imm_value = dec_string_to_int([INSTRUCTION_BYTES - 1]); //converts decimal strings to integers, won't use atoi cus this is 32 bits.
-
+		imm_value = dec_string_to_int(asm_line[INSTRUCTION_BYTES - 1]); //converts decimal strings to integers, won't use atoi cus this is 32 bits.
 
 	//printf("inside the function we got %X and %X \n", ml_line, imm_value);
 	result[0] = ml_line;
@@ -70,10 +72,10 @@ void update_memin_file(char** asm_lines_array[3]) {
 
 
 int main() {
-	char* r_input1[INSTRUCTION_BYTES] = { "sub", "$t0", "$t1", "$s1", "0" };
-	char* i_input[INSTRUCTION_BYTES] = { "sub","$t0","$imm","$s1","16" };
-	char* r_input2[INSTRUCTION_BYTES] = { "ble", "$t0", "$t1", "$imm", "2538" };
-	char** array_of_asm_inputs[3] = { r_input1, i_input, r_input2 };
+	char* i_input1[INSTRUCTION_BYTES] = { "sub","$t0","$imm","$s1","16" }; //t0 = 16 - s1 = 16 - 0 = 16
+	char* r_input[INSTRUCTION_BYTES] = { "sub", "$t1", "$t0", "$s1", "0" }; //t1 = t0 + s1 = 16 + 0 = 16
+	char* i_input2[INSTRUCTION_BYTES] = { "sll", "$s0", "$t1", "$imm", "10" }; //s0 = t1 << 10 = 16 << 10  = 16 * 2^10
+	char** array_of_asm_inputs[3] = { i_input1, r_input, i_input2 };
 
 	update_memin_file(array_of_asm_inputs); 
 
