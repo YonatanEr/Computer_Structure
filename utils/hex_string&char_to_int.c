@@ -13,14 +13,14 @@ int hex_char_to_int(char input) { //converts a character to hex
 
 int hex_string_to_int(char* input) {
 	int result = 0;
-	for (int i = 0; i < 5; i++) 
+	for (int i = 0; i < strlen(input); i++) 
 		result = result * 16 + hex_char_to_int(input[i]);
 	return result;
 }
 
 int dec_string_to_int(char* input) {
 	int result = 0;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < strlen(input); i++)
 		result = result * 10 + hex_char_to_int(input[i]);
 	return result;
 }
