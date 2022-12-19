@@ -15,7 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="trace_generator.c">
+    <ClCompile Include="read_instruction_file.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="structs\label_element.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
