@@ -1,29 +1,26 @@
 #include <stdio.h>
 #include <assert.h>
+#include <stdbool.h>
 
-struct int_array
+typedef struct int_array
 {
-    int* val;
+    int* num;
     int len;
-};
+} int_array;
 
 
-struct int_array init_int_array(int len){
-    struct int_array arr;
+int_array init_int_array(int len){
+    int_array arr;
     arr.len = len;     
-    arr.val = (int*) malloc ((len) * sizeof(int));
-    assert(arr.val);
+    arr.num = (int*) malloc ((len) * sizeof(int));
+    assert(arr.num);
     return arr;
 }
 
-void print_int_array(struct int_array arr){
+void print_int_array(int_array arr){
     int i;
     for (i=0; i<arr.len; i++){
-        printf("%d ", arr.val);
+        printf("%d ", arr.num);
     }
 }
 
-
-void free_int_array(struct int_array arr){
-    free(arr.val);
-}
