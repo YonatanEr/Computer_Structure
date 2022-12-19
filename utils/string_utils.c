@@ -42,3 +42,4 @@ int string_len(char* str){
         return i;
     }
 }
+

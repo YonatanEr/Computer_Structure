@@ -1,20 +1,22 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdbool.h>
-#include "int_array.c"
 #include "utils/string_utils.c"
+
+labels_array extend_labels_array(labels_array);
+labels_array init_labels_array(max_len);
+
 
 typedef struct labels_array
 {
-    word* labels_names; 
-    int_array labels_line;
+    char* labels_names; 
+    int* labels_line;
     int len;
-    int max_len;
 } labels_array;
 
 
 labels_array init_labels_array(int max_len){
-    char_array* names = (char_array*) malloc ((max_len) * sizeof(char_array));
+    word* names = (word*) malloc ((max_len) * sizeof(word));
     assert(names);
     int_array lines = init_int_array(max_len);
 }
@@ -43,7 +45,9 @@ labels_array extend_labels_array(labels_array arr){
     int i;
     labels_array brr = init_labels_array(2*arr.max_len);
     for (i=0; i<arr.len; i++){
-        brr.labels_line.
+        brr.labels_line.nums[i] = arr.labels_line.nums[i];
+        brr.labels_names[i].len = arr.labels_names[i].len;
+        
     }
 }
 

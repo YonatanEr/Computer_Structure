@@ -2,6 +2,8 @@
 
 bool is_label(char*);
 bool is_iformat(char*);
+bool is_rformat(char*);
+////// bool is_wordformat(char* )
 
 
 
@@ -27,8 +29,8 @@ int main()
             continue;
         }
         
-        else if (is_iformat(line)) {
-            pc_line_counter += 2;
+        else if (is_rformat(line)) {
+            pc_line_counter += 1;
         }
 
         else is_iformat(line) {

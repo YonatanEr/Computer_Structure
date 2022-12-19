@@ -14,15 +14,13 @@
 #include <stdbool.h>
 
 ///Utilities///
-//#include "utils/file_utils.c"
+#include "utils/file_utils.c"
 #include "utils/string_utils.c"
-//#include "utils/slice_utils_nati.c"
-//#include "utils/split_utils.c"
+#include "utils/slice_utils_nati.c"
+#include "utils/split_utils.c"
 #include "utils/hex_string&char_to_int.c"
 
 ////Data Types///
-#include "structs/word.c"
-#include "structs/int_array.c"
 #include "structs/instruction.c"
 #include "structs/labels_array.c"
 
