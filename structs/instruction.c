@@ -17,14 +17,3 @@ instruction parse_instruction(char* memin_line) { //input example is "10B32".
 
 	return new_inst;
 }
-
-
-int main() {
-
-	int lines_count = 0;
-
-	char*** asm_lines = asm_to_ml_p1(&lines_count); // will update directly 
-	asm_to_ml_p2(asm_lines, lines_count);
-	
-	return 0;
-}

@@ -22,7 +22,7 @@ label_element* new_label(char* label, int pc_label) {
 	return header;
 }
 
-void appened_to_label_list(label_element* label_list, label_element* new_label) {
+void append_to_label_list(label_element* label_list, label_element* new_label) {
 	label_element* current_label = label_list;
 	while (current_label->next != NULL)
 		current_label = current_label->next;

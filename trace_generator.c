@@ -104,7 +104,8 @@ void opcode_operation(int* next_pc, int current_pc, instruction inst) {
 	case 20: //out
 		break;
 
-	case 21: //DONT KNOW HOW TO REACT TO IT RIGHT NOW, MAYBE JUST exit()?
+	case 21: //halt
+		exit(0);
 		break;
 	}
 }
@@ -178,11 +179,11 @@ int main() {
 			fscanf(fptr1, "%X", &trace_line[3]);
 		else
 			trace_line[3] = 0;
-		printf("instruction_string = %s, inst.rd = %d, .rs = %d, .rt = %d, $imm = %d\n", instruction_string, inst.rd, inst.rs, inst.rt, trace_line[3]);
-		trace_line[0] = *next_pc; //update the current pc.
+		//printf("instruction_string = %s, inst.rd = %d, .rs = %d, .rt = %d, $imm = %d\n", instruction_string, inst.rd, inst.rs, inst.rt, trace_line[3]);
+		trace_line[0] = next_pc; //update the current pc.
 		trace_line[1] = (inst.opcode << 12) + (inst.rd << 8) + (inst.rs << 4) + inst.rt; //update the instruction
-		update_trace_file(trace_line, fptr2);
-		opcode_operation(&next_pc, trace_line[0], inst);
+		update_trace_file(trace_line, fptr2); //print out trace_line to trace.txt
+		opcode_operation(&next_pc, trace_line[0], inst); //do the instruction.
 	}
 
 	fclose(fptr1);
