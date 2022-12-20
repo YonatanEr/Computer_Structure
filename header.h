@@ -12,6 +12,15 @@
 #include <assert.h>
 #include <string.h>
 #include <stdbool.h>
+#include <math.h>
+
+////Global Parameters///
+#define NUM_OF_COMMANDS 4
+#define INSTRUCTION_BYTES 5
+#define NUM_OF_OPCODES 22
+#define NUM_OF_REGISTERS 16
+#define TRACE_OFFSET 2
+#define MEMIN_MAX_SIZE 4096
 
 ///Utilities///
 #include "utils/file_utils.c"
@@ -22,8 +31,7 @@
 
 ////Data Types///
 #include "structs/instruction.c"
-#include "structs/labels_array.c"
-
+#include "structs/label_element.c"
 
 //Static Variables///
 //char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$s0", "$s1", "$s2", "$gp", "$sp", "$ra" };

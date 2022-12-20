@@ -1,3 +1,4 @@
 ﻿  trace_generator.c
-C:\Computer_Structure\trace_generator.c(53,28): warning C4013: 'pow' undefined; assuming extern returning int
+C:\Computer_Structure\trace_generator.c(50,34): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  LINK : C:\Computer_Structure\x64\Debug\Computer_structure_proj.exe not found or not built by the last incremental link; performing full link
   Computer_structure_proj.vcxproj -> C:\Computer_Structure\x64\Debug\Computer_structure_proj.exe

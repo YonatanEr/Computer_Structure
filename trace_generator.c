@@ -12,13 +12,10 @@ void opcode_operation(int* next_pc, int current_pc, instruction inst) {
 	int rs = trace_line[TRACE_OFFSET + inst.rs]; //Initilizes rs as the value inside the register.
 	int rt = trace_line[TRACE_OFFSET + inst.rt]; //Initilizes rt as the value inside the register.
 
-	trace_line[0] = *next_pc; //update the current pc.
-	trace_line[1] = (inst.opcode << 12) + (inst.rd << 8) + (inst.rs << 4) + inst.rt; //update the instruction
-
 	if (trace_line[3]) //if $imm != 0 // I-format
-		*next_pc = current_pc + 2;
+		*next_pc += 2;
 	else //R-format
-		*next_pc = current_pc + 1;
+		*next_pc += 1;
 
 	switch (inst.opcode) {
 	case 0: //add
@@ -106,6 +103,10 @@ void opcode_operation(int* next_pc, int current_pc, instruction inst) {
 
 	case 20: //out
 		break;
+
+	case 21: //halt
+		exit(0);
+		break;
 	}
 }
 
@@ -151,6 +152,7 @@ void update_trace_file(int* trace_line, FILE* fptr) {
 			}
 		}
 	}
+	fclose(fptr);
 	return;
 }
 
@@ -177,20 +179,14 @@ int main() {
 			fscanf(fptr1, "%X", &trace_line[3]);
 		else
 			trace_line[3] = 0;
-		printf("instruction_string = %s, inst.rd = %d, .rs = %d, .rt = %d, $imm = %d\n", instruction_string, inst.rd, inst.rs, inst.rt, trace_line[3]);
-		opcode_operation(&next_pc, trace_line[0], inst);
-		update_trace_file(trace_line, fptr2);
+		//printf("instruction_string = %s, inst.rd = %d, .rs = %d, .rt = %d, $imm = %d\n", instruction_string, inst.rd, inst.rs, inst.rt, trace_line[3]);
+		trace_line[0] = next_pc; //update the current pc.
+		trace_line[1] = (inst.opcode << 12) + (inst.rd << 8) + (inst.rs << 4) + inst.rt; //update the instruction
+		update_trace_file(trace_line, fptr2); //print out trace_line to trace.txt
+		opcode_operation(&next_pc, trace_line[0], inst); //do the instruction.
 	}
 
+	fclose(fptr1);
+	fclose(fptr2);
 	return 0;
 }
-
-/*
-int main() {
-	char instruction_string[INSTRUCTION_BYTES];
-	instruction inst = parse_instruction(instruction_string); //convert it to the instruction structure.
-	opcode_operation(&next_pc, trace_line[0], inst.opcode, trace_line[TRACE_OFFSET + inst.rd], trace_line[TRACE_OFFSET + inst.rs], trace_line[TRACE_OFFSET + inst.rt]);
-	
-	return 0;
-}
-*/
