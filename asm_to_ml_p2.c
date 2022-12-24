@@ -2,7 +2,7 @@
 //Input examples: {"add","$t0","$t1","$s1","0"} R-format or {"add","$t0","$imm","$s1","16"} I-foramt
 //Output should be opcode[19:12],rd[11:8],rs[7:4],rt[3:0] (8,4,4,4) in hex -> output example for input = 0078B
 
-#include "header.h"
+#include "../header.h"
 
 char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$s0", "$s1", "$s2", "$gp", "$sp", "$ra" };
 char* opcodes[NUM_OF_OPCODES] = { "add", "sub", "mul","and" , "or" ,"xor", "sll", "sra", "srl", "beq", "bne", "blt", "bgt", "ble", "bge", "jal", "lw", "sw", "reti", "in", "out", "halt" }; //halt = 0x15000
@@ -48,8 +48,8 @@ void update_memin_file(char** asm_lines_array[3]) {
 	FILE* fptr;
 	fptr = fopen("memin.txt", "w");
 	if (fptr == NULL) {
-		printf("ERROR, COULDN'T OPEN THE FILE");
-		return;
+		printf("Error, couldn't open memin.txt");
+		exit(1);
 	}
 
 	for (int index = 0; index < 3; index++) {
