@@ -1,12 +1,13 @@
 #include "../header.h"
 
-int format_checker(char*);
 
+int format_checker(char*);
 enum format {i_format, r_format, label, word};
 
 
 int main()
 {
+
     int pc_line_counter = 0, first_label = 1;
     char* path = "file.txt", line;
     FILE* f;
@@ -35,12 +36,12 @@ int main()
             pc_line_counter += 1;
         } //format == word not included since as far as i understood there is no need to count those lines in the asm (those are direct actions performed on the memory).
 
+
         printf("%s\n", line);
     }
     fclose(f);
     return 0;    
 }
-
 
 int format_checker(char* line){ //input is a line from the .asm file and output will be enums (ints) of {i_format = 0, r_format = 1, label = 2, word = 3}
     for (int i = 0; i < strlen(line); i++) {
@@ -61,4 +62,4 @@ int format_checker(char* line){ //input is a line from the .asm file and output 
         }
     }
     return r_format; //default is r_format since there might no comments.
-}
+}    

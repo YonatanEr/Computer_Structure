@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "slice_utils.c"
 
 
 int find_next_char_occurence(char*, char, int, int);
