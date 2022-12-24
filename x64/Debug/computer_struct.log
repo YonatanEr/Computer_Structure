@@ -1,0 +1,4 @@
+﻿  trace_generator.c
+C:\Computer_Structure\utils\hex_string&char_to_int.c(32,44): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+C:\Computer_Structure\trace_generator.c(86,35): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  computer_struct.vcxproj -> C:\Computer_Structure\x64\Debug\computer_struct.exe
