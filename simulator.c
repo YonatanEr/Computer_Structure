@@ -3,7 +3,7 @@
 
 // int pc = 0, inst = 0, $zero = 0, $imm = 0, $vo = 0, $a0 = 0, $a1 = 0, $a2 = 0, $a3 = 0, $t0 = 0, $t1 = 0, $t2 = 0, $s0 = 0, $s1 = 0, $s2 = 0, $gp = 0, $sp = 0, $ra = 0;
 int trace_line[TRACE_OFFSET + NUM_OF_REGISTERS] = {0}; // {pc, instruction, -all 16 registers sorted-}
-char ram[MEMIN_MAX_SIZE + 1][INSTRUCTION_BYTES + 1];
+char ram[MEM_MAX_SIZE + 1][INSTRUCTION_BYTES + 1];
 int next_pc = 0;
 int cycles = 0;
 
@@ -42,7 +42,7 @@ void upload_memin_to_ram() { //uploads the entirety of memin to a char** ram.
 		printf("Error, couldn't open memin.txt\n");
 		exit(0);
 	}
-	for (int i = 0; i < MEMIN_MAX_SIZE; i++) {
+	for (int i = 0; i < MEM_MAX_SIZE; i++) {
 		fscanf(fptr_memin, "%s", &ram[i]);
 	}
 	fclose(fptr_memin);
@@ -54,8 +54,8 @@ void upload_ram_to_memout() {
 		printf("Error, couldn't open memin.txt\n");
 		exit(0);
 	}
-	for (int i = 0; i < MEMIN_MAX_SIZE; i++) {
-		if (i == MEMIN_MAX_SIZE-1)
+	for (int i = 0; i < MEM_MAX_SIZE; i++) {
+		if (i == MEM_MAX_SIZE-1)
 			fprintf(fptr_memout, "%s", ram[i]); //last line
 		else
 			fprintf(fptr_memout, "%s\n", ram[i]);
@@ -249,7 +249,7 @@ void simulator() {
 		printf("Error, couldn't open trace.txt\n");
 		exit(0);
 	}
-	for (int i = 0, halt = 0; !halt && i<MEMIN_MAX_SIZE ; i++) {
+	for (int i = 0, halt = 0; !halt && i<MEM_MAX_SIZE ; i++) {
 		printf("instruction_string is = %s, ", ram[i]); //TEST
 		instruction inst = parse_instruction(ram[i]); //convert it to the instruction structure.
 		cycles++; //load instruction from memory, increase 1 cycle.
