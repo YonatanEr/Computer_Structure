@@ -6,6 +6,7 @@
 #include <assert.h>
 #include <string.h>
 #include <math.h>
+#include <stdbool.h>
 
 ////Parameters///
 #define NUM_OF_COMMANDS 4

@@ -15,10 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="trace_generator.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utils\file_utils.c">
+    <ClCompile Include="simulator.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
