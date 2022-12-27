@@ -5,13 +5,9 @@ char* read_next_line(FILE* f){
     return fgets(line, MAX_LINE_SIZE+1, (FILE*)f);
 }
 
-<<<<<<< Updated upstream
 /*
 
 void read_line_number(char* filename, int line_number, char* result) { //returns a string from a specific line number in a requested file.
-=======
-void read_line_number(char* filename, int line_number, char* result /*result MUST be initiated as char[6] in order to load a string of 5 characters.*/) { //returns a string from a specific line number in a requested file.
->>>>>>> Stashed changes
     FILE* fptr = fopen(filename, "r");
     if (fptr == NULL) {
         printf("Error, Failed opening %s", filename);
@@ -75,28 +71,4 @@ void overwrite_line_number(char* filename, int line_number, char* data) {
     }
 }
 
-<<<<<<< Updated upstream
 */
-=======
-void make_copy(FILE* fptr_original, char* filename) { //recives a pointer to a closed file and creates a copy of it with filename_copy name.
-    FILE* fptr_copy = fopen(filename, "w");
-    int c;
-    if (fptr_original == NULL) {
-        printf("Error, Failed making copy of %s", filename);
-        exit(0);
-    }
-
-    if (fptr_copy == NULL) {
-        printf("Error, Failed opening %s", filename);
-        exit(0);
-    }
-
-    fseek(fptr_original, 0, SEEK_SET); //setting fptr_original to the begining of the file.
-    c = fgetc(fptr_original);
-    while (!feof(fptr_original))
-        fputc(c, fptr_copy);
-
-    fclose(fptr_original);
-    fclose(fptr_copy);
-}
->>>>>>> Stashed changes
