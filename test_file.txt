@@ -1,0 +1,9 @@
+fib:
+	add $sp, $sp, $imm, -3				# adjust stack for 3 items
+	sw $s0, $sp, $imm, 2				# save $s0
+	sw $ra, $sp, $imm, 1				# save return address
+	beq $imm, $zero, $zero, L2			# jump to L2
+L1:
+	sub $a0, $a0, $imm, 1				# calculate x - 1
+	jal $ra, $imm, $zero, fib			# calc $v0=fib(x-1)
+	sub $a0, $a0, $imm, 2				# calculate x - 2

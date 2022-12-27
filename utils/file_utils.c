@@ -1,9 +1,11 @@
 #include <stdio.h>
 
 char* read_next_line(FILE* f){
-    char line[255];
-    return fgets(line, 255, (FILE*)f);
+    char line[MAX_LINE_SIZE+1];
+    return fgets(line, MAX_LINE_SIZE+1, (FILE*)f);
 }
+
+/*
 
 void read_line_number(char* filename, int line_number, char* result) { //returns a string from a specific line number in a requested file.
     FILE* fptr = fopen(filename, "r");
@@ -17,6 +19,11 @@ void read_line_number(char* filename, int line_number, char* result) { //returns
     } while (i != line_number);
     fclose(fptr);
 }
+
+*/
+
+
+/*
 
 void overwrite_line_number(char* filename, int line_number, char* data) {
     int n_confirm = rename(filename, "delete_me.txt"); //returns 0 if successful
@@ -37,7 +44,7 @@ void overwrite_line_number(char* filename, int line_number, char* data) {
     }
 
     char* temp_data;
-    for (int i = 0; /*something to do with EOF*/; i++) {
+    for (int i = 0; ; i++) {
         if (i != line_number) { //reloads the data lines from delete_me to the new file.
             fscanf(fptr_old, temp_data);
             fprintf(fptr_new, "%s\n", temp_data);
@@ -57,3 +64,5 @@ void overwrite_line_number(char* filename, int line_number, char* data) {
         exit(0);
     }
 }
+
+*/

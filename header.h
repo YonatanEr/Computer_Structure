@@ -14,6 +14,7 @@
 #define NUM_OF_REGISTERS 16
 #define TRACE_OFFSET 2
 #define MEMIN_MAX_SIZE 4096
+#define MAX_LINE_SIZE 300
 
 ///Utilities///
 #include "utils/file_utils.c"
