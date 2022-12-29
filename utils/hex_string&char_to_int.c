@@ -58,10 +58,7 @@ char* dec_int_to_string(int input) {
 	int char_array_size = 0;
 	if (!input) {
 		char* result = (char*)malloc(2);
-		if (result == NULL) {
-			printf("Error, could not allocate memory from dec_int_to_string function, exiting.\n");
-			exit(0);
-		}
+		assert(result);
 		result[0] = '0';
 		result[1] = '\0';
 		return result;
@@ -74,10 +71,7 @@ char* dec_int_to_string(int input) {
 		abs_input /= 10; //division is rounded down, counting the number of digits to allocate for chars.
 	}
 	char* result = (char*)malloc(char_array_size + 1); //allocating memory for the size of the string.
-	if (result == NULL) {
-		printf("Error, could not allocate memory from dec_int_to_string function, exiting.\n");
-		exit(0);
-	}
+	assert(result);
 	result[char_array_size] = '\0';
 
 	int stop = 0; //checker if there is a - sign, relevent for the for loop.
