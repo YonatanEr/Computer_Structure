@@ -7,6 +7,7 @@
 	jal $ra, $imm, $zero, fib			# calc $v0 = fib(x)
 	sw $v0, $zero, $imm, 257			# store fib(x) in 257
 	halt $zero, $zero, $zero, 0			# halt
+fib:
 	add $sp, $sp, $imm, -3				# adjust stack for 3 items
 	sw $s0, $sp, $imm, 2				# save $s0
 	sw $ra, $sp, $imm, 1				# save return address
@@ -15,6 +16,7 @@
 	bgt $imm, $a0, $t2, L1				# jump to L1 if x > 1
 	add $v0, $a0, $zero, 0				# otherwise, fib(x) = x, copy input
 	beq $imm, $zero, $zero, L2			# jump to L2
+L1:
 	sub $a0, $a0, $imm, 1				# calculate x - 1
 	jal $ra, $imm, $zero, fib			# calc $v0=fib(x-1)
 	add $s0, $v0, $zero, 0				# $s0 = fib(x-1)
@@ -25,12 +27,14 @@
 	lw $a0, $sp, $imm, 0				# restore $a0
 	lw $ra, $sp, $imm, 1				# restore $ra
 	lw $s0, $sp, $imm, 2				# restore $s0
+L2:
 	add $sp, $sp, $imm, 3				# pop 3 items from stack
 	add $t0, $a0, $zero, 0				# $t0 = $a0
 	sll $t0, $t0, $imm, 16				# $t0 = $t0 << 16
 	add $t0, $t0, $v0, 0				# $t0 = $t0 + $v0
 	out $t0, $zero, $imm, 10			# write $t0 to display
 	beq $ra, $zero, $zero, 0			# and return
+L3:
 	in $t1, $zero, $imm, 9				# read leds register into $t1
 	sll $t1, $t1, $imm, 1				# left shift led pattern to the left
 	or $t1, $t1, $imm, 1				# lit up the rightmost led
