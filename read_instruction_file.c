@@ -9,25 +9,12 @@ int main()
 {   
     int rounds = 20;
     char* path = "test_file.txt";
-    /*
     label_element* labels = init_labels(path);
     while (labels != NULL){
         print_label_element(labels);
+        printf("\n");
+        labels = labels->next;
     }
-    */
-   
-    FILE* f;
-    f = fopen(path, "r");
-    char* line = (char*) malloc (MAX_LINE_SIZE+1);
-    line[MAX_LINE_SIZE] = '\0';
-    printf("\nCLEAN ME: main\n\n");
-    line = read_next_line(f);
-    line = read_next_line(f);
-    while (line != NULL){
-        printf("LINE = %s\n", line);
-        line = read_next_line(f);
-    }
-    fclose(f);
     return 0;
 }
 
@@ -51,23 +38,24 @@ int format_checker(char* line){ //input is a line from the .asm file and output 
 
 
 label_element* init_labels(char* path){
-    int pc_line_counter = 0, first_label = 1, rounds=20;
-    char* line;
+    bool first_label = true;
+    int pc_line_counter = 0, rounds=20;
+    char line[MAX_LINE_SIZE+1];
+    line[MAX_LINE_SIZE] = '\0';
     FILE* f;
     label_element* head_of_label_list;
     f = fopen(path, "r");
-    line = read_next_line(f);
-    while (line != NULL){
-        printf("LINE = %s\n", line);
+    while (fgets(line, MAX_LINE_SIZE, f) != NULL){
         int format = format_checker(line);
         if (format == label) {
             if (first_label) {
-                first_label = 0;
+                first_label = false;
                 head_of_label_list = new_label(line, pc_line_counter);
             }
-            else {        
+            else {       
                 if (get_pc_label(head_of_label_list, line) == -1){
-                    append_to_label_list(head_of_label_list, new_label(line, pc_line_counter));
+                    label_element* cur_label = new_label(line, pc_line_counter);
+                    append_to_label_list(head_of_label_list, cur_label);
                 }
             }
         }
@@ -77,8 +65,6 @@ label_element* init_labels(char* path){
         else if (format == r_format) {
             pc_line_counter += 1;
         } //format == word not included since as far as i understood there is no need to count those lines in the asm (those are direct actions performed on the memory).
-
-        line = read_next_line(f);
     }
     fclose(f);
     return head_of_label_list;    

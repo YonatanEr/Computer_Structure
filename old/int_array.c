@@ -14,6 +14,7 @@ int_array init_int_array(int len){
     arr.len = len;     
     arr.nums = (int*) malloc ((len) * sizeof(int));
     assert(arr.nums);
+    printf("\tCLEAN ME: init_int_array\n");
     return arr;
 }
 
