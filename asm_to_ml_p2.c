@@ -26,18 +26,31 @@ int main() {
 		exit(0);
 	}
 	int memin_size = 0; //in order to know how many 00000 to add in the end to reach 4096.
+	int words_data[MEM_MAX_SIZE] = { 0 }; //will hold the data for that address index if there was a ".word data address" .
 
-	for (; !feof(fptr_asm); memin_size++) {
+	for (; !feof(fptr_asm); memin_size++) { //  ****************WARNING************ - WILL FAIL IF THE .ASM FILE HAS EMPTY LINES.
 		fgets(asm_line, MAX_LINE_SIZE, fptr_asm); //load line from asm file.
-		//printf("asm line = %s\n", asm_line);
+		printf("asm line = %s\n", asm_line);
 		parse_asm_line(asm_line, parsed_asm); //parse it correctly and store it in parsed_asm.
-		update_memin_file(parsed_asm, fptr_memin, &memin_size); //convert to ml and update memin.
+		if (!strcmp(parsed_asm[0],".word")) //if it finds a .word command it will store the correlated data into its address index.
+			words_data[hex_or_dec_string_to_int(parsed_asm[1])] = hex_or_dec_string_to_int(parsed_asm[2]);
+		else 
+			update_memin_file(parsed_asm, fptr_memin, &memin_size); //convert to ml and update memin.
 	}
-	for (; memin_size < MEM_MAX_SIZE; memin_size++) //appeneds 00000 line till the end of the file.
-		if (memin_size == MEM_MAX_SIZE - 1)
+	for (; memin_size < MEM_MAX_SIZE; memin_size++) {//appeneds 00000 line till the end of the file.
+		if (words_data[memin_size]) { //if its not 0
+			for (int i = 0x10000; i > words_data[memin_size]; i = i >> 4)
+				fprintf(fptr_memin, "%d", 0);
+			if (memin_size == MEM_MAX_SIZE - 1)
+				fprintf(fptr_memin, "%X", words_data[memin_size]);
+			else
+				fprintf(fptr_memin, "%X\n", words_data[memin_size]);
+		}
+		else if (memin_size == MEM_MAX_SIZE - 1)
 			fprintf(fptr_memin, "00000");
 		else
 			fprintf(fptr_memin, "00000\n");
+	}
 
 	fclose(fptr_memin);
 	fclose(fptr_asm);
@@ -106,9 +119,9 @@ void update_memin_file(char** parsed_asm, FILE* fptr, int* memin_size) {
 void parse_asm_line(char asm_line[], char* parsed_asm[]) {
 	for (int i = 0; i < INSTRUCTION_BYTES; i++) {
 		if (!i)
-			parsed_asm[i] = strtok(asm_line, " \t,#");
+			parsed_asm[i] = strtok(asm_line, " \t,#\n");
 		else
-			parsed_asm[i] = strtok(NULL, " \t,#");
+			parsed_asm[i] = strtok(NULL, " \t,#\n");
 	}
 }
 
