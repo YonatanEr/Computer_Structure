@@ -20,6 +20,9 @@ int main() {
 
 	label_element* head_of_label_list = init_labels("test_file.txt");
 
+	print_label_list(head_of_label_list);
+	assert(NULL);
+
 	FILE* fptr_asm = fopen("test_file.txt", "r");
 	if (fptr_asm == NULL) {
 		printf("Error, couldn't open fib.asm\n");
@@ -92,8 +95,8 @@ int* asm_line_to_ml(char* asm_line[INSTRUCTION_BYTES]) {
 			}
 		}
 	}
-	if (asm_line[INSTRUCTION_BYTES - 1] != "0")
-		imm_value = dec_string_to_int(asm_line[INSTRUCTION_BYTES - 1]); //converts decimal strings to integers, won't use atoi cus this is 32 bits.
+	//if (asm_line[INSTRUCTION_BYTES - 1] != "0")
+	imm_value = dec_string_to_int(asm_line[INSTRUCTION_BYTES - 1]); //converts decimal strings to integers, won't use atoi cus this is 32 bits.
 
 	//printf("inside the function we got %X and %X \n", ml_line, imm_value);
 	result[0] = ml_line;
@@ -173,7 +176,7 @@ label_element* init_labels(char* path) {
 	while (fgets(line, MAX_LINE_SIZE, f) != NULL) {
 		int format = format_checker(line);
 		if (format == label) {
-			print_label_element(head_of_label_list);
+			printf("LINE + %s", line);
 			if (first_label) {
 				first_label = false;
 				head_of_label_list = new_label(line, pc_line_counter);
@@ -185,6 +188,7 @@ label_element* init_labels(char* path) {
 				}
 			}
 		}
+
 		else if (format == i_format) {
 			pc_line_counter += 2;
 		}

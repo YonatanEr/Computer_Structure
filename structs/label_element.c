@@ -11,6 +11,15 @@ typedef struct label_element {
 	int pc_label;
 } label_element;
 
+void print_label_element(label_element* );
+
+void print_label_list(label_element* label_list){
+	while (label_list != NULL){
+		print_label_element(label_list);
+		label_list = label_list->next;
+	}
+}
+
 
 label_element* new_label(char line[MAX_LINE_SIZE+1], int pc_label) {
 	int i;
@@ -20,7 +29,10 @@ label_element* new_label(char line[MAX_LINE_SIZE+1], int pc_label) {
 	for (i=0; i<MAX_LINE_SIZE; i++){
 		elem->label[i] = line[i];
 		if (elem->label[i] == ':'){
-			elem->label[i] = '\0';
+			for (int j=i; j<MAX_LINE_SIZE; j++){
+				elem->label[j] = '\0';
+			}
+			break;
 		}
 	}
 	elem->pc_label = pc_label;
@@ -38,7 +50,7 @@ void append_to_label_list(label_element* label_list, label_element* new_label) {
 int get_pc_label(label_element* label_list, char* label){
 	// given label, function will return it's pc_label
 	// if label is not in the label_list, returns -1  
-	while (label_list->next != NULL) {
+	while (label_list != NULL) {
 		if (str_equal(label_list->label, label)){
 			return label_list->pc_label;
 		}
@@ -46,6 +58,8 @@ int get_pc_label(label_element* label_list, char* label){
 	}
 	return -1;
 }
+
+
 
 
 void print_label_element(label_element* label){
