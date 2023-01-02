@@ -56,7 +56,7 @@ void print_label_element(label_element* label){
 
 
 bool str_equal(char* x, char* y){
-    int i;
+    int i=0;
     while (true){
         if (x[i] != y[i]){
             return false;

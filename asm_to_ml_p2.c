@@ -9,12 +9,18 @@ char* opcodes[NUM_OF_OPCODES] = { "add", "sub", "mul","and" , "or" ,"xor", "sll"
 void parse_asm_line(char asm_line[], char* parsed_asm[]);
 int* asm_line_to_ml(char**);
 void update_memin_file(char**, FILE* , int*);
+void replace_label(label_element*, char**);
+label_element* init_labels(char*);
+int format_checker(char*);
 
 int main() {
 
 	char* parsed_asm[INSTRUCTION_BYTES];
 	char asm_line[MAX_LINE_SIZE];
-	FILE* fptr_asm = fopen("fib.asm", "r");
+
+	label_element* head_of_label_list = init_labels("test_file.txt");
+
+	FILE* fptr_asm = fopen("test_file.txt", "r");
 	if (fptr_asm == NULL) {
 		printf("Error, couldn't open fib.asm\n");
 		exit(0);
@@ -32,6 +38,8 @@ int main() {
 		fgets(asm_line, MAX_LINE_SIZE, fptr_asm); //load line from asm file.
 		printf("asm line = %s\n", asm_line);
 		parse_asm_line(asm_line, parsed_asm); //parse it correctly and store it in parsed_asm.
+		if (head_of_label_list != NULL)
+			replace_label(head_of_label_list, parsed_asm);
 		if (!strcmp(parsed_asm[0],".word")) //if it finds a .word command it will store the correlated data into its address index.
 			words_data[hex_or_dec_string_to_int(parsed_asm[1])] = hex_or_dec_string_to_int(parsed_asm[2]);
 		else 
@@ -125,3 +133,65 @@ void parse_asm_line(char asm_line[], char* parsed_asm[]) {
 	}
 }
 
+void replace_label(label_element* head_of_list, char** parsed_asm) {
+	char* x = parsed_asm[4];
+	int pc_label = get_pc_label(head_of_list, x);
+	if (pc_label != -1)
+		parsed_asm[4] = dec_int_to_string(pc_label);
+}
+
+
+int format_checker(char* line) { //input is a line from the .asm file and output will be enums (ints) of {i_format = 0, r_format = 1, label = 2, word = 3}
+	enum format { i_format, r_format, label, word };
+	if (strlen(line) > 4) {
+		if (line[0] == 'w' && line[1] == 'o' && line[2] == 'r' && line[3] == 'd')
+			return word;
+	}
+	for (int i = 0; i < strlen(line); i++) {
+		if (line[i] == ':')
+			return label;
+		if (line[i] == '#')
+			return r_format; //found a comment before finding "word" or mentions of "$imm".
+		if (i < strlen(line) - 3) {
+			if ((line[i] == '$') && (line[i + 1] == 'i') && (line[i + 2] == 'm') && (line[i + 3] == 'm'))
+				return i_format;
+		}
+	}
+	return r_format; //default is r_format since there might no comments.
+}
+
+
+label_element* init_labels(char* path) {
+	enum format { i_format, r_format, label, word };
+	bool first_label = true;
+	int pc_line_counter = 0, rounds = 20;
+	char line[MAX_LINE_SIZE + 1];
+	line[MAX_LINE_SIZE] = '\0';
+	FILE* f;
+	label_element* head_of_label_list = NULL;
+	f = fopen(path, "r");
+	while (fgets(line, MAX_LINE_SIZE, f) != NULL) {
+		int format = format_checker(line);
+		if (format == label) {
+			print_label_element(head_of_label_list);
+			if (first_label) {
+				first_label = false;
+				head_of_label_list = new_label(line, pc_line_counter);
+			}
+			else {
+				if (get_pc_label(head_of_label_list, line) == -1) {
+					label_element* cur_label = new_label(line, pc_line_counter);
+					append_to_label_list(head_of_label_list, cur_label);
+				}
+			}
+		}
+		else if (format == i_format) {
+			pc_line_counter += 2;
+		}
+		else if (format == r_format) {
+			pc_line_counter += 1;
+		} //format == word not included since as far as i understood there is no need to count those lines in the asm (those are direct actions performed on the memory).
+	}
+	fclose(f);
+	return head_of_label_list;
+}

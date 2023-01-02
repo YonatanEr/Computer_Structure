@@ -1,10 +1,12 @@
-#include "header.h"
+#include <string.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
-enum format {i_format, r_format, label, word};
 
-int format_checker(char*);
-label_element* init_labels(char*);
 
+
+/*
 int main()
 {   
     int rounds = 20;
@@ -18,7 +20,10 @@ int main()
     return 0;
 }
 
+
+
 int format_checker(char* line){ //input is a line from the .asm file and output will be enums (ints) of {i_format = 0, r_format = 1, label = 2, word = 3}
+    enum format { i_format, r_format, label, word };
     if (strlen(line) > 4) {
         if (line[0] == 'w' && line[1] == 'o' && line[2] == 'r' && line[3] == 'd')
             return word;
@@ -38,6 +43,7 @@ int format_checker(char* line){ //input is a line from the .asm file and output 
 
 
 label_element* init_labels(char* path){
+    enum format { i_format, r_format, label, word };
     bool first_label = true;
     int pc_line_counter = 0, rounds=20;
     char line[MAX_LINE_SIZE+1];
@@ -70,24 +76,4 @@ label_element* init_labels(char* path){
     return head_of_label_list;    
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+*/
