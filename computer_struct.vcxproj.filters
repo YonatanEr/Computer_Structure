@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="asm_to_ml_p2.c">
+    <ClCompile Include="simulator.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
