@@ -49,3 +49,4 @@ L3:
 	out $zero, $zero, $imm, 5			# clear irq2 status
 	reti $zero, $zero, $zero, 0			# return from interrupt
 	.word 256 7
+L3:

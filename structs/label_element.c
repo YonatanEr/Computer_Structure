@@ -3,13 +3,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+bool str_equal(char* x, char* y);
+
 typedef struct label_element {
 	struct label_element* next;
 	char label[MAX_LINE_SIZE+1];
 	int pc_label;
 } label_element;
 
-void print_label_element(label_element*);
 
 label_element* new_label(char line[MAX_LINE_SIZE+1], int pc_label) {
 	int i;
@@ -18,8 +19,11 @@ label_element* new_label(char line[MAX_LINE_SIZE+1], int pc_label) {
 	printf("\tCLEAN ME: new_label\n");
 	for (i=0; i<MAX_LINE_SIZE; i++){
 		elem->label[i] = line[i];
-		elem->pc_label = pc_label;
+		if (elem->label[i] == ':'){
+			elem->label[i] = '\0';
+		}
 	}
+	elem->pc_label = pc_label;
 	return elem;
 }
 
@@ -35,7 +39,7 @@ int get_pc_label(label_element* label_list, char* label){
 	// given label, function will return it's pc_label
 	// if label is not in the label_list, returns -1  
 	while (label_list->next != NULL) {
-		if (strcmp(label_list->label, label) == 0){
+		if (str_equal(label_list->label, label)){
 			return label_list->pc_label;
 		}
 		label_list = label_list->next;
@@ -48,4 +52,18 @@ void print_label_element(label_element* label){
 	printf("\nLABEL:\n");
 	printf("\t%s", label->label);
 	printf("\t%d\n", label->pc_label);
+}
+
+
+bool str_equal(char* x, char* y){
+    int i;
+    while (true){
+        if (x[i] != y[i]){
+            return false;
+        }
+        if (x[i] == '\0' || y[i] == '\0'){
+            return true;
+        }
+        i++;
+    }
 }
