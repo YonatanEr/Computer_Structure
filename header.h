@@ -15,7 +15,6 @@
 #define NUM_OF_REGISTERS 16
 #define TRACE_OFFSET 2
 #define MEM_MAX_SIZE 4096
-#define MAX_LINE_SIZE 300
 
 ///Utilities///
 #include "utils/file_utils.c"
@@ -23,7 +22,7 @@
 
 ////Data Types///
 #include "structs/instruction.c"
-#include "structs/label_element.c"
+#include "structs/label_element_new.c"
 
 //Global Variables///
 //char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$s0", "$s1", "$s2", "$gp", "$sp", "$ra" };

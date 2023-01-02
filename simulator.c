@@ -159,7 +159,6 @@ void opcode_operation(int current_pc, instruction inst, int* halt) {
 
 	case 17: //sw
 		cycles += 1; //store value in memory, increase 1 cycle.
-		//overwrite_line_number("memin.txt", rs + rt, trace_line[rd]); //not finished, the idea might be to recreate the RAM array while replacing the requested index with the required data.
 		break;
 
 	case 18: //reti
