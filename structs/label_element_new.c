@@ -1,67 +1,51 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
-#include <assert.h>
-
-#define MAX_LINE_SIZE 301
-
-
-bool str_equal(char* x, char* y);
+	#include <stdio.h>
+	#include <stdbool.h>
+	#include <stdlib.h>
+	#include <string.h>
+	#include <assert.h>
 
 typedef struct label_element {
+	// a linked list which will serve us to store labels 
+	
 	struct label_element* next;
 	char* label;
 	int pc_label;
 } label_element;
 
+
+label_element* new_label(char*, int);
+void append_to_label_list(label_element*, label_element*);
 void print_label_element(label_element*);
-
-
-void print_label_list(label_element* label_list) {
-	while (label_list != NULL) {
-		print_label_element(label_list);
-		label_list = label_list->next;
-	}
-}
+void print_label_list(label_element* );
+bool str_equal(char* x, char* y);
+void free_label_list(label_element* elem);
 
 
 label_element* new_label(char* line, int pc_label) {
+	// given a string, integer
+	// returns a label_element pointer with the attributes set
 
-	label_element* elem = (label_element*)malloc(sizeof(label_element));
+	int i, len = strlen(line);
+
+	label_element* elem = (label_element*) malloc (sizeof(label_element));
 	assert(elem);
-	int i, len = strlen(line) + 1;
 
-	elem->label = (char*)malloc(len);
+	elem->label = (char*) malloc (len);
 	assert(elem->label);
+
+	elem->pc_label = pc_label;
 
 	elem->next = NULL;
 
 	printf("\tCLEAN ME: new_label\n");
 
-	elem->pc_label = pc_label;
-	for (i = 0; i <= len; i++) {
-		if (line[i] == ':') {
-			elem->label[i] = '\0';
-			return elem;
-		}
+	for (i = 0; i < len; i++) {
 		elem->label[i] = line[i];
 	}
-
+	elem->label[len-1] = '\0';
 	return elem;
 }
 
-void append_to_label_list(label_element* head_of_label_list, label_element* new_label) {
-	// given a new label node and the labels list, adds the new node to the end of the list
-	while (head_of_label_list->next != NULL)
-		head_of_label_list = head_of_label_list->next;
-	head_of_label_list->next = new_label;
-}
-void print_label_element(label_element* label) {
-	printf("\nLABEL:\n");
-	printf("\t%s", label->label);
-	printf("\t%d\n", label->pc_label);
-}
 
 int get_pc_label(label_element* label_list, char* label) {
 	// given label, function will return it's pc_label
@@ -78,10 +62,42 @@ int get_pc_label(label_element* label_list, char* label) {
 }
 
 
+void append_to_label_list(label_element* head_of_label_list, label_element* new_label) {
+	// given head_of_label_list, new_label, append the new_label to the end of the linked list
+	while (head_of_label_list->next != NULL)
+		head_of_label_list = head_of_label_list->next;
+	head_of_label_list->next = new_label;
+}
 
+
+void print_label_element(label_element* elem) {
+	// given a label_element pointer prints it
+
+	if (elem == NULL){
+		printf("\tLABEL = NULL\n");
+	}
+	else{
+		printf("\nLABEL:\n");
+		printf("\t %s", elem->label);
+		printf("\t %d \n", elem->pc_label);
+	}
+}
+
+
+void print_label_list(label_element* label_list) {
+	// given a label_element pointer
+	// prints the element and the elements which follows it 
+	
+	while (label_list != NULL) {
+		print_label_element(label_list);
+		label_list = label_list->next;
+	}
+}
 
 
 bool str_equal(char* x, char* y) {
+	// returns true iff x==y
+	
 	int i = 0;
 	while (true) {
 		if (x[i] != y[i]) {
@@ -93,3 +109,17 @@ bool str_equal(char* x, char* y) {
 		i++;
 	}
 }
+
+
+void free_label_list(label_element* elem){
+	// frees the memory allocated in the label_element
+
+	if (elem != NULL){
+		free_label_list(elem->next);
+		free(elem->label);
+		elem->label = NULL;
+		free(elem);
+		elem = NULL;
+	}
+}
+
