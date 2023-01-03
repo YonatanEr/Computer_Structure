@@ -9,7 +9,7 @@ enum format { i_format, r_format, label, word };
 
 
 void parse_asm_line(char asm_line[], char* parsed_asm[]);
-int* asm_line_to_ml(char**);
+int* asm_line_to_ml(char**, int*);
 void update_memin_file(char**, FILE* , int*);
 void replace_label(label_element*, char**);
 label_element* init_labels(char*);
@@ -47,6 +47,7 @@ int main() {
 		parse_asm_line(asm_line, parsed_asm); //parse it correctly and store it in parsed_asm.
 		if (!strcmp(parsed_asm[0], ".word")) {//if it finds a .word command it will store the correlated data into its address index.
 			words_data[hex_or_dec_string_to_int(parsed_asm[1])] = hex_or_dec_string_to_int(parsed_asm[2]);
+			memin_size--;
 			continue;
 		}
 		if (head_of_label_list != NULL) //for the cases there are no labels at all.

@@ -3,7 +3,7 @@
 
 // int pc = 0, inst = 0, $zero = 0, $imm = 0, $vo = 0, $a0 = 0, $a1 = 0, $a2 = 0, $a3 = 0, $t0 = 0, $t1 = 0, $t2 = 0, $s0 = 0, $s1 = 0, $s2 = 0, $gp = 0, $sp = 0, $ra = 0;
 int trace_line[TRACE_OFFSET + NUM_OF_REGISTERS] = {0}; // {pc, instruction, -all 16 registers sorted-}
-char ram[MEM_MAX_SIZE][INSTRUCTION_BYTES + 1];
+char ram[MEM_MAX_SIZE][INSTRUCTION_BYTES+1];
 int next_pc = 0;
 int cycles = 0;
 
@@ -75,9 +75,9 @@ void opcode_operation(int current_pc, instruction inst, int* halt, int $imm) {
 	int rt = trace_line[TRACE_OFFSET + inst.rt]; //Initilizes rt as the value inside the register.
 	char sw_placeholder[5]; //Will temporarly hold the string that should be stored in the memory.
 
-	if ((rd == 1 || rd == 0) && (inst.opcode <= 8 || inst.opcode == 15 || inst.opcode == 16 || inst.opcode == 19)) { //no writing to $imm and $zero.
+	if ((rd == 2 || rd == 3) && (inst.opcode <= 8 || inst.opcode == 15 || inst.opcode == 16 || inst.opcode == 19)) { //no writing to $imm and $zero.
 		printf("Error, cannot write directly to registers $zero and $imm!");
-		exit(0);
+		exit(1);
 	}
 
 	if ($imm) //if $imm != 0 // I-format
@@ -124,50 +124,47 @@ void opcode_operation(int current_pc, instruction inst, int* halt, int $imm) {
 
 	case 9: //beq
 		if (rs == rt)
-			next_pc = rd;
+			next_pc = trace_line[rd];
 		break;
 
 	case 10: //bne
 		if (rs != rt)
-			next_pc = rd;
+			next_pc = trace_line[rd];
 		break;
 
 	case 11: //blt
 		if (rs < rt)
-			next_pc = rd;
+			next_pc = trace_line[rd];
 		break;
 
 	case 12: //bgt
 		if (rs > rt)
-			next_pc = rd;
+			next_pc = trace_line[rd];
 		break;
 
 	case 13: //ble
 		if (rs <= rt)
-			next_pc = rd;
+			next_pc = trace_line[rd];
 		break;
 
 	case 14: //bge
 		if (rs >= rt)
-			next_pc = rd;
+			next_pc = trace_line[rd];
 		break;
 
 	case 15: //jal
-		trace_line[rd] = current_pc + 1;
+		trace_line[rd] = current_pc + $imm + 1; //go to the line after the ivalue (if it exists)
 		next_pc = rs;
 		break;
 
 	case 16: //lw
-		cycles += 1; //load value from memory, increase 1 cycle.
-		//printf("rd is =%d, rt = %d, ram[rs+rt] = %s\n", rd,rt, ram[rs + rt - 1]);
-		trace_line[rd] = hex_string_to_int_signed(ram[rs + rt - 1]); //array starts with 0 so need to decrement by 1.
-		//printf("ram[rs + rt] = % s\n", ram[rs + rt]);
+		cycles++; //load value from memory, increase 1 cycle.
+		trace_line[rd] = hex_string_to_int_signed(ram[rs + rt]); 
 		break;
 
 	case 17: //sw
-		cycles += 1; //store value in memory, increase 1 cycle.
-		sprintf(ram[rs + rt - 1], "%X", trace_line[rd]);
-		//printf("RAM[RS+RT] =  %s\n", ram[rs + rt]);
+		cycles++; //store value in memory, increase 1 cycle.
+		sprintf(ram[rs + rt], "%05X", trace_line[rd]);
 		break;
 
 	case 18: //reti
@@ -257,8 +254,8 @@ void simulator() {
 		printf("Error, couldn't open trace.txt\n");
 		exit(0);
 	}
-	for (int i = 0, $imm = 0, halt = 0; /*i < 50 && */ !halt; trace_line[0] = next_pc, $imm = 0, i++) { //while halt was not asserted, update to the next PC and and execute its command.
-		printf("instruction_string is = %s, ", ram[trace_line[0]]); //TEST
+	for (int i = 0, $imm = 0, halt = 0; i < 100 &&  !halt; trace_line[0] = next_pc, $imm = 0, i++) { //while halt was not asserted, update to the next PC and and execute its command.
+		//printf("instruction_string is = %s, ", ram[trace_line[0]]); //TEST
 		instruction inst = parse_instruction(ram[trace_line[0]]); //convert it to the instruction structure.
 		cycles++; //load instruction from memory, increase 1 cycle.
 		trace_line[1] = (inst.opcode << 12) + (inst.rd << 8) + (inst.rs << 4) + inst.rt; //update the instruction "register".
@@ -269,7 +266,7 @@ void simulator() {
 		}
 		else
 			trace_line[3] = 0;
-		printf("instruction = %X, inst.opcode = %s, inst.rd = %s, .rs = %s, .rt = %s, $imm = %d\n", trace_line[1], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3]); //TEST
+		printf("instruction = %X \t PC = %X \t %s, %s, %s, %s, %d\n", trace_line[1], trace_line[0], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3]); //TEST
 		update_trace_file(trace_line, fptr_trace); //print out trace_line to trace.txt
 		opcode_operation(trace_line[0], inst, &halt, $imm); //do the instruction.
 	}

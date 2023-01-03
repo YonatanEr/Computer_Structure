@@ -54,7 +54,7 @@ int dec_string_to_int(char* input) {
 	return (pow(-1, negative_number) * result); //if negative_number = 0 will return pos, and if 1 will return neg.
 }
 
-char* dec_int_to_string(int input) {
+char* dec_int_to_string(int input) { //can prob be replaced with normal sprintf()
 	int char_array_size = 0;
 	if (!input) {
 		char* result = (char*)malloc(2);
