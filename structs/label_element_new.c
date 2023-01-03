@@ -25,7 +25,7 @@ label_element* new_label(char* line, int pc_label) {
     // given a string, integer
     // returns a label_element pointer with the attributes set
 
-    int i, len = strlen(line) - 1;
+    int i, len = strlen(line);
 
     label_element* elem = (label_element*) malloc (sizeof(label_element));
     assert(elem);
