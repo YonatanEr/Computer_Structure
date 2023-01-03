@@ -96,7 +96,7 @@ int twos_compliment_inversion(int input) { //recieves a positive number an negat
 char* convert_to_standard_imm_format(char* ivalue) { //takes a hex/dec string and converts it to standard dec string.
 	if (ivalue[0] == '0' && (ivalue[1] == 'x' || ivalue[1] == 'X')) {
 		int int_ivalue = hex_string_to_int_signed(ivalue);
-		return dec_int_to_string(int_ivalue);
+		return dec_int_to_string(int_ivalue); //SHOULD PROB BE REPLACED WITH SPRINTF.
 	}
 	return ivalue;
 }
@@ -107,3 +107,26 @@ int hex_or_dec_string_to_int(char* ivalue) { //takes a hex/dec string and conver
 		return hex_string_to_int_signed(ivalue);
 	return dec_string_to_int(ivalue);
 }
+
+
+/*
+char* sw_to_ram(int input){ //takes an integer as an input and spits out a string (char*) formatted for ram array.
+	int temp = 0;
+	char result[5]; // 5 = INSTRUCTION BYTES
+
+	if (input < 0) { //Only if were in I-Format - sign extention.
+		temp = twos_compliment_inversion(abs(input)); //twos compliment takes a positive number and spits out its negative one in 20b.
+		for (int i = 0x10000, j = 0; i > temp; i = i >> 4, j++)
+			result[j] = 'F';
+		fprintf(fptr, "%X\n", ml_representation[1]);
+	}
+	else if (input > 0) {
+		for (int i = 0x10000; i > input; i = i >> 4)
+			fprintf(fptr, "%d", 0);
+		fprintf(fptr, "%X\n", ml_representation[1]);
+	}
+	else{//input is exactly 0.
+
+	}
+}
+*/

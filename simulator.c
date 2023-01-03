@@ -3,20 +3,25 @@
 
 // int pc = 0, inst = 0, $zero = 0, $imm = 0, $vo = 0, $a0 = 0, $a1 = 0, $a2 = 0, $a3 = 0, $t0 = 0, $t1 = 0, $t2 = 0, $s0 = 0, $s1 = 0, $s2 = 0, $gp = 0, $sp = 0, $ra = 0;
 int trace_line[TRACE_OFFSET + NUM_OF_REGISTERS] = {0}; // {pc, instruction, -all 16 registers sorted-}
-char ram[MEM_MAX_SIZE + 1][INSTRUCTION_BYTES + 1];
+char ram[MEM_MAX_SIZE][INSTRUCTION_BYTES + 1];
 int next_pc = 0;
 int cycles = 0;
 
-void opcode_operation(int, instruction, int*);
+//for debugging.
+char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$s0", "$s1", "$s2", "$gp", "$sp", "$ra" };
+char* opcodes[NUM_OF_OPCODES] = { "add", "sub", "mul","and" , "or" ,"xor", "sll", "sra", "srl", "beq", "bne", "blt", "bgt", "ble", "bge", "jal", "lw", "sw", "reti", "in", "out", "halt" }; //halt = 0x15000
+//end
+
+void opcode_operation(int, instruction, int*, int);
 void update_trace_file(int*, FILE*);
 void regout_file_generator();
-void upload_memin_to_ram();
+void download_memin_to_ram();
 void upload_ram_to_memout();
 void simulator();
 
 int main() {
 	
-	upload_memin_to_ram(); //UPLOAD MEMIN TO AN INTERNAL ARRAY.
+	download_memin_to_ram(); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
 	simulator(); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT
 
 ////****THE SIMULATOR IS DONE, PREPARE ALL THE OUTPUT FILES, TRACE.TXT IS GENERATED ALREADY BY THE SIMULATOR****////
@@ -36,8 +41,8 @@ int main() {
 }
 
 
-void upload_memin_to_ram() { //uploads the entirety of memin to a char** ram.
-	FILE* fptr_memin = fopen("memin.txt", "r"); //holds the initial instructions and data that was translated by the assembler.
+void download_memin_to_ram() { //downloads the entirety of memin to a char** ram.
+	FILE* fptr_memin = fopen("memin.txt", "r"); //holds the initial instructions and data that were translated by the assembler.
 	if (fptr_memin == NULL) {
 		printf("Error, couldn't open memin.txt\n");
 		exit(0);
@@ -63,19 +68,19 @@ void upload_ram_to_memout() {
 	fclose(fptr_memout);
 }
 
-void opcode_operation(int current_pc, instruction inst, int* halt) {
+void opcode_operation(int current_pc, instruction inst, int* halt, int $imm) {
 
 	int rd = TRACE_OFFSET + inst.rd; //Initilizes rd as the "address" to the desired register.
 	int rs = trace_line[TRACE_OFFSET + inst.rs]; //Initilizes rs as the value inside the register.
 	int rt = trace_line[TRACE_OFFSET + inst.rt]; //Initilizes rt as the value inside the register.
-	char lw_placeholder[5]; //Will temporarly hold the string fetched from memin.
+	char sw_placeholder[5]; //Will temporarly hold the string that should be stored in the memory.
 
 	if ((rd == 1 || rd == 0) && (inst.opcode <= 8 || inst.opcode == 15 || inst.opcode == 16 || inst.opcode == 19)) { //no writing to $imm and $zero.
 		printf("Error, cannot write directly to registers $zero and $imm!");
 		exit(0);
 	}
 
-	if (trace_line[3]) //if $imm != 0 // I-format
+	if ($imm) //if $imm != 0 // I-format
 		next_pc += 2;
 	else //R-format
 		next_pc += 1;
@@ -154,11 +159,15 @@ void opcode_operation(int current_pc, instruction inst, int* halt) {
 
 	case 16: //lw
 		cycles += 1; //load value from memory, increase 1 cycle.
-		trace_line[rd] = hex_string_to_int_signed(ram[rs+rt]);
+		//printf("rd is =%d, rt = %d, ram[rs+rt] = %s\n", rd,rt, ram[rs + rt - 1]);
+		trace_line[rd] = hex_string_to_int_signed(ram[rs + rt - 1]); //array starts with 0 so need to decrement by 1.
+		//printf("ram[rs + rt] = % s\n", ram[rs + rt]);
 		break;
 
 	case 17: //sw
 		cycles += 1; //store value in memory, increase 1 cycle.
+		sprintf(ram[rs + rt - 1], "%X", trace_line[rd]);
+		//printf("RAM[RS+RT] =  %s\n", ram[rs + rt]);
 		break;
 
 	case 18: //reti
@@ -248,22 +257,21 @@ void simulator() {
 		printf("Error, couldn't open trace.txt\n");
 		exit(0);
 	}
-	for (int i = 0, halt = 0; !halt && i<MEM_MAX_SIZE ; i++) {
-		printf("instruction_string is = %s, ", ram[i]); //TEST
-		instruction inst = parse_instruction(ram[i]); //convert it to the instruction structure.
+	for (int i = 0, $imm = 0, halt = 0; /*i < 50 && */ !halt; trace_line[0] = next_pc, $imm = 0, i++) { //while halt was not asserted, update to the next PC and and execute its command.
+		printf("instruction_string is = %s, ", ram[trace_line[0]]); //TEST
+		instruction inst = parse_instruction(ram[trace_line[0]]); //convert it to the instruction structure.
 		cycles++; //load instruction from memory, increase 1 cycle.
 		trace_line[1] = (inst.opcode << 12) + (inst.rd << 8) + (inst.rs << 4) + inst.rt; //update the instruction "register".
-		if (inst.rs == 1 || inst.rt == 1 || inst.rd == 1) { //load ivalue from memory, increase 1 cycle.
-			i++; //index of the ivalue.
-			trace_line[3] = hex_string_to_int_signed(ram[i]); //C compiler will preform sign extension auto.
+		if (inst.rs == 1 || inst.rt == 1 || inst.rd == 1) { //$imm is present in the command, load ivalue from memory, increase 1 cycle.
+			trace_line[3] = hex_string_to_int_signed(ram[trace_line[0]+1]); //load I-value to $imm, C compiler will preform sign extension auto.
 			cycles++;
+			$imm++; //set $imm to be 1 (=true) since it is present.
 		}
 		else
 			trace_line[3] = 0;
-		printf("instruction = %x, inst.rd = %d, .rs = %d, .rt = %d, $imm = %d\n", trace_line[1], inst.rd, inst.rs, inst.rt, trace_line[3]); //TEST
+		printf("instruction = %X, inst.opcode = %s, inst.rd = %s, .rs = %s, .rt = %s, $imm = %d\n", trace_line[1], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3]); //TEST
 		update_trace_file(trace_line, fptr_trace); //print out trace_line to trace.txt
-		opcode_operation(trace_line[0], inst, &halt); //do the instruction.
-		trace_line[0] = next_pc; //update to the next PC.
+		opcode_operation(trace_line[0], inst, &halt, $imm); //do the instruction.
 	}
 	fclose(fptr_trace);
 

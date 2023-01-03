@@ -7,6 +7,7 @@ typedef struct instruction {
 	int  rt;
 } instruction;
 
+
 instruction parse_instruction(char* memin_line) { //input example is "10B32".
 	instruction new_inst;
 
