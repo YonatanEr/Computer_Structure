@@ -54,7 +54,7 @@ int dec_string_to_int(char* input) {
 	return (pow(-1, negative_number) * result); //if negative_number = 0 will return pos, and if 1 will return neg.
 }
 
-char* dec_int_to_string(int input) { //can prob be replaced with normal sprintf()
+char* dec_int_tokjg_string(int input) { //can prob be replaced with normal sprintf()
 	int char_array_size = 0;
 	if (!input) {
 		char* result = (char*)malloc(2);
@@ -93,13 +93,16 @@ int twos_compliment_inversion(int input) { //recieves a positive number an negat
 	return result;
 }
 
-char* convert_to_standard_imm_format(char* ivalue) { //takes a hex/dec string and converts it to standard dec string.
+/*
+char* convert_to_standardsdimm_format(char* ivalue) { //takes a hex/dec string and converts it to standard dec string.
 	if (ivalue[0] == '0' && (ivalue[1] == 'x' || ivalue[1] == 'X')) {
 		int int_ivalue = hex_string_to_int_signed(ivalue);
 		return dec_int_to_string(int_ivalue); //SHOULD PROB BE REPLACED WITH SPRINTF.
 	}
 	return ivalue;
 }
+
+*/
 
 int hex_or_dec_string_to_int(char* ivalue) { //takes a hex/dec string and converts it to int.
 

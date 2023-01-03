@@ -254,7 +254,7 @@ void simulator() {
 		printf("Error, couldn't open trace.txt\n");
 		exit(0);
 	}
-	for (int i = 0, $imm = 0, halt = 0; i < 100 &&  !halt; trace_line[0] = next_pc, $imm = 0, i++) { //while halt was not asserted, update to the next PC and and execute its command.
+	for (int i = 0, $imm = 0, halt = 0; !halt; trace_line[0] = next_pc, $imm = 0, i++) { //while halt was not asserted, update to the next PC and and execute its command.
 		//printf("instruction_string is = %s, ", ram[trace_line[0]]); //TEST
 		instruction inst = parse_instruction(ram[trace_line[0]]); //convert it to the instruction structure.
 		cycles++; //load instruction from memory, increase 1 cycle.
@@ -266,7 +266,7 @@ void simulator() {
 		}
 		else
 			trace_line[3] = 0;
-		printf("instruction = %X \t PC = %X \t %s, %s, %s, %s, %d\n", trace_line[1], trace_line[0], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3]); //TEST
+		printf("\n\n instruction = %X \t PC = %X \t %s, %s, %s, %s %d\n\n rd = %d\t rs = %d\t rt = %d\n", trace_line[1], trace_line[0], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3], trace_line[2+inst.rd], trace_line[2+inst.rs], trace_line[2+inst.rt]); //TEST
 		update_trace_file(trace_line, fptr_trace); //print out trace_line to trace.txt
 		opcode_operation(trace_line[0], inst, &halt, $imm); //do the instruction.
 	}

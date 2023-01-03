@@ -71,6 +71,9 @@ int main() {
 
 	fclose(fptr_memin);
 	fclose(fptr_asm);
+
+	free_label_list(head_of_label_list);
+
 	return 0;
 }
 

@@ -37,7 +37,6 @@ label_element* new_label(char* line, int pc_label) {
 
 	elem->next = NULL;
 
-	printf("\tCLEAN ME: new_label\n");
 
 	for (i = 0; i < len; i++) {
 		elem->label[i] = line[i];
