@@ -22,28 +22,33 @@ void free_label_list(label_element* elem);
 
 
 label_element* new_label(char* line, int pc_label) {
-	// given a string, integer
-	// returns a label_element pointer with the attributes set
+    // given a string, integer
+    // returns a label_element pointer with the attributes set
 
-	int i, len = strlen(line);
+    int i, len = strlen(line) - 1;
 
-	label_element* elem = (label_element*) malloc (sizeof(label_element));
-	assert(elem);
+    label_element* elem = (label_element*) malloc (sizeof(label_element));
+    assert(elem);
 
-	elem->label = (char*) malloc (len);
-	assert(elem->label);
+    elem->label = (char*) malloc (len);
+    assert(elem->label);
 
-	elem->pc_label = pc_label;
+    elem->pc_label = pc_label;
 
-	elem->next = NULL;
+    elem->next = NULL;
 
+    printf("\tCLEAN ME: new_label\n");
 
-	for (i = 0; i < len; i++) {
-		elem->label[i] = line[i];
-	}
-	elem->label[len-1] = '\0';
-	return elem;
+    for (i = 0; i < len; i++) {
+        elem->label[i] = line[i];
+        if (line[i] == ':'){
+            elem->label[i] = '\0';
+            return elem;
+        }
+    }
+    return elem;
 }
+
 
 
 int get_pc_label(label_element* label_list, char* label) {
