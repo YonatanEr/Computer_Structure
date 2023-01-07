@@ -17,8 +17,8 @@ label_element* new_label(char*, int);
 void append_to_label_list(label_element*, label_element*);
 void print_label_element(label_element*);
 void print_label_list(label_element* );
-bool str_equal(char* x, char* y);
-void free_label_list(label_element* elem);
+bool str_equal(char*, char*);
+void free_label_list(label_element*);
 
 
 label_element* new_label(char* line, int pc_label) {
@@ -36,8 +36,6 @@ label_element* new_label(char* line, int pc_label) {
     elem->pc_label = pc_label;
 
     elem->next = NULL;
-
-    printf("\tCLEAN ME: new_label\n");
 
     for (i = 0; i < len; i++) {
         elem->label[i] = line[i];

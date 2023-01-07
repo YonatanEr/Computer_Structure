@@ -54,7 +54,7 @@ int dec_string_to_int(char* input) {
 	return (pow(-1, negative_number) * result); //if negative_number = 0 will return pos, and if 1 will return neg.
 }
 
-/*
+
 char* convert_to_standard_imm_format(char* ivalue) { //takes a hex/dec string and converts it to standard dec string.
 	if (ivalue[0] == '0' && (ivalue[1] == 'x' || ivalue[1] == 'X')) {
 		int int_ivalue = hex_string_to_int_signed(ivalue);
@@ -63,41 +63,6 @@ char* convert_to_standard_imm_format(char* ivalue) { //takes a hex/dec string an
 	return ivalue;
 }
 
-
-
-char* dec_int_to_string(int input) { //can prob be replaced with normal sprintf()
-	int char_array_size = 0;
-	if (!input) {
-		char* result = (char*)malloc(2);
-		assert(result);
-		result[0] = '0';
-		result[1] = '\0';
-		return result;
-	}
-	if (input < 0)
-		char_array_size++; //space for the minus sign.
-	int abs_input = abs(input); //checking for amount of digits.
-	while (abs_input > 0) { 
-		char_array_size++;
-		abs_input /= 10; //division is rounded down, counting the number of digits to allocate for chars.
-	}
-	char* result = (char*)malloc(char_array_size + 1); //allocating memory for the size of the string.
-	assert(result);
-	result[char_array_size] = '\0';
-
-	int stop = 0; //checker if there is a - sign, relevent for the for loop.
-	if (input < 0) {
-		result[0] = '-';
-		stop++;
-	}
-	for (int abs_input = abs(input), i = char_array_size - 1; i >= stop; i--) { //going from lowest to highest.
-		result[i] = abs_input % 10 + '0';
-		abs_input /= 10;
-	}
-	return result;
-
-}
-*/
 
 int twos_compliment_inversion(int input) { //recieves a positive number an negates it.
 	int mask = 0xFFF00000; //Size of int is 4bytes, need to mask only the 20 lsb.
@@ -112,26 +77,3 @@ int hex_or_dec_string_to_int(char* ivalue) { //takes a hex/dec string and conver
 		return hex_string_to_int_signed(ivalue);
 	return dec_string_to_int(ivalue);
 }
-
-
-/*
-char* sw_to_ram(int input){ //takes an integer as an input and spits out a string (char*) formatted for ram array.
-	int temp = 0;
-	char result[5]; // 5 = INSTRUCTION BYTES
-
-	if (input < 0) { //Only if were in I-Format - sign extention.
-		temp = twos_compliment_inversion(abs(input)); //twos compliment takes a positive number and spits out its negative one in 20b.
-		for (int i = 0x10000, j = 0; i > temp; i = i >> 4, j++)
-			result[j] = 'F';
-		fprintf(fptr, "%X\n", ml_representation[1]);
-	}
-	else if (input > 0) {
-		for (int i = 0x10000; i > input; i = i >> 4)
-			fprintf(fptr, "%d", 0);
-		fprintf(fptr, "%X\n", ml_representation[1]);
-	}
-	else{//input is exactly 0.
-
-	}
-}
-*/

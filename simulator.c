@@ -12,27 +12,27 @@ char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2
 char* opcodes[NUM_OF_OPCODES] = { "add", "sub", "mul","and" , "or" ,"xor", "sll", "sra", "srl", "beq", "bne", "blt", "bgt", "ble", "bge", "jal", "lw", "sw", "reti", "in", "out", "halt" }; //halt = 0x15000
 //end
 
-void opcode_operation(int, instruction, int*, int);
-void update_trace_file(int*, FILE*);
-void regout_file_generator();
-void download_memin_to_ram();
-void upload_ram_to_memout();
-void simulator();
+void opcode_operation(instruction, int*, int);
+void update_trace_file(char*);
+void regout_file_generator(char*);
+void download_memin_to_ram(char*);
+void upload_ram_to_memout(char*);
+void simulator(char*);
 
-int main() {
+int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, argv[3] = regout.txt, argv[4] = trace.txt, argv[5] = cycles.txt.
 	
-	download_memin_to_ram(); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
-	simulator(); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT
+	download_memin_to_ram(argv[1]); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
+	simulator(argv[4]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT
 
 ////****THE SIMULATOR IS DONE, PREPARE ALL THE OUTPUT FILES, TRACE.TXT IS GENERATED ALREADY BY THE SIMULATOR****////
 
-	upload_ram_to_memout(); 
-	regout_file_generator();
+	upload_ram_to_memout(argv[2]); 
+	regout_file_generator(argv[3]);
 
-	FILE* fptr_cycles = fopen("cycles.txt", "w");
+	FILE* fptr_cycles = fopen(argv[5], "w");
 	if (fptr_cycles == NULL) {
-		printf("Error, couldn't open cycles.txt\n");
-		exit(0);
+		printf("Error, couldn't open %s\n", argv[5]);
+		exit(1);
 	}
 	fprintf(fptr_cycles, "%d", cycles);
 	fclose(fptr_cycles);
@@ -41,11 +41,11 @@ int main() {
 }
 
 
-void download_memin_to_ram() { //downloads the entirety of memin to a char** ram.
-	FILE* fptr_memin = fopen("memin.txt", "r"); //holds the initial instructions and data that were translated by the assembler.
+void download_memin_to_ram(char* memin_path) { //downloads the entirety of memin to a char** ram.
+	FILE* fptr_memin = fopen(memin_path, "r"); //holds the initial instructions and data that were translated by the assembler.
 	if (fptr_memin == NULL) {
-		printf("Error, couldn't open memin.txt\n");
-		exit(0);
+		printf("Error, couldn't open %s\n", memin_path);
+		exit(1);
 	}
 	for (int i = 0; i < MEM_MAX_SIZE; i++) {
 		fscanf(fptr_memin, "%s", &ram[i]);
@@ -53,11 +53,11 @@ void download_memin_to_ram() { //downloads the entirety of memin to a char** ram
 	fclose(fptr_memin);
 }
 
-void upload_ram_to_memout() {
-	FILE* fptr_memout = fopen("memout.txt", "w");
+void upload_ram_to_memout(char* memout_path) {
+	FILE* fptr_memout = fopen(memout_path, "w");
 	if (fptr_memout == NULL) {
-		printf("Error, couldn't open memin.txt\n");
-		exit(0);
+		printf("Error, couldn't open %s\n", memout_path);
+		exit(1);
 	}
 	for (int i = 0; i < MEM_MAX_SIZE; i++) {
 		if (i == MEM_MAX_SIZE-1)
@@ -68,12 +68,11 @@ void upload_ram_to_memout() {
 	fclose(fptr_memout);
 }
 
-void opcode_operation(int current_pc, instruction inst, int* halt, int $imm) {
+void opcode_operation(instruction inst, int* halt, int $imm) {
 
 	int rd = TRACE_OFFSET + inst.rd; //Initilizes rd as the "address" to the desired register.
 	int rs = trace_line[TRACE_OFFSET + inst.rs]; //Initilizes rs as the value inside the register.
 	int rt = trace_line[TRACE_OFFSET + inst.rt]; //Initilizes rt as the value inside the register.
-	char sw_placeholder[5]; //Will temporarly hold the string that should be stored in the memory.
 
 	if ((rd == 2 || rd == 3) && (inst.opcode <= 8 || inst.opcode == 15 || inst.opcode == 16 || inst.opcode == 19)) { //no writing to $imm and $zero.
 		printf("Error, cannot write directly to registers $zero and $imm!");
@@ -153,7 +152,7 @@ void opcode_operation(int current_pc, instruction inst, int* halt, int $imm) {
 		break;
 
 	case 15: //jal
-		trace_line[rd] = current_pc + $imm + 1; //go to the line after the ivalue (if it exists)
+		trace_line[rd] = trace_line[0] + $imm + 1; //go to the line after the ivalue (if it exists)
 		next_pc = rs;
 		break;
 
@@ -182,12 +181,11 @@ void opcode_operation(int current_pc, instruction inst, int* halt, int $imm) {
 	}
 }
 
-void update_trace_file(int* trace_line, FILE* fptr) {
-	fclose(fptr);
-	fptr = fopen("trace.txt", "a");
+void update_trace_file(char* trace_path) {
+	FILE* fptr = fopen(trace_path, "a");
 	if (fptr == NULL) {
-		printf("Error, couldn't open trace.txt\n");
-		exit(0);
+		printf("Error, couldn't open %s\n", trace_path);
+		exit(1);
 	}
 	for (int i = 0; i < NUM_OF_REGISTERS + 2; i++) { //prints out into the trace.txt file the pc, inst and 16 registers.
 		if (i == 0) { //PC with 3 bytes.
@@ -248,37 +246,36 @@ void update_trace_file(int* trace_line, FILE* fptr) {
 	return;
 }
 
-void simulator() {
-	FILE* fptr_trace = fopen("trace.txt", "w");
+void simulator(char* trace_path) {
+	FILE* fptr_trace = fopen(trace_path, "w");
 	if (fptr_trace == NULL) {
-		printf("Error, couldn't open trace.txt\n");
-		exit(0);
+		printf("Error, couldn't open %s\n", trace_path);
+		exit(1);
 	}
-	for (int i = 0, $imm = 0, halt = 0; !halt; trace_line[0] = next_pc, $imm = 0, i++) { //while halt was not asserted, update to the next PC and and execute its command.
-		//printf("instruction_string is = %s, ", ram[trace_line[0]]); //TEST
+	fclose(fptr_trace); //just create the file, no need to write yet.
+
+	for (int $imm = 0, halt = 0; !halt; trace_line[0] = next_pc, $imm = 0) { //while halt was not asserted, update to the next PC and and execute its command.
 		instruction inst = parse_instruction(ram[trace_line[0]]); //convert it to the instruction structure.
 		cycles++; //load instruction from memory, increase 1 cycle.
 		trace_line[1] = (inst.opcode << 12) + (inst.rd << 8) + (inst.rs << 4) + inst.rt; //update the instruction "register".
 		if (inst.rs == 1 || inst.rt == 1 || inst.rd == 1) { //$imm is present in the command, load ivalue from memory, increase 1 cycle.
-			trace_line[3] = hex_string_to_int_signed(ram[trace_line[0]+1]); //load I-value to $imm, C compiler will preform sign extension auto.
+			trace_line[3] = hex_string_to_int_signed(ram[trace_line[0] + 1]); //load I-value to $imm, C compiler will preform sign extension auto.
 			cycles++;
 			$imm++; //set $imm to be 1 (=true) since it is present.
 		}
 		else
 			trace_line[3] = 0;
-		printf("\n\n instruction = %X \t PC = %X \t %s, %s, %s, %s %d\n\n rd = %d\t rs = %d\t rt = %d\n", trace_line[1], trace_line[0], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3], trace_line[2+inst.rd], trace_line[2+inst.rs], trace_line[2+inst.rt]); //TEST
-		update_trace_file(trace_line, fptr_trace); //print out trace_line to trace.txt
-		opcode_operation(trace_line[0], inst, &halt, $imm); //do the instruction.
+		printf("\n\n instruction = %X \t PC = %X \t %s, %s, %s, %s %d\n\n rd = %d\t rs = %d\t rt = %d\n", trace_line[1], trace_line[0], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3], trace_line[2 + inst.rd], trace_line[2 + inst.rs], trace_line[2 + inst.rt]); //TEST
+		update_trace_file(trace_path); //print out trace_line to trace.txt
+		opcode_operation(inst, &halt, $imm); //do the instruction.
 	}
-	fclose(fptr_trace);
-
 }
 
-void regout_file_generator() {
-	FILE* fptr = fopen("regout.txt", "w");
+void regout_file_generator(char* regout_path) {
+	FILE* fptr = fopen(regout_path, "w");
 	if (fptr == NULL) {
-		printf("Error, couldn't open regout.txt\n");
-		exit(0);
+		printf("Error, couldn't open %s\n", regout_path);
+		exit(1);
 	}
 	for (int i = TRACE_OFFSET; i < TRACE_OFFSET + NUM_OF_REGISTERS; i++) {
 		if (trace_line[i] == 0) {

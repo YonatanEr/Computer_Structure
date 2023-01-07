@@ -15,37 +15,36 @@ void replace_label(label_element*, char**);
 label_element* init_labels(char*);
 int format_checker(char*);
 
-int main() {
+int main(int argc, char* argv[]) {
 
 	char* parsed_asm[INSTRUCTION_BYTES];
 	char asm_line[MAX_LINE_SIZE];
-	char* path = "test_file.txt";
 
-	label_element* head_of_label_list = init_labels("test_file.txt"); //Iterate over the .asm file the first time and "indexsize" the labels.
+	label_element* head_of_label_list = init_labels(argv[1]); //Iterate over the .asm file the first time and "indexsize" the labels.
 
-	FILE* fptr_asm = fopen(path, "r");
+	FILE* fptr_asm = fopen(argv[1], "r");
 	if (fptr_asm == NULL) {
 		printf("Error, couldn't open fib.asm\n");
-		exit(0);
+		exit(1);
 	}
 
-	FILE* fptr_memin = fopen("memin.txt", "w");
+	FILE* fptr_memin = fopen(argv[2], "w");
 	if (fptr_memin == NULL) {
 		printf("Error, couldn't open memin.txt\n");
-		exit(0);
+		exit(1);
 	}
 	int memin_size = 0; //in order to know how many 00000 to add in the end to reach 4096.
 	int words_data[MEM_MAX_SIZE] = { 0 }; //will hold the data for that address index if there was a ".word data address" .
 
 	for (; !feof(fptr_asm); memin_size++) { //  ****************WARNING************ - WILL FAIL IF THE .ASM FILE HAS EMPTY LINES.
 		fgets(asm_line, MAX_LINE_SIZE, fptr_asm); //load line from asm file.
-		printf("memin_size = %d, asm line = %s\n",memin_size,asm_line);
+		//printf("memin_size = %d, asm line = %s\n",memin_size,asm_line);
 		if (format_checker(asm_line) == label){ //if the line is only a label we will move on to the next line.
 			memin_size--;
 			continue;
 		}
 		parse_asm_line(asm_line, parsed_asm); //parse it correctly and store it in parsed_asm.
-		if (!strcmp(parsed_asm[0], ".word")) {//if it finds a .word command it will store the correlated data into its address index.
+		if (format_checker(asm_line) == word) {//if it finds a .word command it will store the correlated data into its address index.
 			words_data[hex_or_dec_string_to_int(parsed_asm[1])] = hex_or_dec_string_to_int(parsed_asm[2]);
 			memin_size--;
 			continue;
@@ -81,9 +80,10 @@ int* asm_line_to_ml(char* asm_line[INSTRUCTION_BYTES], int* $imm_present) {
 	
 	int ml_line = 0x0; //output[0]
 	int imm_value = 0x0; //output[1]
-	int result[2] = { 0 }; //output
+	int* result = (int*) malloc (2*sizeof(int)); //output
+	assert(result);
 	*$imm_present = 0; //default is 0 (= false).
-	printf("input is %s, %s, %s, %s, %s\n", asm_line[0], asm_line[1], asm_line[2], asm_line[3], asm_line[4]);
+	//printf("input is %s, %s, %s, %s, %s\n", asm_line[0], asm_line[1], asm_line[2], asm_line[3], asm_line[4]);
 
 	for (int opcode_index = 0; opcode_index < NUM_OF_OPCODES; opcode_index++) { //Takes care of the 8 MSB of the ml.
 		//printf("compare %s with %s \n", asm_line[0], opcodes[opcode_index]); 
@@ -107,7 +107,7 @@ int* asm_line_to_ml(char* asm_line[INSTRUCTION_BYTES], int* $imm_present) {
 			}
 		}
 	}
-	imm_value = dec_string_to_int(asm_line[INSTRUCTION_BYTES - 1]); //converts decimal strings to integers.
+	imm_value = hex_or_dec_string_to_int(asm_line[INSTRUCTION_BYTES - 1]); //converts decimal strings to integers.
 
 	//printf("inside the function we got %X and %X \n", ml_line, imm_value);
 	result[0] = ml_line;
@@ -140,6 +140,8 @@ void update_memin_file(char** parsed_asm, FILE* fptr, int* memin_size) {
 		fprintf(fptr, "%s", "00000\n");
 		(*memin_size)++;
 	}
+	free(ml_representation);
+	ml_representation = NULL;
 }
 
 void parse_asm_line(char asm_line[], char* parsed_asm[]) { //parses the asm line according to spaces, tabs, commas, comments and end of lines.
@@ -155,15 +157,13 @@ void replace_label(label_element* head_of_list, char** parsed_asm) { //if the la
 	char* x = parsed_asm[4];
 	int pc_label = get_pc_label(head_of_list, x);
 	if (pc_label != -1)
-		//parsed_asm[4] = dec_int_to_string(pc_label); //CHANGED MY OWN FUNCTION TO A STDIO.H FUNCTION.
 		sprintf(parsed_asm[4], "%d", pc_label);
 }
 
 int format_checker(char* line) { //input is a line from the .asm file and output will be enums (ints) of {i_format = 0, r_format = 1, label = 2, word = 3}
-	if (strlen(line) > 5) {
-		if (line[0] == '.')// && line[1] == 'w' && line[2] == 'o' && line[3] == 'r' && line[4] == 'd')
-			return word;
-	}
+	if (line[0] == '.')// && line[1] == 'w' && line[2] == 'o' && line[3] == 'r' && line[4] == 'd')
+		return word;
+	
 	for (int i = 0; i < strlen(line); i++) {
 		if (line[i] == ':')
 			return label;
@@ -178,14 +178,16 @@ int format_checker(char* line) { //input is a line from the .asm file and output
 }
 
 
-label_element* init_labels(char* path) {
+label_element* init_labels(char* path) { 
+	//Given a path to an assembly file, itterates over it and counts the "pc lines" in order
+	//to correspond them to the labels.
 	bool first_label = true;
-	int pc_line_counter = 0, rounds = 20;
+	int pc_line_counter = 0;
 	char line[MAX_LINE_SIZE + 1];
 	line[MAX_LINE_SIZE] = '\0';
-	FILE* f;
 	label_element* head_of_label_list = NULL;
-	f = fopen(path, "r");
+
+	FILE* f = fopen(path, "r");
 	while (fgets(line, MAX_LINE_SIZE, f) != NULL) {
 		int format = format_checker(line);
 		if (format == label) {
