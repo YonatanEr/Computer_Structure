@@ -4,8 +4,8 @@
 // int pc = 0, inst = 0, $zero = 0, $imm = 0, $vo = 0, $a0 = 0, $a1 = 0, $a2 = 0, $a3 = 0, $t0 = 0, $t1 = 0, $t2 = 0, $s0 = 0, $s1 = 0, $s2 = 0, $gp = 0, $sp = 0, $ra = 0;
 int trace_line[TRACE_OFFSET + NUM_OF_REGISTERS] = {0}; // {pc, instruction, -all 16 registers sorted-}
 int io_line[IO_SIZE]; //input/output registers.
-enum io_register { irq0enable, irq1enabl, irq2enable, irq0status, irq1status, irq2status, irqhandler, irqreturn, clks, leds, display7reg, timerenable, timercurrent, timermax, diskcmd, disksector, diskbuffer, diskstatus, reserved, reserved, monitoraddr, monitordata, monitorcmd };
-char ram[MEM_MAX_SIZE][INSTRUCTION_BYTES+1];
+enum io_register { irq0enable, irq1enable, irq2enable, irq0status, irq1status, irq2status, irqhandler, irqreturn, clks, leds, display7reg, timerenable, timercurrent, timermax, diskcmd, disksector, diskbuffer, diskstatus, reserved, reserved, monitoraddr, monitordata, monitorcmd };
+char ram[MEM_MAX_SIZE][INSTRUCTION_BYTES + 1];
 char hard_disk[HARD_DISK_SIZE][INSTRUCTION_BYTES + 1];
 int next_pc = 0;
 int cycles = 0;
@@ -57,7 +57,7 @@ void download_memin_to_ram(char* memin_path) { //downloads the entirety of memin
 	fclose(fptr_memin);
 }
 
-void download_diskin_to_ram(char* diskin_path) { //downloads the entirety of diskin to a char** hard_disk.
+void download_diskin_to_hard_disk(char* diskin_path) { //downloads the entirety of diskin to a char** hard_disk.
 	FILE* fptr_diskin = fopen(diskin_path, "r"); //holds the initial hard disk contents given by the user.
 	if (fptr_diskin == NULL) {
 		printf("Error, couldn't open %s\n", diskin_path);
@@ -199,12 +199,15 @@ void opcode_operation(instruction inst, int* halt, int $imm) {
 		break;
 
 	case 18: //reti
+		next_pc = io_line[7]; 
 		break;
 
 	case 19: //in
+		trace_line[rd] = io_line[rs + rt];
 		break;
 
 	case 20: //out
+		io_line[rs + rt] = trace_line[rd];
 		break;
 
 	case 21: //halt
@@ -336,31 +339,43 @@ void regout_file_generator(char* regout_path) {
 
 
 void timer_handler() {
-	if (io_registers[timerenable]) {
-		io_registers[irq0enable] = 1;
+	if (io_line[timerenable]) {
+		io_line[irq0enable] = 1;
 		//IN PROGRESS. add to the "OUT" opcode operation that if irq0enable is set high we need to enable irq0status for a cycle.
-		if (io_registers[timercurrent] == io_registers[timermax]) {
-			io_registers[irq0status] = 0;
+		if (io_line[timercurrent] == io_line[timermax]) {
+			io_line[irq0status] = 0;
 			//irqstatus = 1;  which irqstatus do i turn on??? IN PROGRESS
 		}
 		else {
-			io_registers[timercurrent]++;
+			io_line[timercurrent]++;
 		}
 	}
+	else
+		io_line[irq0enable] = 0;
 }
 
 void led_handler(int input) {
-	io_registers[leds] = input;
+	io_line[leds] = input;
 }
 
-void hard_disk_handler(int disk_sector, int mem_address, int disk_cmd) {
-	if (!io_registers[diskstatus]) { //indicating it is free to receive new command if its 0.
-		io_registers[diskstatus] = 1; //active the DMA.
-		io_registers[disksector] = disk_sector; //sector inside the hard disk.
-		io_registers[diskbuffer] = mem_address; //address to/from the memory
-		io_registers[diskcmd] = disk_cmd; //write or read command
-		for ()
+void hard_disk_handler(int* dma_start_cycle) {
+	if (!io_line[diskstatus] && io_line[diskcmd]) { // if diskstatus == 0  and io_line != 0
+		io_line[diskstatus] = 1;
+		*dma_start_cycle = cycles;
+	}
+	else if (cycles - *dma_start_cycle == 1024) {
+		if (io_line[diskcmd] == 1) { //read
+			//read from hard disk to memory?
 
-
+		}
+		else if (io_line[diskcmd] == 2) { //write
+			//write to hard disk from memory?
+		}
+		io_line[diskstatus] = io_line[diskcmd] = 0;
+		io_line[irq1enable] = 1;
+	}
+	else {
+		io_line[irq1enable] = 0;
 	}
 }
+
