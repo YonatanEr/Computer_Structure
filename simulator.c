@@ -7,6 +7,7 @@ int io_line[IO_SIZE]; //input/output registers.
 enum io_register { irq0enable, irq1enabl, irq2enable, irq0status, irq1status, irq2status, irqhandler, irqreturn, clks, leds, display7reg, timerenable, timercurrent, timermax, diskcmd, disksector, diskbuffer, diskstatus, reserved, reserved, monitoraddr, monitordata, monitorcmd };
 char ram[MEM_MAX_SIZE][INSTRUCTION_BYTES+1];
 char hard_disk[HARD_DISK_SIZE][INSTRUCTION_BYTES + 1];
+int* irq2_list = NULL;
 int next_pc = 0;
 int cycles = 0;
 
@@ -26,10 +27,17 @@ void simulator(char*);
 int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, argv[3] = regout.txt, argv[4] = trace.txt, argv[5] = cycles.txt.
 	
 	download_memin_to_ram(argv[1]); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
+<<<<<<< Updated upstream
+=======
+	//download_diskin_to_hard_disk()
+	//irq2_list = download_irq2(/*arg [something]*/);
+	//need to add irq2_list as an arg to simulator.
+>>>>>>> Stashed changes
 	simulator(argv[4]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT
 
 ////****THE SIMULATOR IS DONE, PREPARE ALL THE OUTPUT FILES, TRACE.TXT IS GENERATED ALREADY BY THE SIMULATOR****////
-
+	
+	//free(irq2_list);
 	upload_ram_to_memout(argv[2]); 
 	regout_file_generator(argv[3]);
 
@@ -44,6 +52,25 @@ int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, 
 	return 0;
 }
 
+
+int* download_irq2(char* irq2_path) { //FREE ME
+	int* irq2_list = NULL;
+	FILE* fptr_irq2 = fopen(irq2_path, "r");
+	if (fptr_irq2 == NULL) {
+		printf("Error, couldn't open %s\n", irq2_path);
+		exit(1);
+	}
+	int* irq2_list = (int*)malloc(sizeof(int)*10); //will initilize irq2_list to contain only 10 lines of irq2 at the start.
+	for (int i = 0, j = 1; !feof(fptr_irq2); i++) {
+		if (i != 0 && (!(i % 10))) {
+			j++;
+			irq2_list = (int*)realloc(irq2_list, sizeof(int) * j * 10); //extend the size of the irq2_list.
+		}
+		fscanf(fptr_irq2, "%d", &irq2_list[i]);
+	}
+	fclose(fptr_irq2);
+	return irq2_list;
+}
 
 void download_memin_to_ram(char* memin_path) { //downloads the entirety of memin to a char** ram.
 	FILE* fptr_memin = fopen(memin_path, "r"); //holds the initial instructions and data that were translated by the assembler.
@@ -335,6 +362,7 @@ void regout_file_generator(char* regout_path) {
 }
 
 
+<<<<<<< Updated upstream
 void timer_handler() {
 	if (io_registers[timerenable]) {
 		io_registers[irq0enable] = 1;
@@ -346,9 +374,25 @@ void timer_handler() {
 		else {
 			io_registers[timercurrent]++;
 		}
+=======
+void timer_manager() {
+	if (io_line[timerenable]) {
+		if (!io_line[irq0enable]) //if we are enabling the timer irq0 returns a pulse.
+			io_line[irq0status] = 1;
+		else
+			io_line[irq0status] = 0;
+
+		io_line[irq0enable] = 1;
+
+		if (io_line[timercurrent] == io_line[timermax])
+			io_line[irq0status] = 0;
+		else
+			io_line[timercurrent] += 1;
+>>>>>>> Stashed changes
 	}
 }
 
+<<<<<<< Updated upstream
 void led_handler(int input) {
 	io_registers[leds] = input;
 }
@@ -363,4 +407,37 @@ void hard_disk_handler(int disk_sector, int mem_address, int disk_cmd) {
 
 
 	}
+=======
+void hard_disk_manager(int* dma_start_cycle) {
+	if (!io_line[diskstatus] && io_line[diskcmd]) { // if diskstatus == 0  and diskcmd != 0
+		io_line[diskstatus] = 1;
+		*dma_start_cycle = cycles;
+	}
+	else if (cycles - *dma_start_cycle == 1024) {
+		if (io_line[diskcmd] == 1) { //read
+			//read from hard disk to memory?
+
+		}
+		else if (io_line[diskcmd] == 2) { //write
+			//write to hard disk from memory?
+		}
+		io_line[diskstatus] = io_line[diskcmd] = 0;
+		io_line[irq1enable] = io_line[irq1status] =  1;
+	}
+	else if (!io_line[diskstatus]) //irq1enable is set as a pulse.
+		io_line[irq1enable] = io_line[irq1status] = 0;
+}
+
+void irq2_manager(int* index) { //might skip over cycles but we dont care about that, do we???
+	if (cycles == irq2_list[*index]) {
+		io_line[irq2enable] = io_line[irq2status] = 1;
+		(*index)++;
+	}
+	else
+		io_line[irq2enable] = io_line[irq2status] = 0;
+}
+
+void irq_manager() {
+	int irq = ((io_line[irq0enable] & io_line[irq0status]) | (io_line[irq1enable] & io_line[irq1status]) | (io_line[irq2enable] & io_line[irq2status]));
+>>>>>>> Stashed changes
 }
