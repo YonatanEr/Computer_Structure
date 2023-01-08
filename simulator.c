@@ -7,6 +7,8 @@ int io_line[IO_SIZE]; //input/output registers.
 enum io_register { irq0enable, irq1enable, irq2enable, irq0status, irq1status, irq2status, irqhandler, irqreturn, clks, leds, display7reg, timerenable, timercurrent, timermax, diskcmd, disksector, diskbuffer, diskstatus, reserved, reserved, monitoraddr, monitordata, monitorcmd };
 char ram[MEM_MAX_SIZE][INSTRUCTION_BYTES + 1];
 char hard_disk[HARD_DISK_SIZE][INSTRUCTION_BYTES + 1];
+monitor* display;
+
 int next_pc = 0;
 int cycles = 0;
 
@@ -25,9 +27,11 @@ void simulator(char*);
 
 int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, argv[3] = regout.txt, argv[4] = trace.txt, argv[5] = cycles.txt.
 	
+	display = init_monitor();
+
 	download_memin_to_ram(argv[1]); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
 	//download_diskin_to_hard_disk()
-	monitor* display = init_monitor();
+	
 	simulator(argv[4]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT
 
 ////****THE SIMULATOR IS DONE, PREPARE ALL THE OUTPUT FILES, TRACE.TXT IS GENERATED ALREADY BY THE SIMULATOR****////
@@ -43,6 +47,9 @@ int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, 
 	fprintf(fptr_cycles, "%d", cycles);
 	fclose(fptr_cycles);
 	
+
+	free_monitor(display);
+
 	return 0;
 }
 
@@ -371,7 +378,7 @@ void hard_disk_manager(int* dma_start_cycle) {
 	else if (cycles - *dma_start_cycle == 1024) {
 		if (io_line[diskcmd] == 1) { //read
 			//read from hard disk to memory?
-
+			
 		}
 		else if (io_line[diskcmd] == 2) { //write
 			//write to hard disk from memory?
@@ -384,8 +391,8 @@ void hard_disk_manager(int* dma_start_cycle) {
 	}
 }
 
-//void hw_operations() {
-	//timer_manager();
-	//led_manager();
-	//hard_disk_manager();
-//}
+
+void monitor_manager(){
+	if (io_line[monitorcmd])
+		set_pixel(display, io_line[monitoraddr]/256, io_line[monitoraddr]%256, io_line[monitordata]);
+}

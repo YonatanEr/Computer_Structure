@@ -13,20 +13,20 @@ typedef struct monitor {
 
 monitor* init_monitor(){
     int i, j;
-    monitor* disp = (monitor*) malloc (sizeof(monitor));
-    assert(disp);
+    monitor* display = (monitor*) malloc (sizeof(monitor));
+    assert(display);
 
-    disp->matrix = (int**) malloc (MONITOR_DIM*sizeof(int*));
-    assert(disp->matrix);
+    display->matrix = (int**) malloc (MONITOR_DIM*sizeof(int*));
+    assert(display->matrix);
 
     for (i=0; i<MONITOR_DIM; i++){
-        disp->matrix[i] = (int*) malloc (MONITOR_DIM*sizeof(int));
+        display->matrix[i] = (int*) malloc (MONITOR_DIM*sizeof(int));
         for (j=0; j<MONITOR_DIM; j++){
-            disp->matrix[i][j] = 0;
+            display->matrix[i][j] = 0;
         }
     }
 
-    return disp;
+    return display;
 }
 
 
@@ -40,7 +40,7 @@ void set_pixel(monitor* disp, int i, int j, int p){
 }
 
 
-void display(monitor* disp){
+void display_monitor(monitor* disp){
     int i, j;
     for(i=0; i<MONITOR_DIM; i++){
         for(j=0; j<MONITOR_DIM; j++){
@@ -62,4 +62,12 @@ void free_monitor(monitor* disp){
     free(disp);
     disp = NULL;
 }
+
+
+
+// address = 12
+
+// data = 23 
+
+// 
 
