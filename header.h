@@ -18,12 +18,11 @@
 #define MAX_LINE_SIZE 301
 #define IO_SIZE 23
 #define MEMORY_LINE_SIZE 20
-<<<<<<< Updated upstream
-#define HARD_DISK_SIZE 128
-=======
 #define HARD_DISK_SIZE 16384
 #define READ_WRITE_HARD_DISK_TIME 1024
->>>>>>> Stashed changes
+#define HARD_DISK_SIZE 16384
+#define READ_WRITE_HARD_DISK_TIME 16384
+
 
 ///Utilities///
 #include "utils/hex_string&char_to_int.c"
@@ -31,3 +30,4 @@
 ////Data Types///
 #include "structs/instruction.c"
 #include "structs/label_element.c"
+#include "structs/monitor.c"

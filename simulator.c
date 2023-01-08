@@ -4,10 +4,11 @@
 // int pc = 0, inst = 0, $zero = 0, $imm = 0, $vo = 0, $a0 = 0, $a1 = 0, $a2 = 0, $a3 = 0, $t0 = 0, $t1 = 0, $t2 = 0, $s0 = 0, $s1 = 0, $s2 = 0, $gp = 0, $sp = 0, $ra = 0;
 int trace_line[TRACE_OFFSET + NUM_OF_REGISTERS] = {0}; // {pc, instruction, -all 16 registers sorted-}
 int io_line[IO_SIZE]; //input/output registers.
-enum io_register { irq0enable, irq1enabl, irq2enable, irq0status, irq1status, irq2status, irqhandler, irqreturn, clks, leds, display7reg, timerenable, timercurrent, timermax, diskcmd, disksector, diskbuffer, diskstatus, reserved, reserved, monitoraddr, monitordata, monitorcmd };
-char ram[MEM_MAX_SIZE][INSTRUCTION_BYTES+1];
+enum io_register { irq0enable, irq1enable, irq2enable, irq0status, irq1status, irq2status, irqhandler, irqreturn, clks, leds, display7reg, timerenable, timercurrent, timermax, diskcmd, disksector, diskbuffer, diskstatus, reserved, reserved, monitoraddr, monitordata, monitorcmd };
+char ram[MEM_MAX_SIZE][INSTRUCTION_BYTES + 1];
 char hard_disk[HARD_DISK_SIZE][INSTRUCTION_BYTES + 1];
 int* irq2_list = NULL;
+monitor* display;
 int next_pc = 0;
 int cycles = 0;
 
@@ -26,13 +27,14 @@ void simulator(char*);
 
 int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, argv[3] = regout.txt, argv[4] = trace.txt, argv[5] = cycles.txt.
 	
+	display = init_monitor();
+
 	download_memin_to_ram(argv[1]); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
-<<<<<<< Updated upstream
-=======
+
 	//download_diskin_to_hard_disk()
 	//irq2_list = download_irq2(/*arg [something]*/);
 	//need to add irq2_list as an arg to simulator.
->>>>>>> Stashed changes
+	//download_diskin_to_hard_disk()
 	simulator(argv[4]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT
 
 ////****THE SIMULATOR IS DONE, PREPARE ALL THE OUTPUT FILES, TRACE.TXT IS GENERATED ALREADY BY THE SIMULATOR****////
@@ -49,6 +51,9 @@ int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, 
 	fprintf(fptr_cycles, "%d", cycles);
 	fclose(fptr_cycles);
 	
+
+	free_monitor(display);
+
 	return 0;
 }
 
@@ -84,7 +89,7 @@ void download_memin_to_ram(char* memin_path) { //downloads the entirety of memin
 	fclose(fptr_memin);
 }
 
-void download_diskin_to_ram(char* diskin_path) { //downloads the entirety of diskin to a char** hard_disk.
+void download_diskin_to_hard_disk(char* diskin_path) { //downloads the entirety of diskin to a char** hard_disk.
 	FILE* fptr_diskin = fopen(diskin_path, "r"); //holds the initial hard disk contents given by the user.
 	if (fptr_diskin == NULL) {
 		printf("Error, couldn't open %s\n", diskin_path);
@@ -226,18 +231,22 @@ void opcode_operation(instruction inst, int* halt, int $imm) {
 		break;
 
 	case 18: //reti
+		next_pc = io_line[7]; 
 		break;
 
 	case 19: //in
+		trace_line[rd] = io_line[rs + rt];
 		break;
 
 	case 20: //out
+		io_line[rs + rt] = trace_line[rd];
 		break;
 
 	case 21: //halt
 		*halt = 1;
 		break;
 	}
+
 }
 
 void update_trace_file(char* trace_path) {
@@ -327,6 +336,8 @@ void simulator(char* trace_path) {
 		printf("\n\n instruction = %X \t PC = %X \t %s, %s, %s, %s %d\n\n rd = %d\t rs = %d\t rt = %d\n", trace_line[1], trace_line[0], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3], trace_line[2 + inst.rd], trace_line[2 + inst.rs], trace_line[2 + inst.rt]); //TEST
 		update_trace_file(trace_path); //print out trace_line to trace.txt
 		opcode_operation(inst, &halt, $imm); //do the instruction.
+
+
 	}
 }
 
@@ -361,20 +372,6 @@ void regout_file_generator(char* regout_path) {
 	fclose(fptr);
 }
 
-
-<<<<<<< Updated upstream
-void timer_handler() {
-	if (io_registers[timerenable]) {
-		io_registers[irq0enable] = 1;
-		//IN PROGRESS. add to the "OUT" opcode operation that if irq0enable is set high we need to enable irq0status for a cycle.
-		if (io_registers[timercurrent] == io_registers[timermax]) {
-			io_registers[irq0status] = 0;
-			//irqstatus = 1;  which irqstatus do i turn on??? IN PROGRESS
-		}
-		else {
-			io_registers[timercurrent]++;
-		}
-=======
 void timer_manager() {
 	if (io_line[timerenable]) {
 		if (!io_line[irq0enable]) //if we are enabling the timer irq0 returns a pulse.
@@ -388,45 +385,47 @@ void timer_manager() {
 			io_line[irq0status] = 0;
 		else
 			io_line[timercurrent] += 1;
->>>>>>> Stashed changes
 	}
+	else
+		io_line[irq0enable] = 0;
 }
 
-<<<<<<< Updated upstream
-void led_handler(int input) {
-	io_registers[leds] = input;
+void led_manager(int input) {
+	io_line[leds] = input;
 }
 
-void hard_disk_handler(int disk_sector, int mem_address, int disk_cmd) {
-	if (!io_registers[diskstatus]) { //indicating it is free to receive new command if its 0.
-		io_registers[diskstatus] = 1; //active the DMA.
-		io_registers[disksector] = disk_sector; //sector inside the hard disk.
-		io_registers[diskbuffer] = mem_address; //address to/from the memory
-		io_registers[diskcmd] = disk_cmd; //write or read command
-		for ()
-
-
-	}
-=======
 void hard_disk_manager(int* dma_start_cycle) {
-	if (!io_line[diskstatus] && io_line[diskcmd]) { // if diskstatus == 0  and diskcmd != 0
+	int i;
+	if (!io_line[diskstatus] && io_line[diskcmd]) { // if diskstatus == 0  and io_line != 0
 		io_line[diskstatus] = 1;
 		*dma_start_cycle = cycles;
 	}
 	else if (cycles - *dma_start_cycle == 1024) {
-		if (io_line[diskcmd] == 1) { //read
+		if (io_line[diskcmd] == 1) { //read HD -> RAM
 			//read from hard disk to memory?
-
+			for (i=0; i<128; i++){
+				sprintf(ram[io_line[diskbuffer] + i], "%05X", hard_disk[128*io_line[disksector] + i]);
+			}
 		}
-		else if (io_line[diskcmd] == 2) { //write
+		else if (io_line[diskcmd] == 2) { //write RAM -> HD
 			//write to hard disk from memory?
+			for (i=0; i<128; i++){
+				sprintf(hard_disk[128*io_line[disksector] + i], "%05X", ram[io_line[diskbuffer] + i]);
+			}
 		}
 		io_line[diskstatus] = io_line[diskcmd] = 0;
-		io_line[irq1enable] = io_line[irq1status] =  1;
+		io_line[irq1enable] = 1;
 	}
-	else if (!io_line[diskstatus]) //irq1enable is set as a pulse.
-		io_line[irq1enable] = io_line[irq1status] = 0;
+	else {
+		io_line[irq1enable] = 0;
+	}
 }
+
+void monitor_manager(){
+	if (io_line[monitorcmd])
+		set_pixel(display, io_line[monitoraddr]/256, io_line[monitoraddr]%256, io_line[monitordata]);
+}
+
 
 void irq2_manager(int* index) { //might skip over cycles but we dont care about that, do we???
 	if (cycles == irq2_list[*index]) {
@@ -439,5 +438,4 @@ void irq2_manager(int* index) { //might skip over cycles but we dont care about 
 
 void irq_manager() {
 	int irq = ((io_line[irq0enable] & io_line[irq0status]) | (io_line[irq1enable] & io_line[irq1status]) | (io_line[irq2enable] & io_line[irq2status]));
->>>>>>> Stashed changes
-}
+

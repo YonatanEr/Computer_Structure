@@ -1,8 +1,8 @@
-	#include <stdio.h>
-	#include <stdbool.h>
-	#include <stdlib.h>
-	#include <string.h>
-	#include <assert.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
 
 typedef struct label_element {
 	// a linked list which will serve us to store labels 
