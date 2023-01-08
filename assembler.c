@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
 		exit(1);
 	}
 	int memin_size = 0; //in order to know how many 00000 to add in the end to reach 4096.
-	int words_data[MEM_MAX_SIZE] = { 0 }; //will hold the data for that address index if there was a ".word data address" .
+	int words_data[MEM_MAX_SIZE] = { 0 }; //will hold the data for that address index if there was a ".word data address".
 
 	for (; !feof(fptr_asm); memin_size++) { //  ****************WARNING************ - WILL FAIL IF THE .ASM FILE HAS EMPTY LINES.
 		fgets(asm_line, MAX_LINE_SIZE, fptr_asm); //load line from asm file.
@@ -161,8 +161,10 @@ void replace_label(label_element* head_of_list, char** parsed_asm) { //if the la
 }
 
 int format_checker(char* line) { //input is a line from the .asm file and output will be enums (ints) of {i_format = 0, r_format = 1, label = 2, word = 3}
-	if (line[0] == '.')// && line[1] == 'w' && line[2] == 'o' && line[3] == 'r' && line[4] == 'd')
-		return word;
+	if (strlen(line) > 5) {
+		if (line[0] == '.' && line[1] == 'w' && line[2] == 'o' && line[3] == 'r' && line[4] == 'd')
+			return word;
+	}
 	
 	for (int i = 0; i < strlen(line); i++) {
 		if (line[i] == ':')

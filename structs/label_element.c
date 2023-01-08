@@ -52,8 +52,7 @@ label_element* new_label(char* line, int pc_label) {
 int get_pc_label(label_element* label_list, char* label) {
 	// given label, function will return it's pc_label
 	// if label is not in the label_list, returns -1  
-	//print_label_element(label_list);
-	//printf("%s\n",label);
+
 	while (label_list != NULL) {
 		if (str_equal(label_list->label, label)) {
 			return label_list->pc_label;
@@ -66,6 +65,7 @@ int get_pc_label(label_element* label_list, char* label) {
 
 void append_to_label_list(label_element* head_of_label_list, label_element* new_label) {
 	// given head_of_label_list, new_label, append the new_label to the end of the linked list
+
 	while (head_of_label_list->next != NULL)
 		head_of_label_list = head_of_label_list->next;
 	head_of_label_list->next = new_label;
