@@ -85,21 +85,6 @@ void upload_ram_to_memout(char* memout_path) {
 	fclose(fptr_memout);
 }
 
-void upload_hard_disk_to_diskout(char* diskout_path) {
-	FILE* fptr_diskout = fopen(diskout_path, "w");
-	if (fptr_diskout == NULL) {
-		printf("Error, couldn't open %s\n", diskout_path);
-		exit(1);
-	}
-	for (int i = 0; i < HARD_DISK_SIZE; i++) {
-		if (i == HARD_DISK_SIZE - 1)
-			fprintf(fptr_diskout, "%s", hard_disk[i]); //last line
-		else
-			fprintf(fptr_diskout, "%s\n", hard_disk[i]);
-	}
-	fclose(fptr_diskout);
-}
-
 void opcode_operation(instruction inst, int* halt, int $imm) {
 
 	int rd = TRACE_OFFSET + inst.rd; //Initilizes rd as the "address" to the desired register.
@@ -351,16 +336,4 @@ void timer_handler() {
 
 void led_handler(int input) {
 	io_registers[leds] = input;
-}
-
-void hard_disk_handler(int disk_sector, int mem_address, int disk_cmd) {
-	if (!io_registers[diskstatus]) { //indicating it is free to receive new command if its 0.
-		io_registers[diskstatus] = 1; //active the DMA.
-		io_registers[disksector] = disk_sector; //sector inside the hard disk.
-		io_registers[diskbuffer] = mem_address; //address to/from the memory
-		io_registers[diskcmd] = disk_cmd; //write or read command
-		for ()
-
-
-	}
 }
