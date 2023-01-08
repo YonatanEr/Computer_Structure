@@ -12,6 +12,9 @@ typedef struct monitor {
 
 
 monitor* init_monitor(){
+    // returns a monitor
+    // allocating 256x256 matrix filled with 0
+
     int i, j;
     monitor* display = (monitor*) malloc (sizeof(monitor));
     assert(display);

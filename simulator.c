@@ -349,7 +349,6 @@ void regout_file_generator(char* regout_path) {
 	fclose(fptr);
 }
 
-
 void timer_manager() {
 	if (io_line[timerenable]) {
 		io_line[irq0enable] = 1;
@@ -371,17 +370,23 @@ void led_manager(int input) {
 }
 
 void hard_disk_manager(int* dma_start_cycle) {
+	int i;
 	if (!io_line[diskstatus] && io_line[diskcmd]) { // if diskstatus == 0  and io_line != 0
 		io_line[diskstatus] = 1;
 		*dma_start_cycle = cycles;
 	}
 	else if (cycles - *dma_start_cycle == 1024) {
-		if (io_line[diskcmd] == 1) { //read
+		if (io_line[diskcmd] == 1) { //read HD -> RAM
 			//read from hard disk to memory?
-			
+			for (i=0; i<128; i++){
+				sprintf(ram[io_line[diskbuffer] + i], "%05X", hard_disk[128*io_line[disksector] + i]);
+			}
 		}
-		else if (io_line[diskcmd] == 2) { //write
+		else if (io_line[diskcmd] == 2) { //write RAM -> HD
 			//write to hard disk from memory?
+			for (i=0; i<128; i++){
+				sprintf(hard_disk[128*io_line[disksector] + i], "%05X", ram[io_line[diskbuffer] + i]);
+			}
 		}
 		io_line[diskstatus] = io_line[diskcmd] = 0;
 		io_line[irq1enable] = 1;
@@ -391,8 +396,9 @@ void hard_disk_manager(int* dma_start_cycle) {
 	}
 }
 
-
 void monitor_manager(){
 	if (io_line[monitorcmd])
 		set_pixel(display, io_line[monitoraddr]/256, io_line[monitoraddr]%256, io_line[monitordata]);
 }
+
+
