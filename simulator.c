@@ -114,11 +114,11 @@ void opcode_operation(instruction inst, int* halt, int $imm) {
 		break;
 
 	case 7: //sra
-		trace_line[rd] = rs / pow(2, rt);
+		trace_line[rd] = rs >> rt; //C's shift operator already works on signed 32bit numbers and duplicates the msb.
 		break;
 
 	case 8: //srl
-		trace_line[rd] = rs >> rt;
+		trace_line[rd] = (rs >> rt) & 0x7fffffff; //the msb is replaced by a "0" always duo to the masking.
 		break;
 
 	case 9: //beq
@@ -280,9 +280,9 @@ void regout_file_generator(char* regout_path) {
 	for (int i = TRACE_OFFSET; i < TRACE_OFFSET + NUM_OF_REGISTERS; i++) {
 		if (trace_line[i] == 0) {
 			if (i== TRACE_OFFSET + NUM_OF_REGISTERS-1)
-				fprintf(fptr, "%s", "00000000"); //last register need to print thus going down a line.
+				fprintf(fptr, "%s", "00000000"); //last register.
 			else
-				fprintf(fptr, "%s", "00000000\n"); //last register need to print thus going down a line.
+				fprintf(fptr, "%s", "00000000\n"); 
 		}
 		else if (trace_line[i] < 0) { //sign extension to 32b is guaranteed by the C compiler.
 			if (i == TRACE_OFFSET + NUM_OF_REGISTERS - 1)
@@ -294,9 +294,9 @@ void regout_file_generator(char* regout_path) {
 			for (int j = 0x10000000; j > trace_line[i]; j = j >> 4)
 				fprintf(fptr, "%d", 0);
 			if (i == TRACE_OFFSET + NUM_OF_REGISTERS - 1)
-				fprintf(fptr, "%X", trace_line[i]); //last register need to print thus going down a line.
+				fprintf(fptr, "%X", trace_line[i]); //last register.
 			else
-				fprintf(fptr, "%X\n", trace_line[i]); //last register need to print thus going down a line.
+				fprintf(fptr, "%X\n", trace_line[i]); 
 		}
 	}
 	fclose(fptr);
