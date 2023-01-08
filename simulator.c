@@ -7,8 +7,8 @@ int io_line[IO_SIZE]; //input/output registers.
 enum io_register { irq0enable, irq1enable, irq2enable, irq0status, irq1status, irq2status, irqhandler, irqreturn, clks, leds, display7reg, timerenable, timercurrent, timermax, diskcmd, disksector, diskbuffer, diskstatus, reserved, reserved, monitoraddr, monitordata, monitorcmd };
 char ram[MEM_MAX_SIZE][INSTRUCTION_BYTES + 1];
 char hard_disk[HARD_DISK_SIZE][INSTRUCTION_BYTES + 1];
+int* irq2_list = NULL;
 monitor* display;
-
 int next_pc = 0;
 int cycles = 0;
 
@@ -30,12 +30,16 @@ int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, 
 	display = init_monitor();
 
 	download_memin_to_ram(argv[1]); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
+
 	//download_diskin_to_hard_disk()
-	
+	//irq2_list = download_irq2(/*arg [something]*/);
+	//need to add irq2_list as an arg to simulator.
+	//download_diskin_to_hard_disk()
 	simulator(argv[4]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT
 
 ////****THE SIMULATOR IS DONE, PREPARE ALL THE OUTPUT FILES, TRACE.TXT IS GENERATED ALREADY BY THE SIMULATOR****////
-
+	
+	//free(irq2_list);
 	upload_ram_to_memout(argv[2]); 
 	regout_file_generator(argv[3]);
 
@@ -53,6 +57,25 @@ int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, 
 	return 0;
 }
 
+
+int* download_irq2(char* irq2_path) { //FREE ME
+	int* irq2_list = NULL;
+	FILE* fptr_irq2 = fopen(irq2_path, "r");
+	if (fptr_irq2 == NULL) {
+		printf("Error, couldn't open %s\n", irq2_path);
+		exit(1);
+	}
+	int* irq2_list = (int*)malloc(sizeof(int)*10); //will initilize irq2_list to contain only 10 lines of irq2 at the start.
+	for (int i = 0, j = 1; !feof(fptr_irq2); i++) {
+		if (i != 0 && (!(i % 10))) {
+			j++;
+			irq2_list = (int*)realloc(irq2_list, sizeof(int) * j * 10); //extend the size of the irq2_list.
+		}
+		fscanf(fptr_irq2, "%d", &irq2_list[i]);
+	}
+	fclose(fptr_irq2);
+	return irq2_list;
+}
 
 void download_memin_to_ram(char* memin_path) { //downloads the entirety of memin to a char** ram.
 	FILE* fptr_memin = fopen(memin_path, "r"); //holds the initial instructions and data that were translated by the assembler.
@@ -351,15 +374,17 @@ void regout_file_generator(char* regout_path) {
 
 void timer_manager() {
 	if (io_line[timerenable]) {
-		io_line[irq0enable] = 1;
-		//IN PROGRESS. add to the "OUT" opcode operation that if irq0enable is set high we need to enable irq0status for a cycle.
-		if (io_line[timercurrent] == io_line[timermax]) {
+		if (!io_line[irq0enable]) //if we are enabling the timer irq0 returns a pulse.
+			io_line[irq0status] = 1;
+		else
 			io_line[irq0status] = 0;
-			//irqstatus = 1;  which irqstatus do i turn on??? IN PROGRESS
-		}
-		else {
-			io_line[timercurrent]++;
-		}
+
+		io_line[irq0enable] = 1;
+
+		if (io_line[timercurrent] == io_line[timermax])
+			io_line[irq0status] = 0;
+		else
+			io_line[timercurrent] += 1;
 	}
 	else
 		io_line[irq0enable] = 0;
@@ -401,4 +426,16 @@ void monitor_manager(){
 		set_pixel(display, io_line[monitoraddr]/256, io_line[monitoraddr]%256, io_line[monitordata]);
 }
 
+
+void irq2_manager(int* index) { //might skip over cycles but we dont care about that, do we???
+	if (cycles == irq2_list[*index]) {
+		io_line[irq2enable] = io_line[irq2status] = 1;
+		(*index)++;
+	}
+	else
+		io_line[irq2enable] = io_line[irq2status] = 0;
+}
+
+void irq_manager() {
+	int irq = ((io_line[irq0enable] & io_line[irq0status]) | (io_line[irq1enable] & io_line[irq1status]) | (io_line[irq2enable] & io_line[irq2status]));
 
