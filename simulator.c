@@ -26,6 +26,8 @@ void simulator(char*);
 int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, argv[3] = regout.txt, argv[4] = trace.txt, argv[5] = cycles.txt.
 	
 	download_memin_to_ram(argv[1]); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
+	//download_diskin_to_hard_disk()
+	monitor* display = init_monitor();
 	simulator(argv[4]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT
 
 ////****THE SIMULATOR IS DONE, PREPARE ALL THE OUTPUT FILES, TRACE.TXT IS GENERATED ALREADY BY THE SIMULATOR****////
@@ -214,6 +216,7 @@ void opcode_operation(instruction inst, int* halt, int $imm) {
 		*halt = 1;
 		break;
 	}
+
 }
 
 void update_trace_file(char* trace_path) {
@@ -303,6 +306,8 @@ void simulator(char* trace_path) {
 		printf("\n\n instruction = %X \t PC = %X \t %s, %s, %s, %s %d\n\n rd = %d\t rs = %d\t rt = %d\n", trace_line[1], trace_line[0], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3], trace_line[2 + inst.rd], trace_line[2 + inst.rs], trace_line[2 + inst.rt]); //TEST
 		update_trace_file(trace_path); //print out trace_line to trace.txt
 		opcode_operation(inst, &halt, $imm); //do the instruction.
+
+
 	}
 }
 
@@ -338,7 +343,7 @@ void regout_file_generator(char* regout_path) {
 }
 
 
-void timer_handler() {
+void timer_manager() {
 	if (io_line[timerenable]) {
 		io_line[irq0enable] = 1;
 		//IN PROGRESS. add to the "OUT" opcode operation that if irq0enable is set high we need to enable irq0status for a cycle.
@@ -354,11 +359,11 @@ void timer_handler() {
 		io_line[irq0enable] = 0;
 }
 
-void led_handler(int input) {
+void led_manager(int input) {
 	io_line[leds] = input;
 }
 
-void hard_disk_handler(int* dma_start_cycle) {
+void hard_disk_manager(int* dma_start_cycle) {
 	if (!io_line[diskstatus] && io_line[diskcmd]) { // if diskstatus == 0  and io_line != 0
 		io_line[diskstatus] = 1;
 		*dma_start_cycle = cycles;
@@ -379,3 +384,8 @@ void hard_disk_handler(int* dma_start_cycle) {
 	}
 }
 
+//void hw_operations() {
+	//timer_manager();
+	//led_manager();
+	//hard_disk_manager();
+//}

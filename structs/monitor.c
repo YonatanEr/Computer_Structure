@@ -3,8 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-
-int LEN = 256;
+#define MONITOR_DIM 256
 
 typedef struct monitor {
 	// a 256x256 char matrix containing the pixel 
@@ -17,12 +16,12 @@ monitor* init_monitor(){
     monitor* disp = (monitor*) malloc (sizeof(monitor));
     assert(disp);
 
-    disp->matrix = (int**) malloc (LEN*sizeof(int*));
+    disp->matrix = (int**) malloc (MONITOR_DIM*sizeof(int*));
     assert(disp->matrix);
 
-    for (i=0; i<LEN; i++){
-        disp->matrix[i] = (int*) malloc (LEN*sizeof(int));
-        for (j=0; j<LEN; j++){
+    for (i=0; i<MONITOR_DIM; i++){
+        disp->matrix[i] = (int*) malloc (MONITOR_DIM*sizeof(int));
+        for (j=0; j<MONITOR_DIM; j++){
             disp->matrix[i][j] = 0;
         }
     }
@@ -43,8 +42,8 @@ void set_pixel(monitor* disp, int i, int j, int p){
 
 void display(monitor* disp){
     int i, j;
-    for(i=0; i<LEN; i++){
-        for(j=0; j<LEN; j++){
+    for(i=0; i<MONITOR_DIM; i++){
+        for(j=0; j<MONITOR_DIM; j++){
             printf("%d ", get_pixel(disp, i, j));
         }
         printf("\n");
@@ -54,7 +53,7 @@ void display(monitor* disp){
 
 void free_monitor(monitor* disp){
     int i, j;
-    for (i=0; i<LEN; i++){
+    for (i=0; i<MONITOR_DIM; i++){
         free(disp->matrix[i]);
         disp->matrix = NULL;
     }
