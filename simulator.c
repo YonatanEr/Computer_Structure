@@ -40,20 +40,40 @@ void isr_operation(int*);
 
 int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, argv[3] = regout.txt, argv[4] = trace.txt, argv[5] = cycles.txt.
 	
+	// gcc simulator.c -o sim
+
+	// ./sim.exe memin.txt diskin.txt irq2in.txt memout.txt regout.txt trace.txt hwregtrace.txt cycles.txt leds.txt display7seg.txt diskout.txt monitor.txt
+	
+	/*
+	0	sim.exe
+	1	memin.txt
+	2	diskin.txt
+	3	irq2in.txt
+	4	memout.txt
+	5	regout.txt 
+	6	trace.txt 
+	7	hwregtrace.txt 
+	8	cycles.txt 
+	9	leds.txt 
+	10	display7seg.txt 
+	11	diskout.txt 
+	12	monitor.txt
+	*/
+
 	display = init_monitor();
 
-	download_memin_to_ram(argv[1]); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
+	//download_memin_to_ram(argv[1]); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
 
 	//download_diskin_to_hard_disk()
 	//download_irq2(/*arg [something]*/);
 	//download_diskin_to_hard_disk()
-	simulator(argv[4]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT
+	//simulator(argv[4]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT
 
 ////****THE SIMULATOR IS DONE, PREPARE ALL THE OUTPUT FILES, TRACE.TXT IS GENERATED ALREADY BY THE SIMULATOR****////
 
 	//free(irq2_list);
-	upload_ram_to_memout(argv[2]); 
-	regout_file_generator(argv[3]);
+	//upload_ram_to_memout(argv[2]); 
+	//regout_file_generator(argv[3]);
 
 	FILE* fptr_cycles = fopen(argv[5], "w");
 	if (fptr_cycles == NULL) {
@@ -94,7 +114,7 @@ void download_memin_to_ram(char* memin_path) { //downloads the entirety of memin
 		exit(1);
 	}
 	for (int i = 0; i < MEM_MAX_SIZE; i++) {
-		fscanf(fptr_memin, "%s", &ram[i]);
+		fscanf(fptr_memin, "%s", ram[i]);
 	}
 	fclose(fptr_memin);
 }
@@ -106,7 +126,7 @@ void download_diskin_to_hard_disk(char* diskin_path) { //downloads the entirety 
 		exit(1);
 	}
 	for (int i = 0; i < HARD_DISK_SIZE; i++) {
-		fscanf(fptr_diskin, "%s", &hard_disk[i]);
+		fscanf(fptr_diskin, "%s", hard_disk[i]);
 	}
 	fclose(fptr_diskin);
 }
