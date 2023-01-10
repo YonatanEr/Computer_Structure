@@ -19,18 +19,19 @@ char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2
 char* opcodes[NUM_OF_OPCODES] = { "add", "sub", "mul","and" , "or" ,"xor", "sll", "sra", "srl", "beq", "bne", "blt", "bgt", "ble", "bge", "jal", "lw", "sw", "reti", "in", "out", "halt" }; //halt = 0x15000
 //END
 
-void opcode_operation(instruction, int*, int, char*);
+void opcode_operation(instruction, int*, int, char*, char*);
 void update_trace_file(char*);
 void regout_file_generator(char*);
 void download_memin_to_ram(char*);
 void upload_ram_to_memout(char*);
-void simulator(char*,char*);
-
-//NEW ADDS ADD ME AFTER DEBUGGING
-void timer_manager();
-void download_irq2(char*);
 void download_diskin_to_hard_disk(char*);
 void upload_hard_disk_to_diskout(char*);
+void simulator(char*,char*, char*);
+
+//NEW ADDS ADD ME AFTER DEBUGGING
+void update_leds_file(char*);
+void timer_manager();
+int* download_irq2(char*);
 void timer_manager();
 void hard_disk_manager(int*);
 void monitor_manager();
@@ -64,18 +65,18 @@ int main(int argc, char* argv[]) {
 
 	//display = init_monitor();
 	download_memin_to_ram(argv[1]); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
-	//download_diskin_to_hard_disk()
-	//download_irq2(argv[3]);
-	//download_diskin_to_hard_disk()
-	simulator(argv[4],argv[7]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT
+	download_diskin_to_hard_disk(argv[2]);
+	irq2_list = download_irq2(argv[3]);
+	simulator(argv[6], argv[7], argv[9]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT and HWREGTRACE.TXT.
 
 ////****THE SIMULATOR IS DONE, PREPARE ALL THE OUTPUT FILES, TRACE.TXT IS GENERATED ALREADY BY THE SIMULATOR****////
 
-	//free(irq2_list);
-	upload_ram_to_memout(argv[2]); 
-	regout_file_generator(argv[3]);
+	free(irq2_list);
+	upload_ram_to_memout(argv[4]);
+	upload_hard_disk_to_diskout(argv[11]);
+	regout_file_generator(argv[5]);
 
-	FILE* fptr_cycles = fopen(argv[5], "w");
+	FILE* fptr_cycles = fopen(argv[8], "w");
 	if (fptr_cycles == NULL) {
 		printf("Error, couldn't open %s\n", argv[5]);
 		exit(1);
@@ -90,7 +91,7 @@ int main(int argc, char* argv[]) {
 	return 0;
 }
 
-void download_irq2(char* irq2_path) { //FREE ME
+int* download_irq2(char* irq2_path) {
 	FILE* fptr_irq2 = fopen(irq2_path, "r");
 	if (fptr_irq2 == NULL) {
 		printf("Error, couldn't open %s\n", irq2_path);
@@ -105,6 +106,7 @@ void download_irq2(char* irq2_path) { //FREE ME
 		fscanf(fptr_irq2, "%d", &irq2_list[i]);
 	}
 	fclose(fptr_irq2);
+	return irq2_list;
 }
 
 void download_memin_to_ram(char* memin_path) { //downloads the entirety of memin to a char** ram.
@@ -161,7 +163,7 @@ void upload_hard_disk_to_diskout(char* diskout_path) {
 	fclose(fptr_diskout);
 }
 
-void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_path) {
+void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_path, char* leds_path) {
 
 	int rd = TRACE_OFFSET + inst.rd; //Initilizes rd as the "address" to the desired register.
 	int rs = trace_line[TRACE_OFFSET + inst.rs]; //Initilizes rs as the value inside the register.
@@ -270,6 +272,8 @@ void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_pa
 
 	case 20: //out
 		io_line[rs + rt] = trace_line[rd];
+		if (rs + rt == leds)
+			update_leds_file(leds_path);
 		update_hwregtrace_file(hwregtrace_path, inst.opcode, rs + rt);
 		break;
 
@@ -345,19 +349,25 @@ void update_trace_file(char* trace_path) {
 	return;
 }
 
-void simulator(char* trace_path, char* hwregtrace_path) {
+void simulator(char* trace_path, char* hwregtrace_path, char* leds_path) {
 	FILE* fptr_trace = fopen(trace_path, "w"); //init file.
 	if (fptr_trace == NULL) {
 		printf("Error, couldn't open %s\n", trace_path);
 		exit(1);
 	}
+	fclose(fptr_trace);
 	FILE* fptr_hwregtrace = fopen(hwregtrace_path, "w"); //init file.
 	if (fptr_hwregtrace == NULL) {
 		printf("Error, couldn't open %s\n", hwregtrace_path);
 		exit(1);
 	}
-	fclose(fptr_trace); 
-	fclose(fptr_hwregtrace); 
+	fclose(fptr_hwregtrace);
+	FILE* fptr_leds = fopen(leds_path, "w"); //init file.
+	if (fptr_leds == NULL) {
+		printf("Error, couldn't open %s\n", leds_path);
+		exit(1);
+	}
+	fclose(fptr_leds);
 
 	int isr_active = 0;
 	for (int $imm = 0, halt = 0; !halt; trace_line[0] = next_pc, $imm = 0) { //while halt was not asserted, update to the next PC and and execute its command.
@@ -374,7 +384,7 @@ void simulator(char* trace_path, char* hwregtrace_path) {
 			trace_line[3] = 0;
 		printf("instruction = %X \t PC = %X \t %s, %s, %s, %s %d\n\n rd = %d\t rs = %d\t rt = %d\n", trace_line[1], trace_line[0], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3], trace_line[2 + inst.rd], trace_line[2 + inst.rs], trace_line[2 + inst.rt]); //TEST
 		update_trace_file(trace_path); //print out trace_line to trace.txt
-		opcode_operation(inst, &halt, $imm, hwregtrace_path); //do the instruction.
+		opcode_operation(inst, &halt, $imm, hwregtrace_path, leds_path); //do the instruction.
 	}
 }
 
@@ -455,7 +465,7 @@ void hard_disk_manager(int* dma_start_cycle) {
 
 void monitor_manager(){
 	if (io_line[monitorcmd])
-		set_pixel(display, io_line[monitoraddr]/256, io_line[monitoraddr]%256, io_line[monitordata]);
+		set_pixel(display, io_line[monitoraddr]/MONITOR_DIM, io_line[monitoraddr]%MONITOR_DIM, io_line[monitordata]);
 }
 
 void irq2_manager(int* index){
@@ -488,14 +498,10 @@ void isr_operation(int* isr_active) { //assuming the proccess is: fetch instruct
 }
 
 void update_leds_file(char* leds_path) {
-	FILE* fptr;
-	if (led_file_opened) 
-		fopen(leds_path, "a");
-	else 
-		fopen(leds_path, "w");
-		led_file_opened = true;
+	
+	FILE* fptr = fopen(leds_path, "a");
 	assert(fptr);
-	fprintf(fptr, "%d %08X", cycles, io_line[leds]);
+	fprintf(fptr, "%d %08X\n", cycles, io_line[leds]);
 	fclose(fptr);
 }
 
@@ -515,4 +521,3 @@ void update_hwregtrace_file(char* hwregtrace_path, int opcode, int hwregister_in
 	fprintf(fptr_hwregtrace, "%d %s %s %08X\n", cycles, operation, io_registers[hwregister_index], io_line[hwregister_index]);
 	fclose(fptr_hwregtrace);
 }
-

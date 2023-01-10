@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="structs\monitor.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="simulator.c">
       <Filter>Source Files</Filter>
     </ClCompile>
