@@ -430,18 +430,11 @@ void hard_disk_manager(int* dma_start_cycle) {
 	}
 	else if (cycles - *dma_start_cycle == DMA_ACTIVE_DURATION) {
 
-<<<<<<< Updated upstream
 		if (io_line[diskbuffer] + i >= MEM_MAX_SIZE){
-=======
->>>>>>> Stashed changes
 			printf("Overflowing alocatted RAM size\n");
 			assert(NULL);
 		}
 
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 		if (io_line[diskcmd] == 1) { //read HD -> RAM
 			//read from hard disk to memory?
 
