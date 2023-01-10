@@ -30,3 +30,4 @@
 #include "structs/instruction.c"
 #include "structs/label_element.c"
 #include "structs/monitor.c"
+#include "structs/linked_list.c"
