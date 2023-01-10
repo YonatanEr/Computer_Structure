@@ -84,12 +84,8 @@ int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, 
 	fclose(fptr_cycles);
 	
 
-<<<<<<< Updated upstream
 	monitor_to_txt(display, argv[12]);
 	free_monitor(display);
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
 	return 0;
 }
