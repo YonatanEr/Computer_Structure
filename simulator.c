@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, 
 	simulator(argv[4]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT
 
 ////****THE SIMULATOR IS DONE, PREPARE ALL THE OUTPUT FILES, TRACE.TXT IS GENERATED ALREADY BY THE SIMULATOR****////
-	
+
 	//free(irq2_list);
 	upload_ram_to_memout(argv[2]); 
 	regout_file_generator(argv[3]);
@@ -64,6 +64,7 @@ int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, 
 	fclose(fptr_cycles);
 	
 
+	monitor_to_txt(display, argv[12]);
 	free_monitor(display);
 
 	return 0;
@@ -403,19 +404,27 @@ void hard_disk_manager(int* dma_start_cycle) {
 		io_line[diskstatus] = 1; //set dma to busy.
 		*dma_start_cycle = cycles; //save the moment we've started the transaction.
 	}
-	else if (cycles - *dma_start_cycle >= DMA_ACTIVE_DURATION) { //if 1024 cycles had passed since the dma started.
+	else if (cycles - *dma_start_cycle == DMA_ACTIVE_DURATION) {
+
+		if (io_line[diskbuffer] + i >= MEM_MAX_SIZE){
+			printf("Overflowing alocatted RAM size\n");
+			assert(NULL);
+		}
+
 		if (io_line[diskcmd] == 1) { //read HD -> RAM
-			for (i = 0; i < SECTOR_SIZE; i++) {
-				sprintf(ram[io_line[diskbuffer] + i], "%05X", hex_string_to_int_signed(hard_disk[SECTOR_SIZE*io_line[disksector] + i]));
+			//read from hard disk to memory?
+			for (i=0; i<SECTOR_SIZE; i++){
+				sprintf(ram[io_line[diskbuffer] + i], "%s", hard_disk[SECTOR_SIZE*io_line[disksector] + i]);
 			}
 		}
 		else if (io_line[diskcmd] == 2) { //write RAM -> HD
-			for (i = 0; i < SECTOR_SIZE; i++){
-				sprintf(hard_disk[SECTOR_SIZE*io_line[disksector] + i], "%05X", hex_string_to_int_signed(ram[io_line[diskbuffer] + i]));
+			//write to hard disk from memory?
+			for (i=0; i<SECTOR_SIZE; i++){
+				sprintf(hard_disk[SECTOR_SIZE*io_line[disksector] + i], "%s", ram[io_line[diskbuffer] + i]);
 			}
 		}
-		io_line[diskstatus] = io_line[diskcmd] = 0; //reset registers.
-		io_line[irq1enable] = io_line[irq1status] = 1; //raise interrupts.
+		io_line[diskstatus] = io_line[diskcmd] = 0;
+		io_line[irq1status] = 1;
 	}
 }
 
@@ -441,7 +450,7 @@ void isr_operation(int* isr_active) { //assuming the proccess is: fetch instruct
 		if ((io_line[irq0enable] & io_line[irq0status])) {
 			io_line[irq0status] = 0;
 		}
-		else if (io_line[irq1enable] & io_line[irq1status]]) {
+		else if (io_line[irq1enable] & io_line[irq1status]) {
 			io_line[irq1status] = 0;
 		}
 		else if (io_line[irq2enable] & io_line[irq2status]) { 
