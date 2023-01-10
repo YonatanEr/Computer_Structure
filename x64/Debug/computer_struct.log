@@ -1,1 +1,9 @@
-﻿  computer_struct.vcxproj -> C:\Computer_Structure\x64\Debug\computer_struct.exe
+﻿  monitor.c
+C:\Computer_Structure\structs\monitor.c(58,12): warning C4101: 'j': unreferenced local variable
+  test_bench.c
+C:\Computer_Structure\test_bench.c(11,9): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 4 has type 'unsigned __int64'
+C:\Computer_Structure\test_bench.c(11,9): message : consider using '%lld' in the format string
+C:\Computer_Structure\test_bench.c(11,9): message : consider using '%Id' in the format string
+C:\Computer_Structure\test_bench.c(11,9): message : consider using '%I64d' in the format string
+  Generating Code...
+  computer_struct.vcxproj -> C:\Computer_Structure\x64\Debug\computer_struct.exe

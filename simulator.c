@@ -4,7 +4,7 @@
 // int pc = 0, inst = 0, $zero = 0, $imm = 0, $vo = 0, $a0 = 0, $a1 = 0, $a2 = 0, $a3 = 0, $t0 = 0, $t1 = 0, $t2 = 0, $s0 = 0, $s1 = 0, $s2 = 0, $gp = 0, $sp = 0, $ra = 0;
 int trace_line[TRACE_OFFSET + NUM_OF_REGISTERS] = {0}; // {pc, instruction, -all 16 registers sorted-}
 int io_line[IO_SIZE]; //input/output registers.
-enum io_register { irq0enable, irq1enable, irq2enable, irq0status, irq1status, irq2status, irqhandler, irqreturn, clks, leds, display7reg, timerenable, timercurrent, timermax, diskcmd, disksector, diskbuffer, diskstatus, reserved, reserved, monitoraddr, monitordata, monitorcmd };
+enum io_register { irq0enable, irq1enable, irq2enable, irq0status, irq1status, irq2status, irqhandler, irqreturn, clks, leds, display7reg, timerenable, timercurrent, timermax, diskcmd, disksector, diskbuffer, diskstatus, reserved0, reserved1, monitoraddr, monitordata, monitorcmd };
 char ram[MEM_MAX_SIZE][INSTRUCTION_BYTES + 1];
 char hard_disk[HARD_DISK_SIZE][INSTRUCTION_BYTES + 1];
 int* irq2_list = NULL;
@@ -12,11 +12,11 @@ monitor* display;
 int next_pc = 0;
 int cycles = 0;
 
-//for debugging.
+//FOR DEBBUGGING.
 char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$s0", "$s1", "$s2", "$gp", "$sp", "$ra" };
 char* opcodes[NUM_OF_OPCODES] = { "add", "sub", "mul","and" , "or" ,"xor", "sll", "sra", "srl", "beq", "bne", "blt", "bgt", "ble", "bge", "jal", "lw", "sw", "reti", "in", "out", "halt" }; //halt = 0x15000
 char* io_registers[IO_SIZE] = { "irq0enable","irq1enable","irq2enable","irq0status","irq1status","irq2status","irqhandler","irqreturn","clks","leds","display7reg","timerenable","timercurrent","timermax","diskcmd","disksector","diskbuffer","diskstatus","reserved","reserved","monitoraddr","monitordata","monitorcmd" };
-//end
+//END
 
 void opcode_operation(instruction, int*, int);
 void update_trace_file(char*);
@@ -25,6 +25,19 @@ void download_memin_to_ram(char*);
 void upload_ram_to_memout(char*);
 void simulator(char*);
 
+//NEW ADDS REMOVE ME AFTER DEBUGGING
+void timer_manager();
+void download_irq2(char*);
+void download_diskin_to_hard_disk(char*);
+void upload_hard_disk_to_diskout(char*);
+void timer_manager();
+void hard_disk_manager(int*);
+void monitor_manager();
+void irq2_manager(int*);
+void isr_operation(int*);
+//END OF REMOVE ME
+
+
 int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, argv[3] = regout.txt, argv[4] = trace.txt, argv[5] = cycles.txt.
 	
 	display = init_monitor();
@@ -32,8 +45,7 @@ int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, 
 	download_memin_to_ram(argv[1]); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
 
 	//download_diskin_to_hard_disk()
-	//irq2_list = download_irq2(/*arg [something]*/);
-	//need to add irq2_list as an arg to simulator.
+	//download_irq2(/*arg [something]*/);
 	//download_diskin_to_hard_disk()
 	simulator(argv[4]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT
 
@@ -57,9 +69,7 @@ int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, 
 	return 0;
 }
 
-
-int* download_irq2(char* irq2_path) { //FREE ME
-	int* irq2_list = NULL;
+void download_irq2(char* irq2_path) { //FREE ME
 	FILE* fptr_irq2 = fopen(irq2_path, "r");
 	if (fptr_irq2 == NULL) {
 		printf("Error, couldn't open %s\n", irq2_path);
@@ -74,7 +84,6 @@ int* download_irq2(char* irq2_path) { //FREE ME
 		fscanf(fptr_irq2, "%d", &irq2_list[i]);
 	}
 	fclose(fptr_irq2);
-	return irq2_list;
 }
 
 void download_memin_to_ram(char* memin_path) { //downloads the entirety of memin to a char** ram.
@@ -100,7 +109,6 @@ void download_diskin_to_hard_disk(char* diskin_path) { //downloads the entirety 
 	}
 	fclose(fptr_diskin);
 }
-
 
 void upload_ram_to_memout(char* memout_path) {
 	FILE* fptr_memout = fopen(memout_path, "w");
@@ -231,7 +239,7 @@ void opcode_operation(instruction inst, int* halt, int $imm) {
 		break;
 
 	case 18: //reti
-		next_pc = io_line[7]; 
+		next_pc = io_line[irqreturn]; 
 		break;
 
 	case 19: //in
@@ -323,6 +331,7 @@ void simulator(char* trace_path) {
 	fclose(fptr_trace); //just create the file, no need to write yet.
 
 	for (int $imm = 0, halt = 0; !halt; trace_line[0] = next_pc, $imm = 0) { //while halt was not asserted, update to the next PC and and execute its command.
+		//CHECK IRQ STATUS AND HANDLE//
 		instruction inst = parse_instruction(ram[trace_line[0]]); //convert it to the instruction structure.
 		cycles++; //load instruction from memory, increase 1 cycle.
 		trace_line[1] = (inst.opcode << 12) + (inst.rd << 8) + (inst.rs << 4) + inst.rt; //update the instruction "register".
@@ -381,41 +390,32 @@ void timer_manager() {
 			io_line[timercurrent] = 0; //reset timer
 		}
 		else {
-			io_line[irq0status] = 0; //reset irq0status so it send a pulse only.
 			io_line[timercurrent] += 1; //increment timercurrent.
 		}
 	}
 	else
-		io_line[irq0enable] = io_line[irq0status] =  0; //if timerenable is not on, reset interrupts. 
-}
-
-void led_manager(int input) {
-	io_line[leds] = input;
+		io_line[irq0enable] = 0; //if timerenable is not on, reset interrupts. 
 }
 
 void hard_disk_manager(int* dma_start_cycle) {
 	int i;
 	if (!io_line[diskstatus] && io_line[diskcmd]) { // if diskstatus == 0  and diskcmd != 0, as in not busy and requesting transaction.
 		io_line[diskstatus] = 1; //set dma to busy.
-		io_line[irq1status] = 0; //reset irqstatus if it has been on previous instruction.
 		*dma_start_cycle = cycles; //save the moment we've started the transaction.
 	}
 	else if (cycles - *dma_start_cycle >= DMA_ACTIVE_DURATION) { //if 1024 cycles had passed since the dma started.
 		if (io_line[diskcmd] == 1) { //read HD -> RAM
 			for (i = 0; i < SECTOR_SIZE; i++) {
-				sprintf(ram[io_line[diskbuffer] + i], "%05X", hard_disk[SECTOR_SIZE*io_line[disksector] + i]);
+				sprintf(ram[io_line[diskbuffer] + i], "%05X", hex_string_to_int_signed(hard_disk[SECTOR_SIZE*io_line[disksector] + i]));
 			}
 		}
 		else if (io_line[diskcmd] == 2) { //write RAM -> HD
 			for (i = 0; i < SECTOR_SIZE; i++){
-				sprintf(hard_disk[SECTOR_SIZE*io_line[disksector] + i], "%05X", ram[io_line[diskbuffer] + i]);
+				sprintf(hard_disk[SECTOR_SIZE*io_line[disksector] + i], "%05X", hex_string_to_int_signed(ram[io_line[diskbuffer] + i]));
 			}
 		}
 		io_line[diskstatus] = io_line[diskcmd] = 0; //reset registers.
-		io_line[irq1enable] = io_line[irq1status] = 1; //raise interupts.
-	}
-	else {
-		io_line[irq1status] = 0; //reset status if it has been high previous instruction.
+		io_line[irq1enable] = io_line[irq1status] = 1; //raise interrupts.
 	}
 }
 
@@ -424,20 +424,34 @@ void monitor_manager(){
 		set_pixel(display, io_line[monitoraddr]/256, io_line[monitoraddr]%256, io_line[monitordata]);
 }
 
-
 void irq2_manager(int* index){
 	if (((*index) != sizeof(irq2_list) / 4) && ((*index) != 0 && irq2_list[*index] == 0)) { //if we haven't reached the end of the array and we are not looking at unset numbers.
 		if (cycles >= irq2_list[*index]) {
 			io_line[irq2enable] = io_line[irq2status] = 1;
 			(*index)++;
 		}
-		else
-			io_line[irq2status] = 0;
 	}
-	else
-		io_line[irq2status] = 0;
 }
 
-void irq_manager() {
+void isr_operation(int* isr_active) { //assuming the proccess is: fetch instruction -> check irq (before execution of the new isntruction as instructed) ->handle irq ->fetch same instruction.
 	int irq = ((io_line[irq0enable] & io_line[irq0status]) | (io_line[irq1enable] & io_line[irq1status]) | (io_line[irq2enable] & io_line[irq2status]));
+	if (trace_line[0] == io_line[irqreturn]) //if current pc is back at the address stored in register irqreturn than that means the interrupt has been handled.
+		*isr_active = 0;
+	if (irq && !(*isr_active)) { //check 1 status at a time and handle them seperately.
+		if (io_line[irq0status]) {
+			io_line[irq0status] = 0;
+			
+		}
+		else if (io_line[irq1status]) {
+			io_line[irq1status] = 0;
 
+		}
+		else { //io_line[irq2status] == 1
+			io_line[irq2status] = 0;
+
+		}
+		*isr_active = 1;
+		io_line[irqreturn] = trace_line[0]; //save current pc in irqreturn register.
+		trace_line[0] = io_line[irqhandler]; //set current pc to address set inside irqhandler.
+	}
+}
