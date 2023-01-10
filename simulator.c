@@ -11,6 +11,7 @@ int* irq2_list = NULL;
 monitor* display;
 int next_pc = 0;
 int cycles = 0;
+bool led_file_opened = false;
 
 //FOR DEBBUGGING.
 char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$s0", "$s1", "$s2", "$gp", "$sp", "$ra" };
@@ -489,7 +490,15 @@ void isr_operation(int* isr_active) { //assuming the proccess is: fetch instruct
 }
 
 void update_leds_file(char* leds_path) {
-
+	FILE* fptr;
+	if (led_file_opened) 
+		fopen(leds_path, "a");
+	else 
+		fopen(leds_path, "w");
+		led_file_opened = true;
+	assert(fptr);
+	fprintf(fptr, "%d %08X", cycles, io_line[leds]);
+	fclose(fptr);
 }
 
 void update_hwregtrace_file(char* hwregtrace_path, int opcode, int hwregister_index, int* file_previously_opened) { //taking into account that a hweregtrace was created beforehand and updates it accordingly.
