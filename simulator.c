@@ -64,8 +64,12 @@ int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, 
 	fclose(fptr_cycles);
 	
 
+<<<<<<< Updated upstream
 	monitor_to_txt(display, argv[12]);
 	free_monitor(display);
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
 	return 0;
 }
@@ -406,11 +410,18 @@ void hard_disk_manager(int* dma_start_cycle) {
 	}
 	else if (cycles - *dma_start_cycle == DMA_ACTIVE_DURATION) {
 
+<<<<<<< Updated upstream
 		if (io_line[diskbuffer] + i >= MEM_MAX_SIZE){
+=======
+>>>>>>> Stashed changes
 			printf("Overflowing alocatted RAM size\n");
 			assert(NULL);
 		}
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 		if (io_line[diskcmd] == 1) { //read HD -> RAM
 			//read from hard disk to memory?
 
