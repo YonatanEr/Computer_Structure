@@ -413,13 +413,15 @@ void hard_disk_manager(int* dma_start_cycle) {
 
 		if (io_line[diskcmd] == 1) { //read HD -> RAM
 			//read from hard disk to memory?
-			for (i=0; i<SECTOR_SIZE; i++){
+
+			for (i = 0; i < SECTOR_SIZE; i++) {
 				sprintf(ram[io_line[diskbuffer] + i], "%s", hard_disk[SECTOR_SIZE*io_line[disksector] + i]);
 			}
 		}
 		else if (io_line[diskcmd] == 2) { //write RAM -> HD
 			//write to hard disk from memory?
-			for (i=0; i<SECTOR_SIZE; i++){
+			for (i = 0; i < SECTOR_SIZE; i++){
+
 				sprintf(hard_disk[SECTOR_SIZE*io_line[disksector] + i], "%s", ram[io_line[diskbuffer] + i]);
 			}
 		}
@@ -466,7 +468,26 @@ void update_leds_file(char* leds_path) {
 
 }
 
-void update_hwregtrace_file(char* hwregtrace_path) {
+void update_hwregtrace_file(char* hwregtrace_path, int opcode, int hwregister_index, int* file_previously_opened) { //taking into account that a hweregtrace was created beforehand and updates it accordingly.
+	FILE* fptr_hwregtrace;
+
+	if (*file_previously_opened) 
+		fopen(hwregtrace_path, "w");
+	else 
+		fopen(hwregtrace_path, "a");
+
+	if (fptr_hwregtrace == NULL) {
+		printf("Error, couldn't open %s\n", hwregtrace_path);
+		exit(1);
+	}
+
+	char operation[6];
+	if (opcode == 20)  //out
+		strcpy(operation, "WRITE");
+	else //in
+		strcpy(operation, "READ");
+
+	fprintf(fptr_hwregtrace, "%d %s %s %08X", cycles, operation, io_registers[hwregister_index], io_line[hwregister_index]);
 
 }
 
