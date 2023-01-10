@@ -25,7 +25,7 @@ void download_memin_to_ram(char*);
 void upload_ram_to_memout(char*);
 void simulator(char*);
 
-//NEW ADDS REMOVE ME AFTER DEBUGGING
+//NEW ADDS ADD ME AFTER DEBUGGING
 void timer_manager();
 void download_irq2(char*);
 void download_diskin_to_hard_disk(char*);
@@ -434,24 +434,30 @@ void irq2_manager(int* index){
 }
 
 void isr_operation(int* isr_active) { //assuming the proccess is: fetch instruction -> check irq (before execution of the new isntruction as instructed) ->handle irq ->fetch same instruction.
-	int irq = ((io_line[irq0enable] & io_line[irq0status]) | (io_line[irq1enable] & io_line[irq1status]) | (io_line[irq2enable] & io_line[irq2status]));
+	//maybe not needed, int irq = ((io_line[irq0enable] & io_line[irq0status]) | (io_line[irq1enable] & io_line[irq1status]) | (io_line[irq2enable] & io_line[irq2status]));
 	if (trace_line[0] == io_line[irqreturn]) //if current pc is back at the address stored in register irqreturn than that means the interrupt has been handled.
 		*isr_active = 0;
-	if (irq && !(*isr_active)) { //check 1 status at a time and handle them seperately.
-		if (io_line[irq0status]) {
+	if (!(*isr_active)) { //check 1 status at a time and handle them seperately.
+		if ((io_line[irq0enable] & io_line[irq0status])) {
 			io_line[irq0status] = 0;
-			
 		}
-		else if (io_line[irq1status]) {
+		else if (io_line[irq1enable] & io_line[irq1status]]) {
 			io_line[irq1status] = 0;
-
 		}
-		else { //io_line[irq2status] == 1
+		else if (io_line[irq2enable] & io_line[irq2status]) { 
 			io_line[irq2status] = 0;
-
 		}
 		*isr_active = 1;
 		io_line[irqreturn] = trace_line[0]; //save current pc in irqreturn register.
 		trace_line[0] = io_line[irqhandler]; //set current pc to address set inside irqhandler.
 	}
 }
+
+void update_leds_file(char* leds_path) {
+
+}
+
+void update_hwregtrace_file(char* hwregtrace_path) {
+
+}
+
