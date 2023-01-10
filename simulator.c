@@ -8,11 +8,10 @@ enum io_register { irq0enable, irq1enable, irq2enable, irq0status, irq1status, i
 char ram[MEM_MAX_SIZE][INSTRUCTION_BYTES + 1];
 char hard_disk[HARD_DISK_SIZE][INSTRUCTION_BYTES + 1];
 char* io_registers[IO_SIZE] = { "irq0enable","irq1enable","irq2enable","irq0status","irq1status","irq2status","irqhandler","irqreturn","clks","leds","display7reg","timerenable","timercurrent","timermax","diskcmd","disksector","diskbuffer","diskstatus","reserved","reserved","monitoraddr","monitordata","monitorcmd" };
-int* irq2_list = NULL;
+linked_list* irq2_list = NULL;
 monitor* display;
 int next_pc = 0;
 int cycles = 0;
-bool led_file_opened = false;
 
 //FOR DEBBUGGING.
 char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$s0", "$s1", "$s2", "$gp", "$sp", "$ra" };
@@ -26,16 +25,15 @@ void download_memin_to_ram(char*);
 void upload_ram_to_memout(char*);
 void download_diskin_to_hard_disk(char*);
 void upload_hard_disk_to_diskout(char*);
+void download_irq2(char*);
 void simulator(char*,char*, char*);
 
 //NEW ADDS ADD ME AFTER DEBUGGING
 void update_leds_file(char*);
 void timer_manager();
-int* download_irq2(char*);
-void timer_manager();
 void hard_disk_manager(int*);
 void monitor_manager();
-void irq2_manager(int*);
+void irq2_manager();
 void isr_operation(int*);
 void update_hwregtrace_file(char*, int, int);
 //END OF REMOVE ME
@@ -66,12 +64,12 @@ int main(int argc, char* argv[]) {
 	//display = init_monitor();
 	download_memin_to_ram(argv[1]); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
 	download_diskin_to_hard_disk(argv[2]);
-	irq2_list = download_irq2(argv[3]);
+	download_irq2(argv[3]);
 	simulator(argv[6], argv[7], argv[9]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT and HWREGTRACE.TXT.
 
 ////****THE SIMULATOR IS DONE, PREPARE ALL THE OUTPUT FILES, TRACE.TXT IS GENERATED ALREADY BY THE SIMULATOR****////
 
-	free(irq2_list);
+	free_linked_list(irq2_list);
 	upload_ram_to_memout(argv[4]);
 	upload_hard_disk_to_diskout(argv[11]);
 	regout_file_generator(argv[5]);
@@ -91,22 +89,23 @@ int main(int argc, char* argv[]) {
 	return 0;
 }
 
-int* download_irq2(char* irq2_path) {
+void download_irq2(char* irq2_path) {
 	FILE* fptr_irq2 = fopen(irq2_path, "r");
 	if (fptr_irq2 == NULL) {
 		printf("Error, couldn't open %s\n", irq2_path);
 		exit(1);
 	}
-	int* irq2_list = (int*)malloc(sizeof(int)*10); //will initilize irq2_list to contain only 10 lines of irq2 at the start.
-	for (int i = 0, j = 1; !feof(fptr_irq2); i++) {
-		if (i != 0 && (!(i % 10))) {
-			j++;
-			irq2_list = (int*)realloc(irq2_list, sizeof(int) * j * 10); //extend the size of the irq2_list.
-		}
-		fscanf(fptr_irq2, "%d", &irq2_list[i]);
+	linked_list* new_element = NULL;
+	int data;
+	while(!feof(fptr_irq2)) {
+		fscanf(fptr_irq2, "%d", &data);
+		new_element = create_new_element(data);
+		if (irq2_list == NULL)
+			irq2_list = new_element;
+		else
+			append_to_linked_list(irq2_list, new_element);
 	}
 	fclose(fptr_irq2);
-	return irq2_list;
 }
 
 void download_memin_to_ram(char* memin_path) { //downloads the entirety of memin to a char** ram.
@@ -468,14 +467,13 @@ void monitor_manager(){
 		set_pixel(display, io_line[monitoraddr]/MONITOR_DIM, io_line[monitoraddr]%MONITOR_DIM, io_line[monitordata]);
 }
 
-void irq2_manager(int* index){
-	if (((*index) != sizeof(irq2_list) / 4) && ((*index) != 0 && irq2_list[*index] == 0)) { //if we haven't reached the end of the array and we are not looking at unset numbers.
-		if (cycles >= irq2_list[*index]) {
+void irq2_manager(){
+	if (irq2_list != NULL)
+		if (cycles >= irq2_list->data) {
 			io_line[irq2enable] = io_line[irq2status] = 1;
-			(*index)++;
+			irq2_list = irq2_list->next; //NEED TO CHECK WETHER THIS IS RALLY HAPPENING
 		}
 	}
-}
 
 void isr_operation(int* isr_active) { //assuming the proccess is: fetch instruction -> check irq (before execution of the new isntruction as instructed) ->handle irq ->fetch same instruction.
 	//maybe not needed, int irq = ((io_line[irq0enable] & io_line[irq0status]) | (io_line[irq1enable] & io_line[irq1status]) | (io_line[irq2enable] & io_line[irq2status]));
