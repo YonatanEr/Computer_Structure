@@ -11,6 +11,10 @@ int* irq2_list = NULL;
 monitor* display;
 int next_pc = 0;
 int cycles = 0;
+bool led_file_opened = false; 
+
+enum input_files {sim_exe, memin_txt, diskin_txt, irq2in_txt, memout_txt, regout_txt, trace_txt, hwregtrace_txt, cycles_txt, leds_txt, display7seg_txt, diskout_txt, monitor_txt};
+
 
 //FOR DEBBUGGING.
 char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$s0", "$s1", "$s2", "$gp", "$sp", "$ra" };
@@ -114,7 +118,7 @@ void download_memin_to_ram(char* memin_path) { //downloads the entirety of memin
 		exit(1);
 	}
 	for (int i = 0; i < MEM_MAX_SIZE; i++) {
-		fscanf(fptr_memin, "%s", ram[i]);
+		fscanf(fptr_memin, "%s", &ram[i]);
 	}
 	fclose(fptr_memin);
 }
@@ -126,7 +130,7 @@ void download_diskin_to_hard_disk(char* diskin_path) { //downloads the entirety 
 		exit(1);
 	}
 	for (int i = 0; i < HARD_DISK_SIZE; i++) {
-		fscanf(fptr_diskin, "%s", hard_disk[i]);
+		fscanf(fptr_diskin, "%s", &hard_disk[i]);
 	}
 	fclose(fptr_diskin);
 }
@@ -269,6 +273,9 @@ void opcode_operation(instruction inst, int* halt, int $imm) {
 
 	case 20: //out
 		io_line[rs + rt] = trace_line[rd];
+		if (rs + rt == leds){
+			led_file_txt(cycles);
+		} 
 		break;
 
 	case 21: //halt
@@ -447,6 +454,24 @@ void hard_disk_manager(int* dma_start_cycle) {
 		}
 		io_line[diskstatus] = io_line[diskcmd] = 0;
 		io_line[irq1status] = 1;
+	}
+}
+
+void led_file_txt(int cycles){
+	FILE* fptr;
+	if (led_file){
+		    fptr = fopen(argv[led_file], "a");
+	else {
+		    fptr = fopen(monitor_path, "w");
+	}
+    assert(fptr);
+    int i, j;
+    for(i=0; i<MONITOR_DIM; i++){
+        for(j=0; j<MONITOR_DIM; j++){
+            fprintf(fptr, "%0x\n", get_pixel(dispaly, i, j));
+        }
+    }
+	fclose(fptr);
 	}
 }
 

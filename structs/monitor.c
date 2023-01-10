@@ -43,24 +43,24 @@ void set_pixel(monitor* disp, int i, int j, int p){
 }
 
 
-void display_monitor(monitor* dispaly){
+void display_monitor(monitor* disp){
     int i, j;
     for(i=0; i<MONITOR_DIM; i++){
         for(j=0; j<MONITOR_DIM; j++){
-            printf("%0x", get_pixel(dispaly, i, j));
+            printf("%0x", get_pixel(disp, i, j));
         }
         printf("\n");
     }
 }
 
 
-void monitor_to_txt(monitor* dispaly, char* monitor_path){
+void monitor_to_txt(monitor* disp, char* monitor_path){
     FILE* fptr = fopen(monitor_path, "w");
     assert(fptr);
     int i, j;
     for(i=0; i<MONITOR_DIM; i++){
         for(j=0; j<MONITOR_DIM; j++){
-            fprintf(fptr, "%0x\n", get_pixel(dispaly, i, j));
+            fprintf(fptr, "%0x\n", get_pixel(disp, i, j));
         }
     }
 	fclose(fptr);
