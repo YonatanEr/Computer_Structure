@@ -19,17 +19,17 @@ char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2
 char* opcodes[NUM_OF_OPCODES] = { "add", "sub", "mul","and" , "or" ,"xor", "sll", "sra", "srl", "beq", "bne", "blt", "bgt", "ble", "bge", "jal", "lw", "sw", "reti", "in", "out", "halt" }; //halt = 0x15000
 //END
 
-void opcode_operation(instruction, int*, int, char*, char*);
+void opcode_operation(instruction, int*, int, char*, char*, char*);
 void update_trace_file(char*);
 void regout_file_generator(char*);
 void download_memin_to_ram(char*);
 void upload_ram_to_memout(char*);
 void download_diskin_to_hard_disk(char*);
 void upload_hard_disk_to_diskout(char*);
-void simulator(char*,char*, char*);
+void simulator(char*,char*, char*, char*);
 
 //NEW ADDS ADD ME AFTER DEBUGGING
-void update_leds_file(char*);
+void update_leds_display_file(char*);
 void timer_manager();
 int* download_irq2(char*);
 void timer_manager();
@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
 	download_memin_to_ram(argv[1]); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
 	download_diskin_to_hard_disk(argv[2]);
 	irq2_list = download_irq2(argv[3]);
-	simulator(argv[6], argv[7], argv[9]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT and HWREGTRACE.TXT.
+	simulator(argv[6], argv[7], argv[9], argv[10]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT and HWREGTRACE.TXT.
 
 ////****THE SIMULATOR IS DONE, PREPARE ALL THE OUTPUT FILES, TRACE.TXT IS GENERATED ALREADY BY THE SIMULATOR****////
 
@@ -163,7 +163,7 @@ void upload_hard_disk_to_diskout(char* diskout_path) {
 	fclose(fptr_diskout);
 }
 
-void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_path, char* leds_path) {
+void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_path, char* leds_path, char* display7reg_path) {
 
 	int rd = TRACE_OFFSET + inst.rd; //Initilizes rd as the "address" to the desired register.
 	int rs = trace_line[TRACE_OFFSET + inst.rs]; //Initilizes rs as the value inside the register.
@@ -272,8 +272,12 @@ void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_pa
 
 	case 20: //out
 		io_line[rs + rt] = trace_line[rd];
-		if (rs + rt == leds)
-			update_leds_file(leds_path);
+		if (rs + rt == leds){
+			update_leds_display_file(leds_path);
+		}
+		if (rs + rt == display7reg){
+			update_leds_display_file(display7reg_path);
+		}
 		update_hwregtrace_file(hwregtrace_path, inst.opcode, rs + rt);
 		break;
 
@@ -349,7 +353,7 @@ void update_trace_file(char* trace_path) {
 	return;
 }
 
-void simulator(char* trace_path, char* hwregtrace_path, char* leds_path) {
+void simulator(char* trace_path, char* hwregtrace_path, char* leds_path, char* display7reg_path) {
 	FILE* fptr_trace = fopen(trace_path, "w"); //init file.
 	if (fptr_trace == NULL) {
 		printf("Error, couldn't open %s\n", trace_path);
@@ -369,6 +373,13 @@ void simulator(char* trace_path, char* hwregtrace_path, char* leds_path) {
 	}
 	fclose(fptr_leds);
 
+	FILE* fptr_display7reg = fopen(display7reg_path, "w"); //init file.
+	if (fptr_leds == NULL) {
+		printf("Error, couldn't open %s\n", display7reg_path);
+		exit(1);
+	}
+	fclose(fptr_display7reg);
+
 	int isr_active = 0;
 	for (int $imm = 0, halt = 0; !halt; trace_line[0] = next_pc, $imm = 0) { //while halt was not asserted, update to the next PC and and execute its command.
 		cycles++; //load instruction from memory, increase 1 cycle.
@@ -384,7 +395,7 @@ void simulator(char* trace_path, char* hwregtrace_path, char* leds_path) {
 			trace_line[3] = 0;
 		printf("instruction = %X \t PC = %X \t %s, %s, %s, %s %d\n\n rd = %d\t rs = %d\t rt = %d\n", trace_line[1], trace_line[0], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3], trace_line[2 + inst.rd], trace_line[2 + inst.rs], trace_line[2 + inst.rt]); //TEST
 		update_trace_file(trace_path); //print out trace_line to trace.txt
-		opcode_operation(inst, &halt, $imm, hwregtrace_path, leds_path); //do the instruction.
+		opcode_operation(inst, &halt, $imm, hwregtrace_path, leds_path, display7reg_path); //do the instruction.
 	}
 }
 
@@ -497,13 +508,14 @@ void isr_operation(int* isr_active) { //assuming the proccess is: fetch instruct
 	}
 }
 
-void update_leds_file(char* leds_path) {
-	
-	FILE* fptr = fopen(leds_path, "a");
+
+void update_leds_display_file(char* path) {
+	FILE* fptr = fopen(path, "a");
 	assert(fptr);
 	fprintf(fptr, "%d %08X\n", cycles, io_line[leds]);
 	fclose(fptr);
 }
+
 
 void update_hwregtrace_file(char* hwregtrace_path, int opcode, int hwregister_index) { //taking into account that a hweregtrace was created beforehand and updates it accordingly.
 	FILE* fptr_hwregtrace = fopen(hwregtrace_path, "a");
