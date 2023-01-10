@@ -374,20 +374,19 @@ void regout_file_generator(char* regout_path) {
 
 void timer_manager() {
 	if (io_line[timerenable]) {
-		if (!io_line[irq0enable]) //if we are enabling the timer irq0 returns a pulse.
-			io_line[irq0status] = 1;
-		else
-			io_line[irq0status] = 0;
+		io_line[irq0enable] = 1; //set irq0 high when timerenable is high.
 
-		io_line[irq0enable] = 1;
-
-		if (io_line[timercurrent] == io_line[timermax])
-			io_line[irq0status] = 0;
-		else
-			io_line[timercurrent] += 1;
+		if (io_line[timercurrent] == io_line[timermax]) { //when currenttimer reached timermax.
+			io_line[irq0status] = 1; //send a irq0status pulse.
+			io_line[timercurrent] = 0; //reset timer
+		}
+		else {
+			io_line[irq0status] = 0; //reset irq0status so it send a pulse only.
+			io_line[timercurrent] += 1; //increment timercurrent.
+		}
 	}
 	else
-		io_line[irq0enable] = 0;
+		io_line[irq0enable] = io_line[irq0status] =  0; //if timerenable is not on, reset interrupts. 
 }
 
 void led_manager(int input) {
@@ -396,28 +395,27 @@ void led_manager(int input) {
 
 void hard_disk_manager(int* dma_start_cycle) {
 	int i;
-	if (!io_line[diskstatus] && io_line[diskcmd]) { // if diskstatus == 0  and io_line != 0
-		io_line[diskstatus] = 1;
-		*dma_start_cycle = cycles;
+	if (!io_line[diskstatus] && io_line[diskcmd]) { // if diskstatus == 0  and diskcmd != 0, as in not busy and requesting transaction.
+		io_line[diskstatus] = 1; //set dma to busy.
+		io_line[irq1status] = 0; //reset irqstatus if it has been on previous instruction.
+		*dma_start_cycle = cycles; //save the moment we've started the transaction.
 	}
-	else if (cycles - *dma_start_cycle == 1024) {
+	else if (cycles - *dma_start_cycle >= DMA_ACTIVE_DURATION) { //if 1024 cycles had passed since the dma started.
 		if (io_line[diskcmd] == 1) { //read HD -> RAM
-			//read from hard disk to memory?
-			for (i=0; i<128; i++){
-				sprintf(ram[io_line[diskbuffer] + i], "%05X", hard_disk[128*io_line[disksector] + i]);
+			for (i = 0; i < SECTOR_SIZE; i++) {
+				sprintf(ram[io_line[diskbuffer] + i], "%05X", hard_disk[SECTOR_SIZE*io_line[disksector] + i]);
 			}
 		}
 		else if (io_line[diskcmd] == 2) { //write RAM -> HD
-			//write to hard disk from memory?
-			for (i=0; i<128; i++){
-				sprintf(hard_disk[128*io_line[disksector] + i], "%05X", ram[io_line[diskbuffer] + i]);
+			for (i = 0; i < SECTOR_SIZE; i++){
+				sprintf(hard_disk[SECTOR_SIZE*io_line[disksector] + i], "%05X", ram[io_line[diskbuffer] + i]);
 			}
 		}
-		io_line[diskstatus] = io_line[diskcmd] = 0;
-		io_line[irq1enable] = 1;
+		io_line[diskstatus] = io_line[diskcmd] = 0; //reset registers.
+		io_line[irq1enable] = io_line[irq1status] = 1; //raise interupts.
 	}
 	else {
-		io_line[irq1enable] = 0;
+		io_line[irq1status] = 0; //reset status if it has been high previous instruction.
 	}
 }
 
@@ -427,13 +425,17 @@ void monitor_manager(){
 }
 
 
-void irq2_manager(int* index) { //might skip over cycles but we dont care about that, do we???
-	if (cycles == irq2_list[*index]) {
-		io_line[irq2enable] = io_line[irq2status] = 1;
-		(*index)++;
+void irq2_manager(int* index){
+	if (((*index) != sizeof(irq2_list) / 4) && ((*index) != 0 && irq2_list[*index] == 0)) { //if we haven't reached the end of the array and we are not looking at unset numbers.
+		if (cycles >= irq2_list[*index]) {
+			io_line[irq2enable] = io_line[irq2status] = 1;
+			(*index)++;
+		}
+		else
+			io_line[irq2status] = 0;
 	}
 	else
-		io_line[irq2enable] = io_line[irq2status] = 0;
+		io_line[irq2status] = 0;
 }
 
 void irq_manager() {
