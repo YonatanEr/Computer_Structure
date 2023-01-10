@@ -62,8 +62,6 @@ int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, 
 	}
 	fprintf(fptr_cycles, "%d", cycles);
 	fclose(fptr_cycles);
-	
-
 	free_monitor(display);
 
 	return 0;
@@ -406,12 +404,12 @@ void hard_disk_manager(int* dma_start_cycle) {
 	else if (cycles - *dma_start_cycle >= DMA_ACTIVE_DURATION) { //if 1024 cycles had passed since the dma started.
 		if (io_line[diskcmd] == 1) { //read HD -> RAM
 			for (i = 0; i < SECTOR_SIZE; i++) {
-				sprintf(ram[io_line[diskbuffer] + i], "%05X", hex_string_to_int_signed(hard_disk[SECTOR_SIZE*io_line[disksector] + i]));
+				sprintf(ram[io_line[diskbuffer] + i], "%s", hard_disk[SECTOR_SIZE*io_line[disksector] + i]);
 			}
 		}
 		else if (io_line[diskcmd] == 2) { //write RAM -> HD
 			for (i = 0; i < SECTOR_SIZE; i++){
-				sprintf(hard_disk[SECTOR_SIZE*io_line[disksector] + i], "%05X", hex_string_to_int_signed(ram[io_line[diskbuffer] + i]));
+				sprintf(hard_disk[SECTOR_SIZE*io_line[disksector] + i], "%s", ram[io_line[diskbuffer] + i]);
 			}
 		}
 		io_line[diskstatus] = io_line[diskcmd] = 0; //reset registers.
@@ -441,7 +439,7 @@ void isr_operation(int* isr_active) { //assuming the proccess is: fetch instruct
 		if ((io_line[irq0enable] & io_line[irq0status])) {
 			io_line[irq0status] = 0;
 		}
-		else if (io_line[irq1enable] & io_line[irq1status]]) {
+		else if (io_line[irq1enable] & io_line[irq1status]) {
 			io_line[irq1status] = 0;
 		}
 		else if (io_line[irq2enable] & io_line[irq2status]) { 
@@ -457,7 +455,26 @@ void update_leds_file(char* leds_path) {
 
 }
 
-void update_hwregtrace_file(char* hwregtrace_path) {
+void update_hwregtrace_file(char* hwregtrace_path, int opcode, int hwregister_index, int* file_previously_opened) { //taking into account that a hweregtrace was created beforehand and updates it accordingly.
+	FILE* fptr_hwregtrace;
+
+	if (*file_previously_opened) 
+		fopen(hwregtrace_path, "w");
+	else 
+		fopen(hwregtrace_path, "a");
+
+	if (fptr_hwregtrace == NULL) {
+		printf("Error, couldn't open %s\n", hwregtrace_path);
+		exit(1);
+	}
+
+	char operation[6];
+	if (opcode == 20)  //out
+		strcpy(operation, "WRITE");
+	else //in
+		strcpy(operation, "READ");
+
+	fprintf(fptr_hwregtrace, "%d %s %s %08X", cycles, operation, io_registers[hwregister_index], io_line[hwregister_index]);
 
 }
 

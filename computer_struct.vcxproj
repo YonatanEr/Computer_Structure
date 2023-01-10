@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="simulator.c" />
     <ClCompile Include="structs\monitor.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
