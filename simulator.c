@@ -7,6 +7,7 @@ int io_line[IO_SIZE]; //input/output registers.
 enum io_register { irq0enable, irq1enable, irq2enable, irq0status, irq1status, irq2status, irqhandler, irqreturn, clks, leds, display7reg, timerenable, timercurrent, timermax, diskcmd, disksector, diskbuffer, diskstatus, reserved0, reserved1, monitoraddr, monitordata, monitorcmd };
 char ram[MEM_MAX_SIZE][INSTRUCTION_BYTES + 1];
 char hard_disk[HARD_DISK_SIZE][INSTRUCTION_BYTES + 1];
+char* io_registers[IO_SIZE] = { "irq0enable","irq1enable","irq2enable","irq0status","irq1status","irq2status","irqhandler","irqreturn","clks","leds","display7reg","timerenable","timercurrent","timermax","diskcmd","disksector","diskbuffer","diskstatus","reserved","reserved","monitoraddr","monitordata","monitorcmd" };
 int* irq2_list = NULL;
 monitor* display;
 int next_pc = 0;
@@ -15,15 +16,14 @@ int cycles = 0;
 //FOR DEBBUGGING.
 char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$s0", "$s1", "$s2", "$gp", "$sp", "$ra" };
 char* opcodes[NUM_OF_OPCODES] = { "add", "sub", "mul","and" , "or" ,"xor", "sll", "sra", "srl", "beq", "bne", "blt", "bgt", "ble", "bge", "jal", "lw", "sw", "reti", "in", "out", "halt" }; //halt = 0x15000
-char* io_registers[IO_SIZE] = { "irq0enable","irq1enable","irq2enable","irq0status","irq1status","irq2status","irqhandler","irqreturn","clks","leds","display7reg","timerenable","timercurrent","timermax","diskcmd","disksector","diskbuffer","diskstatus","reserved","reserved","monitoraddr","monitordata","monitorcmd" };
 //END
 
-void opcode_operation(instruction, int*, int);
+void opcode_operation(instruction, int*, int, char*);
 void update_trace_file(char*);
 void regout_file_generator(char*);
 void download_memin_to_ram(char*);
 void upload_ram_to_memout(char*);
-void simulator(char*);
+void simulator(char*,char*);
 
 //NEW ADDS ADD ME AFTER DEBUGGING
 void timer_manager();
@@ -35,10 +35,11 @@ void hard_disk_manager(int*);
 void monitor_manager();
 void irq2_manager(int*);
 void isr_operation(int*);
+void update_hwregtrace_file(char*, int, int);
 //END OF REMOVE ME
 
 
-int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, argv[3] = regout.txt, argv[4] = trace.txt, argv[5] = cycles.txt.
+int main(int argc, char* argv[]) { 
 	
 	// gcc simulator.c -o sim
 
@@ -60,20 +61,18 @@ int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, 
 	12	monitor.txt
 	*/
 
-	display = init_monitor();
-
-	//download_memin_to_ram(argv[1]); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
-
+	//display = init_monitor();
+	download_memin_to_ram(argv[1]); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
 	//download_diskin_to_hard_disk()
-	//download_irq2(/*arg [something]*/);
+	//download_irq2(argv[3]);
 	//download_diskin_to_hard_disk()
-	//simulator(argv[4]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT
+	simulator(argv[4],argv[7]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT
 
 ////****THE SIMULATOR IS DONE, PREPARE ALL THE OUTPUT FILES, TRACE.TXT IS GENERATED ALREADY BY THE SIMULATOR****////
 
 	//free(irq2_list);
-	//upload_ram_to_memout(argv[2]); 
-	//regout_file_generator(argv[3]);
+	upload_ram_to_memout(argv[2]); 
+	regout_file_generator(argv[3]);
 
 	FILE* fptr_cycles = fopen(argv[5], "w");
 	if (fptr_cycles == NULL) {
@@ -84,12 +83,8 @@ int main(int argc, char* argv[]) { //argv[1] = memin.txt, argv[2] = memout.txt, 
 	fclose(fptr_cycles);
 	
 
-<<<<<<< Updated upstream
-	monitor_to_txt(display, argv[12]);
-	free_monitor(display);
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+	//monitor_to_txt(display, argv[12]);
+	//free_monitor(display);
 
 	return 0;
 }
@@ -165,7 +160,7 @@ void upload_hard_disk_to_diskout(char* diskout_path) {
 	fclose(fptr_diskout);
 }
 
-void opcode_operation(instruction inst, int* halt, int $imm) {
+void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_path) {
 
 	int rd = TRACE_OFFSET + inst.rd; //Initilizes rd as the "address" to the desired register.
 	int rs = trace_line[TRACE_OFFSET + inst.rs]; //Initilizes rs as the value inside the register.
@@ -260,7 +255,7 @@ void opcode_operation(instruction inst, int* halt, int $imm) {
 
 	case 17: //sw
 		cycles++; //store value in memory, increase 1 cycle.
-		sprintf(ram[rs + rt], "%05X", trace_line[rd]);
+		sprintf(ram[rs + rt], "%05X", 0x000fffff & trace_line[rd]); //i want to copy only the 20lsb.
 		break;
 
 	case 18: //reti
@@ -269,10 +264,12 @@ void opcode_operation(instruction inst, int* halt, int $imm) {
 
 	case 19: //in
 		trace_line[rd] = io_line[rs + rt];
+		update_hwregtrace_file(hwregtrace_path, inst.opcode, rs + rt);
 		break;
 
 	case 20: //out
 		io_line[rs + rt] = trace_line[rd];
+		update_hwregtrace_file(hwregtrace_path, inst.opcode, rs + rt);
 		break;
 
 	case 21: //halt
@@ -347,18 +344,25 @@ void update_trace_file(char* trace_path) {
 	return;
 }
 
-void simulator(char* trace_path) {
-	FILE* fptr_trace = fopen(trace_path, "w");
+void simulator(char* trace_path, char* hwregtrace_path) {
+	FILE* fptr_trace = fopen(trace_path, "w"); //init file.
 	if (fptr_trace == NULL) {
 		printf("Error, couldn't open %s\n", trace_path);
 		exit(1);
 	}
-	fclose(fptr_trace); //just create the file, no need to write yet.
+	FILE* fptr_hwregtrace = fopen(hwregtrace_path, "w"); //init file.
+	if (fptr_hwregtrace == NULL) {
+		printf("Error, couldn't open %s\n", hwregtrace_path);
+		exit(1);
+	}
+	fclose(fptr_trace); 
+	fclose(fptr_hwregtrace); 
 
+	int isr_active = 0;
 	for (int $imm = 0, halt = 0; !halt; trace_line[0] = next_pc, $imm = 0) { //while halt was not asserted, update to the next PC and and execute its command.
-		//CHECK IRQ STATUS AND HANDLE//
-		instruction inst = parse_instruction(ram[trace_line[0]]); //convert it to the instruction structure.
 		cycles++; //load instruction from memory, increase 1 cycle.
+		//isr_operation(&isr_active); //check if there are interrupts, if there are than it will update pc (trace_line[0]) accordingly.
+		instruction inst = parse_instruction(ram[trace_line[0]]); //convert it to the instruction structure.
 		trace_line[1] = (inst.opcode << 12) + (inst.rd << 8) + (inst.rs << 4) + inst.rt; //update the instruction "register".
 		if (inst.rs == 1 || inst.rt == 1 || inst.rd == 1) { //$imm is present in the command, load ivalue from memory, increase 1 cycle.
 			trace_line[3] = hex_string_to_int_signed(ram[trace_line[0] + 1]); //load I-value to $imm, C compiler will preform sign extension auto.
@@ -367,11 +371,9 @@ void simulator(char* trace_path) {
 		}
 		else
 			trace_line[3] = 0;
-		printf("\n\n instruction = %X \t PC = %X \t %s, %s, %s, %s %d\n\n rd = %d\t rs = %d\t rt = %d\n", trace_line[1], trace_line[0], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3], trace_line[2 + inst.rd], trace_line[2 + inst.rs], trace_line[2 + inst.rt]); //TEST
+		printf("instruction = %X \t PC = %X \t %s, %s, %s, %s %d\n\n rd = %d\t rs = %d\t rt = %d\n", trace_line[1], trace_line[0], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3], trace_line[2 + inst.rd], trace_line[2 + inst.rs], trace_line[2 + inst.rt]); //TEST
 		update_trace_file(trace_path); //print out trace_line to trace.txt
-		opcode_operation(inst, &halt, $imm); //do the instruction.
-
-
+		opcode_operation(inst, &halt, $imm, hwregtrace_path); //do the instruction.
 	}
 }
 
@@ -429,22 +431,11 @@ void hard_disk_manager(int* dma_start_cycle) {
 		*dma_start_cycle = cycles; //save the moment we've started the transaction.
 	}
 	else if (cycles - *dma_start_cycle == DMA_ACTIVE_DURATION) {
-
-<<<<<<< Updated upstream
-		if (io_line[diskbuffer] + i >= MEM_MAX_SIZE){
-=======
->>>>>>> Stashed changes
+		if (io_line[diskbuffer] + SECTOR_SIZE >= MEM_MAX_SIZE){
 			printf("Overflowing alocatted RAM size\n");
 			assert(NULL);
 		}
-
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 		if (io_line[diskcmd] == 1) { //read HD -> RAM
-			//read from hard disk to memory?
-
 			for (i = 0; i < SECTOR_SIZE; i++) {
 				sprintf(ram[io_line[diskbuffer] + i], "%s", hard_disk[SECTOR_SIZE*io_line[disksector] + i]);
 			}
@@ -452,7 +443,6 @@ void hard_disk_manager(int* dma_start_cycle) {
 		else if (io_line[diskcmd] == 2) { //write RAM -> HD
 			//write to hard disk from memory?
 			for (i = 0; i < SECTOR_SIZE; i++){
-
 				sprintf(hard_disk[SECTOR_SIZE*io_line[disksector] + i], "%s", ram[io_line[diskbuffer] + i]);
 			}
 		}
@@ -499,14 +489,8 @@ void update_leds_file(char* leds_path) {
 
 }
 
-void update_hwregtrace_file(char* hwregtrace_path, int opcode, int hwregister_index, int* file_previously_opened) { //taking into account that a hweregtrace was created beforehand and updates it accordingly.
-	FILE* fptr_hwregtrace;
-
-	if (*file_previously_opened) 
-		fopen(hwregtrace_path, "w");
-	else 
-		fopen(hwregtrace_path, "a");
-
+void update_hwregtrace_file(char* hwregtrace_path, int opcode, int hwregister_index) { //taking into account that a hweregtrace was created beforehand and updates it accordingly.
+	FILE* fptr_hwregtrace = fopen(hwregtrace_path, "a");
 	if (fptr_hwregtrace == NULL) {
 		printf("Error, couldn't open %s\n", hwregtrace_path);
 		exit(1);
@@ -518,7 +502,7 @@ void update_hwregtrace_file(char* hwregtrace_path, int opcode, int hwregister_in
 	else //in
 		strcpy(operation, "READ");
 
-	fprintf(fptr_hwregtrace, "%d %s %s %08X", cycles, operation, io_registers[hwregister_index], io_line[hwregister_index]);
-
+	fprintf(fptr_hwregtrace, "%d %s %s %08X\n", cycles, operation, io_registers[hwregister_index], io_line[hwregister_index]);
+	fclose(fptr_hwregtrace);
 }
 
