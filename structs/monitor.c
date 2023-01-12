@@ -35,13 +35,16 @@ monitor* init_monitor(){
 
 
 int get_pixel(monitor* disp, int i, int j){
-    assert(abs(i)<MONITOR_DIM && abs(j)<MONITOR_DIM);
+    assert(0<=i && i<MONITOR_DIM);
+    assert(0<=j && j<MONITOR_DIM);
     return disp->matrix[i][j];    
 }
 
 
 void set_pixel(monitor* disp, int i, int j, int p){
-    assert(abs(i)<MONITOR_DIM && abs(j)<MONITOR_DIM);
+    assert(0<=i && i<MONITOR_DIM);
+    assert(0<=j && j<MONITOR_DIM);
+    assert(0<=p && j<256);
     disp->matrix[i][j] = p;
 }
 
