@@ -63,7 +63,7 @@ void monitor_to_txt(monitor* dispaly, char* monitor_path){
     int i, j;
     for(i=0; i<MONITOR_DIM; i++){
         for(j=0; j<MONITOR_DIM; j++){
-            fprintf(fptr, "%0x\n", get_pixel(dispaly, i, j));
+            fprintf(fptr, "%02x\n", get_pixel(dispaly, i, j));
         }
     }
 	fclose(fptr);

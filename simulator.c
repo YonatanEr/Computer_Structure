@@ -380,9 +380,8 @@ void simulator(char* trace_path, char* hwregtrace_path, char* leds_path, char* d
 		exit(1);
 	}
 	fclose(fptr_leds);
-
 	FILE* fptr_display7reg = fopen(display7reg_path, "w"); //init file.
-	if (fptr_leds == NULL) {
+	if (fptr_display7reg == NULL) {
 		printf("Error, couldn't open %s\n", display7reg_path);
 		exit(1);
 	}

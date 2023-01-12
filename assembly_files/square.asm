@@ -4,6 +4,10 @@ lw		$s0,	$zero,	$imm,	0x100		#load 0x100 to $t0.
 lw		$s1,	$zero,	$imm,	0x101		#load 0x101 to $t1.
 add		$t0,	$zero,	$imm,	65535		#set $s1 = 1
 
+
+
+z = a + len + len*256
+
 ROW:
 bgt $imm, $a0, $t2, L1				# jump to L1 if x > 1
 
@@ -28,3 +32,6 @@ sw		$t1,	$zero,	$gp,	0			#store $t1 in the next row of the memory.
 add		$gp,	$gp,	$s1,	0			#increment gp by 1 (gp++).
 bne		$imm,	$zero,	$s1,	Fib			#we set $s1 to 1 so always branches back to Fib.
 .word	0x101	0x1							#load 1 to address 257, address 256 will hold 0 by default and the fibo series will start from there. 
+
+HALT:
+halt	$zero,	$zero,	$zero,	0			#Termination
