@@ -50,7 +50,7 @@ void display_monitor(monitor* dispaly){
     int i, j;
     for(i=0; i<MONITOR_DIM; i++){
         for(j=0; j<MONITOR_DIM; j++){
-            printf("%0x", get_pixel(dispaly, i, j));
+            printf("%02x", get_pixel(dispaly, i, j));
         }
         printf("\n");
     }

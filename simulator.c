@@ -178,7 +178,7 @@ void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_pa
 		next_pc += 2;
 	else //R-format
 		next_pc += 1;
-
+	
 	switch (inst.opcode) {
 	case 0: //add
 		trace_line[rd] = rs + rt;

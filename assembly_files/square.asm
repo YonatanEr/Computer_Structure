@@ -1,11 +1,16 @@
 .word   0x100   50                          #upper left point of the square
 .word   0x100   10                          #length of all the sqaure edges 
-lw		$s0,	$zero,	$imm,	0x100		#load 0x100 to $t0.
-lw		$s1,	$zero,	$imm,	0x101		#load 0x101 to $t1.
-lw		$s0,	$zero,	$imm,	65535		#load 0x101 to $s0.
+lw		$s0,	$zero,	$imm,	0x100		#load 0x100 to $s0, start
+lw		$s1,	$zero,	$imm,	0x101		#load 0x101 to $s1, len
+add     $s2,    $s1,    $imm,   65535       #t0 = s1*256
+add		$t0,	$t0,	$s0,	0	    	#
+add		$t0,	$t0,	$s0,	0	    	#
 
 
-z = a + len + len*256
+mul		$s2,	$zero,	$imm,	0x7ffff		#bigger number will cause overflow.
+
+
+z = a + len + len*256               
 
 ROW:
 bgt $imm, $a0, $t2, L1				# jump to L1 if x > 1
