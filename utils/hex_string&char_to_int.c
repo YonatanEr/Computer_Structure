@@ -29,9 +29,9 @@ int hex_string_to_int_unsigned(char* input) {
 
 int hex_string_to_int_signed(char* input) {
 	int result = 0, i = 0, msnibble = 0;
-	if (input[0] == '0' && (input[1] == 'x' || input[1] =='X')) //if the string is like 0x1A5.
+	if (input[0] == '0' && (input[1] == 'x' || input[1] =='X')) //if the string is like 0x1A5, could also be 1A5 or 001A5 for example.
 		i += 2;
-	if (hex_char_to_int(input[i]) >= 8) { //is only calculated if the msb is set to HIGH.
+	if ((hex_char_to_int(input[i]) >= 8) && (strlen(input)-i == 5)) { //is only calculated if the msb is set to HIGH and confirms there are 5 nibbles.
 		int bits_16_to_18 = (0x7 & hex_char_to_int(input[i])) << 16; //looking at bits 16-18 of input[19:0], masking the msb of the nibble.
 		msnibble = -1 * pow(2, 19) + bits_16_to_18;
 		i++;

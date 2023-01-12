@@ -1,2113 +1,772 @@
-instruction = 901 	 PC = 0 	 add, $t2, $zero, $imm 1
-
- rd = 0	 rs = 0	 rt = 1
-instruction = 14901 	 PC = 2 	 out, $t2, $zero, $imm 2
-
- rd = 1	 rs = 0	 rt = 2
-instruction = 6E91 	 PC = 4 	 sll, $sp, $t2, $imm 11
-
- rd = 0	 rs = 1	 rt = 11
-instruction = 901 	 PC = 6 	 add, $t2, $zero, $imm 59
-
- rd = 1	 rs = 0	 rt = 59
-instruction = 14901 	 PC = 8 	 out, $t2, $zero, $imm 6
-
- rd = 59	 rs = 0	 rt = 6
-instruction = 10301 	 PC = A 	 lw, $a0, $zero, $imm 256
+######################ISR STARTED#####################
+instruction = 10701 	 PC = 0 	 lw, $t0, $zero, $imm 256
 
  rd = 0	 rs = 0	 rt = 256
-instruction = FF10 	 PC = C 	 jal, $ra, $imm, $zero 17
 
- rd = 0	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 0
 
- rd = 2048	 rs = 2048	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+instruction = 10801 	 PC = 2 	 lw, $t1, $zero, $imm 257
 
- rd = 0	 rs = 2045	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+ rd = 0	 rs = 0	 rt = 257
 
- rd = 14	 rs = 2045	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 0
 
- rd = 7	 rs = 2045	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+instruction = 901 	 PC = 4 	 add, $t2, $zero, $imm 37
 
- rd = 59	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+ rd = 0	 rs = 0	 rt = 37
 
- rd = 32	 rs = 7	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 0
 
- rd = 7	 rs = 7	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+instruction = 14901 	 PC = 6 	 out, $t2, $zero, $imm 6
 
- rd = 14	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+ rd = 37	 rs = 0	 rt = 6
 
- rd = 2045	 rs = 2045	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 0
 
- rd = 0	 rs = 2042	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+instruction = 901 	 PC = 8 	 add, $t2, $zero, $imm 40
 
- rd = 36	 rs = 2042	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+ rd = 37	 rs = 0	 rt = 40
 
- rd = 6	 rs = 2042	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 0
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+instruction = 14901 	 PC = A 	 out, $t2, $zero, $imm 13
 
- rd = 32	 rs = 6	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+ rd = 40	 rs = 0	 rt = 13
 
- rd = 6	 rs = 6	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 0
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+instruction = 14801 	 PC = C 	 out, $t1, $zero, $imm 11
 
- rd = 2042	 rs = 2042	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+ rd = 1	 rs = 0	 rt = 11
 
- rd = 0	 rs = 2039	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 1
 
- rd = 36	 rs = 2039	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 5	 rs = 2039	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+instruction = 14801 	 PC = E 	 out, $t1, $zero, $imm 1
 
  rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
 
- rd = 32	 rs = 5	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 2
 
- rd = 5	 rs = 5	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+instruction = 14801 	 PC = 10 	 out, $t1, $zero, $imm 2
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+ rd = 1	 rs = 0	 rt = 2
 
- rd = 2039	 rs = 2039	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 3
 
- rd = 0	 rs = 2036	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+instruction = A01 	 PC = 12 	 add, $s0, $zero, $imm 524287
 
- rd = 36	 rs = 2036	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+ rd = 0	 rs = 0	 rt = 524287
 
- rd = 4	 rs = 2036	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 4
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 4	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
-
- rd = 4	 rs = 4	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
-
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2036	 rs = 2036	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 0	 rs = 2033	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 36	 rs = 2033	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 3	 rs = 2033	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 3	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
-
- rd = 3	 rs = 3	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
-
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2033	 rs = 2033	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 0	 rs = 2030	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 36	 rs = 2030	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 2	 rs = 2030	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 2	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
-
- rd = 2	 rs = 2	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
-
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2030	 rs = 2030	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 0	 rs = 2027	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 36	 rs = 2027	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 1	 rs = 2027	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 1	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
-
- rd = 0	 rs = 1	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
-
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2027	 rs = 2027	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 0	 rs = 1	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 1	 rs = 1	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 65536	 rs = 65536	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 65537	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
-
- rd = 0	 rs = 1	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
-
- rd = 1	 rs = 2030	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
-
- rd = 2	 rs = 2	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
-
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2030	 rs = 2030	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 1	 rs = 2027	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2027	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 0	 rs = 2027	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 0	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
-
- rd = 1	 rs = 0	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
-
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2027	 rs = 2027	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 65537	 rs = 0	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 0	 rs = 0	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 0	 rs = 0	 rt = 0
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 0	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+instruction = B01 	 PC = 14 	 add, $s1, $zero, $imm 1
 
  rd = 0	 rs = 0	 rt = 1
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
 
- rd = 0	 rs = 2030	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 5
 
- rd = 43	 rs = 2030	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+instruction = D01 	 PC = 16 	 add, $gp, $zero, $imm 258
 
- rd = 1	 rs = 2030	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+ rd = 0	 rs = 0	 rt = 258
 
- rd = 2030	 rs = 2030	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 6
 
- rd = 0	 rs = 2	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+instruction = FF10 	 PC = 18 	 jal, $ra, $imm, $zero 27
 
- rd = 2	 rs = 2	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+ rd = 0	 rs = 27	 rt = 0
 
- rd = 131072	 rs = 131072	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 7
 
- rd = 131073	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+instruction = 778 	 PC = 1B 	 add, $t0, $t0, $t1 0
 
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+ rd = 0	 rs = 0	 rt = 1
 
- rd = 0	 rs = 1	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 8
 
- rd = 2	 rs = 2033	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+instruction = CF7A 	 PC = 1C 	 bgt, $ra, $t0, $s0 0
 
- rd = 3	 rs = 3	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+ rd = 26	 rs = 1	 rt = 524287
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 9
 
- rd = 2033	 rs = 2033	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+instruction = 1170D 	 PC = 1D 	 sw, $t0, $zero, $gp 0
 
- rd = 1	 rs = 2030	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+ rd = 1	 rs = 0	 rt = 258
 
- rd = 43	 rs = 2030	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 10
 
- rd = 1	 rs = 2030	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+instruction = DDB 	 PC = 1E 	 add, $gp, $gp, $s1 0
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+ rd = 258	 rs = 258	 rt = 1
 
- rd = 32	 rs = 1	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 11
 
- rd = 1	 rs = 1	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
-
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2030	 rs = 2030	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 131073	 rs = 1	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 1	 rs = 1	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 65536	 rs = 65536	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 65537	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+instruction = 878 	 PC = 1F 	 add, $t1, $t0, $t1 0
 
  rd = 1	 rs = 1	 rt = 1
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
 
- rd = 1	 rs = 2033	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 12
 
- rd = 43	 rs = 2033	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+instruction = CF8A 	 PC = 20 	 bgt, $ra, $t1, $s0 0
 
- rd = 1	 rs = 2033	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+ rd = 26	 rs = 2	 rt = 524287
 
- rd = 2033	 rs = 2033	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 13
 
- rd = 65537	 rs = 3	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+instruction = 1180D 	 PC = 21 	 sw, $t1, $zero, $gp 0
 
- rd = 3	 rs = 3	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+ rd = 2	 rs = 0	 rt = 259
 
- rd = 196608	 rs = 196608	 rt = 2
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 14
 
- rd = 196610	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+instruction = DDB 	 PC = 22 	 add, $gp, $gp, $s1 0
 
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+ rd = 259	 rs = 259	 rt = 1
 
- rd = 0	 rs = 2	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 15
 
- rd = 3	 rs = 2036	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+instruction = A10B 	 PC = 23 	 bne, $imm, $zero, $s1 27
 
- rd = 4	 rs = 4	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+ rd = 27	 rs = 0	 rt = 1
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 16
 
- rd = 2036	 rs = 2036	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 2	 rs = 2033	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2033	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 2	 rs = 2033	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 2	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
-
- rd = 2	 rs = 2	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
-
- rd = 43	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2033	 rs = 2033	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 2	 rs = 2030	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 36	 rs = 2030	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 1	 rs = 2030	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 1	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
-
- rd = 2	 rs = 1	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
-
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2030	 rs = 2030	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 196610	 rs = 1	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 1	 rs = 1	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 65536	 rs = 65536	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 65537	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
-
- rd = 2	 rs = 1	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
-
- rd = 1	 rs = 2033	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
-
- rd = 2	 rs = 2	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
-
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2033	 rs = 2033	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 1	 rs = 2030	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2030	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 0	 rs = 2030	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 0	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
-
- rd = 1	 rs = 0	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
-
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2030	 rs = 2030	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 65537	 rs = 0	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 0	 rs = 0	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 0	 rs = 0	 rt = 0
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 0	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
-
- rd = 0	 rs = 0	 rt = 1
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
-
- rd = 0	 rs = 2033	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2033	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
-
- rd = 1	 rs = 2033	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2033	 rs = 2033	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 0	 rs = 2	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 2	 rs = 2	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 131072	 rs = 131072	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 131073	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+instruction = 778 	 PC = 1B 	 add, $t0, $t0, $t1 0
 
  rd = 1	 rs = 1	 rt = 2
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
 
- rd = 2	 rs = 2036	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 17
 
- rd = 43	 rs = 2036	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+instruction = CF7A 	 PC = 1C 	 bgt, $ra, $t0, $s0 0
 
- rd = 2	 rs = 2036	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+ rd = 26	 rs = 3	 rt = 524287
 
- rd = 2036	 rs = 2036	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 18
 
- rd = 131073	 rs = 4	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+instruction = 1170D 	 PC = 1D 	 sw, $t0, $zero, $gp 0
 
- rd = 4	 rs = 4	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+ rd = 3	 rs = 0	 rt = 260
 
- rd = 262144	 rs = 262144	 rt = 3
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 19
 
- rd = 262147	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+instruction = DDB 	 PC = 1E 	 add, $gp, $gp, $s1 0
 
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+ rd = 260	 rs = 260	 rt = 1
 
- rd = 0	 rs = 3	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 20
 
- rd = 4	 rs = 2039	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+instruction = 878 	 PC = 1F 	 add, $t1, $t0, $t1 0
 
- rd = 5	 rs = 5	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+ rd = 2	 rs = 3	 rt = 2
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 21
 
- rd = 2039	 rs = 2039	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+instruction = CF8A 	 PC = 20 	 bgt, $ra, $t1, $s0 0
 
- rd = 3	 rs = 2036	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+ rd = 26	 rs = 5	 rt = 524287
 
- rd = 43	 rs = 2036	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 22
 
- rd = 3	 rs = 2036	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+instruction = 1180D 	 PC = 21 	 sw, $t1, $zero, $gp 0
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+ rd = 5	 rs = 0	 rt = 261
 
- rd = 32	 rs = 3	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 23
 
- rd = 3	 rs = 3	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+instruction = DDB 	 PC = 22 	 add, $gp, $gp, $s1 0
 
- rd = 43	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+ rd = 261	 rs = 261	 rt = 1
 
- rd = 2036	 rs = 2036	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 24
 
- rd = 3	 rs = 2033	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+instruction = A10B 	 PC = 23 	 bne, $imm, $zero, $s1 27
 
- rd = 36	 rs = 2033	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+ rd = 27	 rs = 0	 rt = 1
 
- rd = 2	 rs = 2033	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 25
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 2	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
-
- rd = 2	 rs = 2	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
-
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2033	 rs = 2033	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 3	 rs = 2030	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 36	 rs = 2030	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 1	 rs = 2030	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 1	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
-
- rd = 3	 rs = 1	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
-
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2030	 rs = 2030	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 262147	 rs = 1	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 1	 rs = 1	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 65536	 rs = 65536	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 65537	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
-
- rd = 3	 rs = 1	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
-
- rd = 1	 rs = 2033	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
-
- rd = 2	 rs = 2	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
-
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2033	 rs = 2033	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 1	 rs = 2030	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2030	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 0	 rs = 2030	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 0	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
-
- rd = 1	 rs = 0	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
-
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2030	 rs = 2030	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 65537	 rs = 0	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 0	 rs = 0	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 0	 rs = 0	 rt = 0
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 0	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
-
- rd = 0	 rs = 0	 rt = 1
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
-
- rd = 0	 rs = 2033	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2033	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
-
- rd = 1	 rs = 2033	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2033	 rs = 2033	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 0	 rs = 2	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 2	 rs = 2	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 131072	 rs = 131072	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 131073	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
-
- rd = 3	 rs = 1	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
-
- rd = 2	 rs = 2036	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
-
- rd = 3	 rs = 3	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
-
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2036	 rs = 2036	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 1	 rs = 2033	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2033	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 1	 rs = 2033	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 1	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
-
- rd = 1	 rs = 1	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
-
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2033	 rs = 2033	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 131073	 rs = 1	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 1	 rs = 1	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 65536	 rs = 65536	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 65537	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
-
- rd = 1	 rs = 1	 rt = 1
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
-
- rd = 1	 rs = 2036	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2036	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
-
- rd = 1	 rs = 2036	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2036	 rs = 2036	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 65537	 rs = 3	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 3	 rs = 3	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 196608	 rs = 196608	 rt = 2
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 196610	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
-
- rd = 2	 rs = 2	 rt = 3
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
-
- rd = 3	 rs = 2039	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2039	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
-
- rd = 3	 rs = 2039	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2039	 rs = 2039	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 196610	 rs = 5	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 5	 rs = 5	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 327680	 rs = 327680	 rt = 5
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 327685	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
-
- rd = 0	 rs = 5	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
-
- rd = 5	 rs = 2042	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
-
- rd = 6	 rs = 6	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
-
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2042	 rs = 2042	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 5	 rs = 2039	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2039	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 4	 rs = 2039	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 4	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
-
- rd = 4	 rs = 4	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
-
- rd = 43	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2039	 rs = 2039	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 5	 rs = 2036	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 36	 rs = 2036	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 3	 rs = 2036	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 3	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
-
- rd = 3	 rs = 3	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
-
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2036	 rs = 2036	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 5	 rs = 2033	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 36	 rs = 2033	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 2	 rs = 2033	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 2	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
-
- rd = 2	 rs = 2	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
-
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2033	 rs = 2033	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 5	 rs = 2030	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 36	 rs = 2030	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 1	 rs = 2030	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 1	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
-
- rd = 5	 rs = 1	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
-
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2030	 rs = 2030	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 327685	 rs = 1	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 1	 rs = 1	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 65536	 rs = 65536	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 65537	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
-
- rd = 5	 rs = 1	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
-
- rd = 1	 rs = 2033	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
-
- rd = 2	 rs = 2	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
-
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2033	 rs = 2033	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 1	 rs = 2030	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2030	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 0	 rs = 2030	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 0	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
-
- rd = 1	 rs = 0	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
-
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2030	 rs = 2030	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 65537	 rs = 0	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 0	 rs = 0	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 0	 rs = 0	 rt = 0
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 0	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
-
- rd = 0	 rs = 0	 rt = 1
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
-
- rd = 0	 rs = 2033	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2033	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
-
- rd = 1	 rs = 2033	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2033	 rs = 2033	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 0	 rs = 2	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 2	 rs = 2	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 131072	 rs = 131072	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 131073	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
-
- rd = 5	 rs = 1	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
-
- rd = 2	 rs = 2036	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
-
- rd = 3	 rs = 3	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
-
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2036	 rs = 2036	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 1	 rs = 2033	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2033	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 1	 rs = 2033	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 1	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
-
- rd = 1	 rs = 1	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
-
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2033	 rs = 2033	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 131073	 rs = 1	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 1	 rs = 1	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 65536	 rs = 65536	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 65537	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
-
- rd = 1	 rs = 1	 rt = 1
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
-
- rd = 1	 rs = 2036	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2036	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
-
- rd = 1	 rs = 2036	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2036	 rs = 2036	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 65537	 rs = 3	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 3	 rs = 3	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 196608	 rs = 196608	 rt = 2
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 196610	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
-
- rd = 5	 rs = 2	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
-
- rd = 3	 rs = 2039	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
-
- rd = 4	 rs = 4	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
-
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2039	 rs = 2039	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 2	 rs = 2036	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2036	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 2	 rs = 2036	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 2	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
-
- rd = 2	 rs = 2	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
-
- rd = 43	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2036	 rs = 2036	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 2	 rs = 2033	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 36	 rs = 2033	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 1	 rs = 2033	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 1	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
-
- rd = 2	 rs = 1	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
-
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2033	 rs = 2033	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 196610	 rs = 1	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 1	 rs = 1	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 65536	 rs = 65536	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 65537	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
-
- rd = 2	 rs = 1	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
-
- rd = 1	 rs = 2036	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
-
- rd = 2	 rs = 2	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
-
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
-
- rd = 2036	 rs = 2036	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
-
- rd = 1	 rs = 2033	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2033	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
-
- rd = 0	 rs = 2033	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
-
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
-
- rd = 32	 rs = 0	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
-
- rd = 1	 rs = 0	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
-
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2033	 rs = 2033	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 65537	 rs = 0	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 0	 rs = 0	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 0	 rs = 0	 rt = 0
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 0	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
-
- rd = 0	 rs = 0	 rt = 1
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
-
- rd = 0	 rs = 2036	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2036	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
-
- rd = 1	 rs = 2036	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2036	 rs = 2036	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 0	 rs = 2	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 2	 rs = 2	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 131072	 rs = 131072	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 131073	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
-
- rd = 1	 rs = 1	 rt = 2
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
-
- rd = 2	 rs = 2039	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
-
- rd = 43	 rs = 2039	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
-
- rd = 2	 rs = 2039	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
-
- rd = 2039	 rs = 2039	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
-
- rd = 131073	 rs = 4	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
-
- rd = 4	 rs = 4	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
-
- rd = 262144	 rs = 262144	 rt = 3
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
-
- rd = 262147	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
-
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+instruction = 778 	 PC = 1B 	 add, $t0, $t0, $t1 0
 
  rd = 3	 rs = 3	 rt = 5
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
 
- rd = 4	 rs = 2042	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 26
 
- rd = 43	 rs = 2042	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+instruction = CF7A 	 PC = 1C 	 bgt, $ra, $t0, $s0 0
 
- rd = 5	 rs = 2042	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+ rd = 26	 rs = 8	 rt = 524287
 
- rd = 2042	 rs = 2042	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 27
 
- rd = 262147	 rs = 6	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+instruction = 1170D 	 PC = 1D 	 sw, $t0, $zero, $gp 0
 
- rd = 6	 rs = 6	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+ rd = 8	 rs = 0	 rt = 262
 
- rd = 393216	 rs = 393216	 rt = 8
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 28
 
- rd = 393224	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+instruction = DDB 	 PC = 1E 	 add, $gp, $gp, $s1 0
 
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+ rd = 262	 rs = 262	 rt = 1
 
- rd = 0	 rs = 8	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 29
 
- rd = 6	 rs = 2045	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+instruction = 878 	 PC = 1F 	 add, $t1, $t0, $t1 0
 
- rd = 7	 rs = 7	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+ rd = 5	 rs = 8	 rt = 5
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 30
 
- rd = 2045	 rs = 2045	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+instruction = CF8A 	 PC = 20 	 bgt, $ra, $t1, $s0 0
 
- rd = 8	 rs = 2042	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+ rd = 26	 rs = 13	 rt = 524287
 
- rd = 43	 rs = 2042	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 31
 
- rd = 5	 rs = 2042	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+instruction = 1180D 	 PC = 21 	 sw, $t1, $zero, $gp 0
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+ rd = 13	 rs = 0	 rt = 263
 
- rd = 32	 rs = 5	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 32
 
- rd = 5	 rs = 5	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+instruction = DDB 	 PC = 22 	 add, $gp, $gp, $s1 0
 
- rd = 43	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+ rd = 263	 rs = 263	 rt = 1
 
- rd = 2042	 rs = 2042	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 33
 
- rd = 8	 rs = 2039	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+instruction = A10B 	 PC = 23 	 bne, $imm, $zero, $s1 27
 
- rd = 36	 rs = 2039	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+ rd = 27	 rs = 0	 rt = 1
 
- rd = 4	 rs = 2039	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 34
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+instruction = 778 	 PC = 1B 	 add, $t0, $t0, $t1 0
 
- rd = 32	 rs = 4	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+ rd = 8	 rs = 8	 rt = 13
 
- rd = 4	 rs = 4	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 35
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+instruction = CF7A 	 PC = 1C 	 bgt, $ra, $t0, $s0 0
 
- rd = 2039	 rs = 2039	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+ rd = 26	 rs = 21	 rt = 524287
 
- rd = 8	 rs = 2036	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 36
 
- rd = 36	 rs = 2036	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+instruction = 1170D 	 PC = 1D 	 sw, $t0, $zero, $gp 0
 
- rd = 3	 rs = 2036	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+ rd = 21	 rs = 0	 rt = 264
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 37
 
- rd = 32	 rs = 3	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+instruction = DDB 	 PC = 1E 	 add, $gp, $gp, $s1 0
 
- rd = 3	 rs = 3	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+ rd = 264	 rs = 264	 rt = 1
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 38
 
- rd = 2036	 rs = 2036	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+instruction = 878 	 PC = 1F 	 add, $t1, $t0, $t1 0
 
- rd = 8	 rs = 2033	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+ rd = 13	 rs = 21	 rt = 13
 
- rd = 36	 rs = 2033	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 39
 
- rd = 2	 rs = 2033	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+instruction = CF8A 	 PC = 20 	 bgt, $ra, $t1, $s0 0
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+ rd = 26	 rs = 34	 rt = 524287
 
- rd = 32	 rs = 2	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+irqstatus0/1/2 = 0/0/0 	 timercurrent = 40
 
- rd = 2	 rs = 2	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+instruction = 1180D 	 PC = 21 	 sw, $t1, $zero, $gp 0
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+ rd = 34	 rs = 0	 rt = 265
 
- rd = 2033	 rs = 2033	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 0
 
- rd = 8	 rs = 2030	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+instruction = DDB 	 PC = 22 	 add, $gp, $gp, $s1 0
 
- rd = 36	 rs = 2030	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+ rd = 265	 rs = 265	 rt = 1
 
- rd = 1	 rs = 2030	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 1
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+instruction = A10B 	 PC = 23 	 bne, $imm, $zero, $s1 27
 
- rd = 32	 rs = 1	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+ rd = 27	 rs = 0	 rt = 1
 
- rd = 8	 rs = 1	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 2
 
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+instruction = 778 	 PC = 1B 	 add, $t0, $t0, $t1 0
 
- rd = 2030	 rs = 2030	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+ rd = 21	 rs = 21	 rt = 34
 
- rd = 393224	 rs = 1	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 3
 
- rd = 1	 rs = 1	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+instruction = CF7A 	 PC = 1C 	 bgt, $ra, $t0, $s0 0
 
- rd = 65536	 rs = 65536	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+ rd = 26	 rs = 55	 rt = 524287
 
- rd = 65537	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 4
 
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+instruction = 1170D 	 PC = 1D 	 sw, $t0, $zero, $gp 0
 
- rd = 8	 rs = 1	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+ rd = 55	 rs = 0	 rt = 266
 
- rd = 1	 rs = 2033	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 5
 
- rd = 2	 rs = 2	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+instruction = DDB 	 PC = 1E 	 add, $gp, $gp, $s1 0
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+ rd = 266	 rs = 266	 rt = 1
 
- rd = 2033	 rs = 2033	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 6
 
- rd = 1	 rs = 2030	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+instruction = 878 	 PC = 1F 	 add, $t1, $t0, $t1 0
 
- rd = 43	 rs = 2030	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+ rd = 34	 rs = 55	 rt = 34
 
- rd = 0	 rs = 2030	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 7
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+instruction = CF8A 	 PC = 20 	 bgt, $ra, $t1, $s0 0
 
- rd = 32	 rs = 0	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+ rd = 26	 rs = 89	 rt = 524287
 
- rd = 1	 rs = 0	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 8
 
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+instruction = 1180D 	 PC = 21 	 sw, $t1, $zero, $gp 0
 
- rd = 2030	 rs = 2030	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+ rd = 89	 rs = 0	 rt = 267
 
- rd = 65537	 rs = 0	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 9
 
- rd = 0	 rs = 0	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+instruction = DDB 	 PC = 22 	 add, $gp, $gp, $s1 0
 
- rd = 0	 rs = 0	 rt = 0
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+ rd = 267	 rs = 267	 rt = 1
 
- rd = 0	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 10
 
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+instruction = A10B 	 PC = 23 	 bne, $imm, $zero, $s1 27
 
- rd = 0	 rs = 0	 rt = 1
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+ rd = 27	 rs = 0	 rt = 1
 
- rd = 0	 rs = 2033	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 11
 
- rd = 43	 rs = 2033	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+instruction = 778 	 PC = 1B 	 add, $t0, $t0, $t1 0
 
- rd = 1	 rs = 2033	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+ rd = 55	 rs = 55	 rt = 89
 
- rd = 2033	 rs = 2033	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 12
 
- rd = 0	 rs = 2	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+instruction = CF7A 	 PC = 1C 	 bgt, $ra, $t0, $s0 0
 
- rd = 2	 rs = 2	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+ rd = 26	 rs = 144	 rt = 524287
 
- rd = 131072	 rs = 131072	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 13
 
- rd = 131073	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+instruction = 1170D 	 PC = 1D 	 sw, $t0, $zero, $gp 0
 
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+ rd = 144	 rs = 0	 rt = 268
 
- rd = 8	 rs = 1	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 14
 
- rd = 2	 rs = 2036	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+instruction = DDB 	 PC = 1E 	 add, $gp, $gp, $s1 0
 
- rd = 3	 rs = 3	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+ rd = 268	 rs = 268	 rt = 1
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 15
 
- rd = 2036	 rs = 2036	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+instruction = 878 	 PC = 1F 	 add, $t1, $t0, $t1 0
 
- rd = 1	 rs = 2033	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+ rd = 89	 rs = 144	 rt = 89
 
- rd = 43	 rs = 2033	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 16
 
- rd = 1	 rs = 2033	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+instruction = CF8A 	 PC = 20 	 bgt, $ra, $t1, $s0 0
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+ rd = 26	 rs = 233	 rt = 524287
 
- rd = 32	 rs = 1	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 17
 
- rd = 1	 rs = 1	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+instruction = 1180D 	 PC = 21 	 sw, $t1, $zero, $gp 0
 
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+ rd = 233	 rs = 0	 rt = 269
 
- rd = 2033	 rs = 2033	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 18
 
- rd = 131073	 rs = 1	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+instruction = DDB 	 PC = 22 	 add, $gp, $gp, $s1 0
 
- rd = 1	 rs = 1	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+ rd = 269	 rs = 269	 rt = 1
 
- rd = 65536	 rs = 65536	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+irqstatus0/1/2 = 1/0/0 	 timercurrent = 19
 
- rd = 65537	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+instruction = A10B 	 PC = 23 	 bne, $imm, $zero, $s1 27
 
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+ rd = 27	 rs = 0	 rt = 1
 
- rd = 1	 rs = 1	 rt = 1
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 20
 
- rd = 1	 rs = 2036	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+instruction = 778 	 PC = 1B 	 add, $t0, $t0, $t1 0
 
- rd = 43	 rs = 2036	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+ rd = 144	 rs = 144	 rt = 233
 
- rd = 1	 rs = 2036	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 21
 
- rd = 2036	 rs = 2036	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+instruction = CF7A 	 PC = 1C 	 bgt, $ra, $t0, $s0 0
 
- rd = 65537	 rs = 3	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+ rd = 26	 rs = 377	 rt = 524287
 
- rd = 3	 rs = 3	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 22
 
- rd = 196608	 rs = 196608	 rt = 2
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+instruction = 1170D 	 PC = 1D 	 sw, $t0, $zero, $gp 0
 
- rd = 196610	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+ rd = 377	 rs = 0	 rt = 270
 
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 23
 
- rd = 8	 rs = 2	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+instruction = DDB 	 PC = 1E 	 add, $gp, $gp, $s1 0
 
- rd = 3	 rs = 2039	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+ rd = 270	 rs = 270	 rt = 1
 
- rd = 4	 rs = 4	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 24
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+instruction = 878 	 PC = 1F 	 add, $t1, $t0, $t1 0
 
- rd = 2039	 rs = 2039	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+ rd = 233	 rs = 377	 rt = 233
 
- rd = 2	 rs = 2036	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 25
 
- rd = 43	 rs = 2036	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+instruction = CF8A 	 PC = 20 	 bgt, $ra, $t1, $s0 0
 
- rd = 2	 rs = 2036	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+ rd = 26	 rs = 610	 rt = 524287
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 26
 
- rd = 32	 rs = 2	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+instruction = 1180D 	 PC = 21 	 sw, $t1, $zero, $gp 0
 
- rd = 2	 rs = 2	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+ rd = 610	 rs = 0	 rt = 271
 
- rd = 43	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 27
 
- rd = 2036	 rs = 2036	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+instruction = DDB 	 PC = 22 	 add, $gp, $gp, $s1 0
 
- rd = 2	 rs = 2033	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+ rd = 271	 rs = 271	 rt = 1
 
- rd = 36	 rs = 2033	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 28
 
- rd = 1	 rs = 2033	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+instruction = A10B 	 PC = 23 	 bne, $imm, $zero, $s1 27
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+ rd = 27	 rs = 0	 rt = 1
 
- rd = 32	 rs = 1	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 29
 
- rd = 2	 rs = 1	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+instruction = 778 	 PC = 1B 	 add, $t0, $t0, $t1 0
 
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+ rd = 377	 rs = 377	 rt = 610
 
- rd = 2033	 rs = 2033	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 30
 
- rd = 196610	 rs = 1	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+instruction = CF7A 	 PC = 1C 	 bgt, $ra, $t0, $s0 0
 
- rd = 1	 rs = 1	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+ rd = 26	 rs = 987	 rt = 524287
 
- rd = 65536	 rs = 65536	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 31
 
- rd = 65537	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+instruction = 1170D 	 PC = 1D 	 sw, $t0, $zero, $gp 0
 
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+ rd = 987	 rs = 0	 rt = 272
 
- rd = 2	 rs = 1	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 32
 
- rd = 1	 rs = 2036	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+instruction = DDB 	 PC = 1E 	 add, $gp, $gp, $s1 0
 
- rd = 2	 rs = 2	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+ rd = 272	 rs = 272	 rt = 1
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 33
 
- rd = 2036	 rs = 2036	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+instruction = 878 	 PC = 1F 	 add, $t1, $t0, $t1 0
 
- rd = 1	 rs = 2033	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+ rd = 610	 rs = 987	 rt = 610
 
- rd = 43	 rs = 2033	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 34
 
- rd = 0	 rs = 2033	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+instruction = CF8A 	 PC = 20 	 bgt, $ra, $t1, $s0 0
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+ rd = 26	 rs = 1597	 rt = 524287
 
- rd = 32	 rs = 0	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 35
 
- rd = 1	 rs = 0	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+instruction = 1180D 	 PC = 21 	 sw, $t1, $zero, $gp 0
 
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+ rd = 1597	 rs = 0	 rt = 273
 
- rd = 2033	 rs = 2033	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 36
 
- rd = 65537	 rs = 0	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+instruction = DDB 	 PC = 22 	 add, $gp, $gp, $s1 0
 
- rd = 0	 rs = 0	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+ rd = 273	 rs = 273	 rt = 1
 
- rd = 0	 rs = 0	 rt = 0
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 37
 
- rd = 0	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+instruction = A10B 	 PC = 23 	 bne, $imm, $zero, $s1 27
 
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+ rd = 27	 rs = 0	 rt = 1
 
- rd = 0	 rs = 0	 rt = 1
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 38
 
- rd = 0	 rs = 2036	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+instruction = 778 	 PC = 1B 	 add, $t0, $t0, $t1 0
 
- rd = 43	 rs = 2036	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+ rd = 987	 rs = 987	 rt = 1597
 
- rd = 1	 rs = 2036	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 39
 
- rd = 2036	 rs = 2036	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+instruction = CF7A 	 PC = 1C 	 bgt, $ra, $t0, $s0 0
 
- rd = 0	 rs = 2	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+ rd = 26	 rs = 2584	 rt = 524287
 
- rd = 2	 rs = 2	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 40
 
- rd = 131072	 rs = 131072	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+instruction = 1170D 	 PC = 1D 	 sw, $t0, $zero, $gp 0
 
- rd = 131073	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+ rd = 2584	 rs = 0	 rt = 274
 
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 0
 
- rd = 1	 rs = 1	 rt = 2
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+instruction = DDB 	 PC = 1E 	 add, $gp, $gp, $s1 0
 
- rd = 2	 rs = 2039	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+ rd = 274	 rs = 274	 rt = 1
 
- rd = 43	 rs = 2039	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 1
 
- rd = 2	 rs = 2039	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+instruction = 878 	 PC = 1F 	 add, $t1, $t0, $t1 0
 
- rd = 2039	 rs = 2039	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+ rd = 1597	 rs = 2584	 rt = 1597
 
- rd = 131073	 rs = 4	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 2
 
- rd = 4	 rs = 4	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+instruction = CF8A 	 PC = 20 	 bgt, $ra, $t1, $s0 0
 
- rd = 262144	 rs = 262144	 rt = 3
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+ rd = 26	 rs = 4181	 rt = 524287
 
- rd = 262147	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 3
 
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+instruction = 1180D 	 PC = 21 	 sw, $t1, $zero, $gp 0
 
- rd = 8	 rs = 3	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+ rd = 4181	 rs = 0	 rt = 275
 
- rd = 4	 rs = 2042	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 4
 
- rd = 5	 rs = 5	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+instruction = DDB 	 PC = 22 	 add, $gp, $gp, $s1 0
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+ rd = 275	 rs = 275	 rt = 1
 
- rd = 2042	 rs = 2042	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 5
 
- rd = 3	 rs = 2039	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+instruction = A10B 	 PC = 23 	 bne, $imm, $zero, $s1 27
 
- rd = 43	 rs = 2039	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+ rd = 27	 rs = 0	 rt = 1
 
- rd = 3	 rs = 2039	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 6
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+instruction = 778 	 PC = 1B 	 add, $t0, $t0, $t1 0
 
- rd = 32	 rs = 3	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+ rd = 2584	 rs = 2584	 rt = 4181
 
- rd = 3	 rs = 3	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 7
 
- rd = 43	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+instruction = CF7A 	 PC = 1C 	 bgt, $ra, $t0, $s0 0
 
- rd = 2039	 rs = 2039	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+ rd = 26	 rs = 6765	 rt = 524287
 
- rd = 3	 rs = 2036	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 8
 
- rd = 36	 rs = 2036	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+instruction = 1170D 	 PC = 1D 	 sw, $t0, $zero, $gp 0
 
- rd = 2	 rs = 2036	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+ rd = 6765	 rs = 0	 rt = 276
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 9
 
- rd = 32	 rs = 2	 rt = 1
-instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+instruction = DDB 	 PC = 1E 	 add, $gp, $gp, $s1 0
 
- rd = 2	 rs = 2	 rt = 1
-instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+ rd = 276	 rs = 276	 rt = 1
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 10
 
- rd = 2036	 rs = 2036	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+instruction = 878 	 PC = 1F 	 add, $t1, $t0, $t1 0
 
- rd = 3	 rs = 2033	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+ rd = 4181	 rs = 6765	 rt = 4181
 
- rd = 36	 rs = 2033	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 11
 
- rd = 1	 rs = 2033	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+instruction = CF8A 	 PC = 20 	 bgt, $ra, $t1, $s0 0
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+ rd = 26	 rs = 10946	 rt = 524287
 
- rd = 32	 rs = 1	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 12
 
- rd = 3	 rs = 1	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+instruction = 1180D 	 PC = 21 	 sw, $t1, $zero, $gp 0
 
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+ rd = 10946	 rs = 0	 rt = 277
 
- rd = 2033	 rs = 2033	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 13
 
- rd = 262147	 rs = 1	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+instruction = DDB 	 PC = 22 	 add, $gp, $gp, $s1 0
 
- rd = 1	 rs = 1	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+ rd = 277	 rs = 277	 rt = 1
 
- rd = 65536	 rs = 65536	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 14
 
- rd = 65537	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+instruction = A10B 	 PC = 23 	 bne, $imm, $zero, $s1 27
 
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+ rd = 27	 rs = 0	 rt = 1
 
- rd = 3	 rs = 1	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 15
 
- rd = 1	 rs = 2036	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+instruction = 778 	 PC = 1B 	 add, $t0, $t0, $t1 0
 
- rd = 2	 rs = 2	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+ rd = 6765	 rs = 6765	 rt = 10946
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 16
 
- rd = 2036	 rs = 2036	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+instruction = CF7A 	 PC = 1C 	 bgt, $ra, $t0, $s0 0
 
- rd = 1	 rs = 2033	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+ rd = 26	 rs = 17711	 rt = 524287
 
- rd = 43	 rs = 2033	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 17
 
- rd = 0	 rs = 2033	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+instruction = 1170D 	 PC = 1D 	 sw, $t0, $zero, $gp 0
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+ rd = 17711	 rs = 0	 rt = 278
 
- rd = 32	 rs = 0	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 18
 
- rd = 1	 rs = 0	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+instruction = DDB 	 PC = 1E 	 add, $gp, $gp, $s1 0
 
- rd = 50	 rs = 0	 rt = 0
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+ rd = 278	 rs = 278	 rt = 1
 
- rd = 2033	 rs = 2033	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 19
 
- rd = 65537	 rs = 0	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+instruction = 878 	 PC = 1F 	 add, $t1, $t0, $t1 0
 
- rd = 0	 rs = 0	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+ rd = 10946	 rs = 17711	 rt = 10946
 
- rd = 0	 rs = 0	 rt = 0
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 20
 
- rd = 0	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+instruction = CF8A 	 PC = 20 	 bgt, $ra, $t1, $s0 0
 
- rd = 43	 rs = 0	 rt = 0
-instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+ rd = 26	 rs = 28657	 rt = 524287
 
- rd = 0	 rs = 0	 rt = 1
-instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 21
 
- rd = 0	 rs = 2036	 rt = 0
-instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+instruction = 1180D 	 PC = 21 	 sw, $t1, $zero, $gp 0
 
- rd = 43	 rs = 2036	 rt = 1
-instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+ rd = 28657	 rs = 0	 rt = 279
 
- rd = 1	 rs = 2036	 rt = 2
-instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 22
 
- rd = 2036	 rs = 2036	 rt = 3
-instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+instruction = DDB 	 PC = 22 	 add, $gp, $gp, $s1 0
 
- rd = 0	 rs = 2	 rt = 0
-instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+ rd = 279	 rs = 279	 rt = 1
 
- rd = 2	 rs = 2	 rt = 16
-instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 23
 
- rd = 131072	 rs = 131072	 rt = 1
-instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+instruction = A10B 	 PC = 23 	 bne, $imm, $zero, $s1 27
 
- rd = 131073	 rs = 0	 rt = 10
-instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+ rd = 27	 rs = 0	 rt = 1
 
- rd = 36	 rs = 0	 rt = 0
-instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 24
 
- rd = 3	 rs = 1	 rt = 0
-instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+instruction = 778 	 PC = 1B 	 add, $t0, $t0, $t1 0
 
- rd = 2	 rs = 2039	 rt = 0
-instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+ rd = 17711	 rs = 17711	 rt = 28657
 
- rd = 3	 rs = 3	 rt = 2
-instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 25
 
- rd = 36	 rs = 17	 rt = 0
-instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+instruction = CF7A 	 PC = 1C 	 bgt, $ra, $t0, $s0 0
 
- rd = 2039	 rs = 2039	 rt = -3
-instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+ rd = 26	 rs = 46368	 rt = 524287
 
- rd = 1	 rs = 2036	 rt = 2
-instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 26
 
- rd = 43	 rs = 2036	 rt = 1
-instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+instruction = 1170D 	 PC = 1D 	 sw, $t0, $zero, $gp 0
 
- rd = 1	 rs = 2036	 rt = 0
-instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+ rd = 46368	 rs = 0	 rt = 280
 
- rd = 1	 rs = 0	 rt = 1
-instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 27
 
- rd = 32	 rs = 1	 rt = 1
-instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+instruction = DDB 	 PC = 1E 	 add, $gp, $gp, $s1 0
 
- rd = 1	 rs = 1	 rt = 0
-instruction = 9100 	 PC = 1E 	 beq
+ rd = 280	 rs = 280	 rt = 1
+
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 28
+
+instruction = 878 	 PC = 1F 	 add, $t1, $t0, $t1 0
+
+ rd = 28657	 rs = 46368	 rt = 28657
+
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 29
+
+instruction = CF8A 	 PC = 20 	 bgt, $ra, $t1, $s0 0
+
+ rd = 26	 rs = 75025	 rt = 524287
+
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 30
+
+instruction = 1180D 	 PC = 21 	 sw, $t1, $zero, $gp 0
+
+ rd = 75025	 rs = 0	 rt = 281
+
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 31
+
+instruction = DDB 	 PC = 22 	 add, $gp, $gp, $s1 0
+
+ rd = 281	 rs = 281	 rt = 1
+
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 32
+
+instruction = A10B 	 PC = 23 	 bne, $imm, $zero, $s1 27
+
+ rd = 27	 rs = 0	 rt = 1
+
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 33
+
+instruction = 778 	 PC = 1B 	 add, $t0, $t0, $t1 0
+
+ rd = 46368	 rs = 46368	 rt = 75025
+
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 34
+
+instruction = CF7A 	 PC = 1C 	 bgt, $ra, $t0, $s0 0
+
+ rd = 26	 rs = 121393	 rt = 524287
+
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 35
+
+instruction = 1170D 	 PC = 1D 	 sw, $t0, $zero, $gp 0
+
+ rd = 121393	 rs = 0	 rt = 282
+
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 36
+
+instruction = DDB 	 PC = 1E 	 add, $gp, $gp, $s1 0
+
+ rd = 282	 rs = 282	 rt = 1
+
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 37
+
+instruction = 878 	 PC = 1F 	 add, $t1, $t0, $t1 0
+
+ rd = 75025	 rs = 121393	 rt = 75025
+
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 38
+
+instruction = CF8A 	 PC = 20 	 bgt, $ra, $t1, $s0 0
+
+ rd = 26	 rs = 196418	 rt = 524287
+
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 39
+
+instruction = 1180D 	 PC = 21 	 sw, $t1, $zero, $gp 0
+
+ rd = 196418	 rs = 0	 rt = 283
+
+irqstatus0/1/2 = 1/0/1 	 timercurrent = 40
+
+instruction = DDB 	 PC = 22 	 add, $gp, $gp, $s1 0
+
+ 
