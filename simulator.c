@@ -36,6 +36,7 @@ void irq2_manager();
 void isr_operation(int*);
 void update_hwregtrace_file(char*, int, int);
 void io_register_size_validator();
+void clk_manager();
 
 int main(int argc, char* argv[]) { 
 	
@@ -71,6 +72,8 @@ int main(int argc, char* argv[]) {
 	upload_ram_to_memout(argv[4]);
 	upload_hard_disk_to_diskout(argv[11]);
 	regout_file_generator(argv[5]);
+	monitor_to_txt(display, argv[12]);
+	free_monitor(display);
 
 	FILE* fptr_cycles = fopen(argv[8], "w");
 	if (fptr_cycles == NULL) {
@@ -79,10 +82,6 @@ int main(int argc, char* argv[]) {
 	}
 	fprintf(fptr_cycles, "%d", cycles);
 	fclose(fptr_cycles);
-	
-
-	monitor_to_txt(display, argv[12]);
-	free_monitor(display);
 
 	return 0;
 }
@@ -250,6 +249,7 @@ void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_pa
 
 	case 16: //lw
 		cycles++; //load value from memory, increase 1 cycle.
+		clk_manager();
 		if (rs + rt >= MEM_MAX_SIZE || rs + rt < 0) {
 			printf("Error, memory request RAM[%d] out of bounds, Exiting.", rs + rt);
 			exit(1);
@@ -259,6 +259,7 @@ void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_pa
 
 	case 17: //sw
 		cycles++; //store value in memory, increase 1 cycle.
+		clk_manager();
 		if (rs + rt >= MEM_MAX_SIZE || rs + rt < 0) {
 			printf("Error, memory request RAM[%d] out of bounds, Exiting.", rs + rt);
 			exit(1);
@@ -387,14 +388,16 @@ void simulator(char* trace_path, char* hwregtrace_path, char* leds_path, char* d
 
 	int isr_active = 0, dma_start_cycle = 0;
 	for (int $imm = 0, halt = 0; !halt; trace_line[0] = next_pc, $imm = 0) { //while halt was not asserted, update to the next PC and and execute its command.
-		isr_operation(&isr_active); //check if there are interrupts, if there are than it will update pc (trace_line[0]) accordingly.
+		isr_operation(&isr_active); //check if there are interrupts, if there are than it will update pc (trace_line[0]) accordingly. 
 		cycles++; //load instruction from memory, increase 1 cycle.
+		clk_manager();
 		instruction inst = parse_instruction(ram[trace_line[0]]); //convert it to the instruction structure.
 		trace_line[1] = (inst.opcode << 12) + (inst.rd << 8) + (inst.rs << 4) + inst.rt; //update the instruction "register".
 		if (inst.rs == 1 || inst.rt == 1 || inst.rd == 1) { //$imm is present in the command, load ivalue from memory, increase 1 cycle.
 			trace_line[3] = hex_string_to_int_signed(ram[trace_line[0] + 1]); //load I-value to $imm, C compiler will preform sign extension auto.
 			//printf("$imm found, equal to %d\n", trace_line[3]); //TEST
 			cycles++;
+			clk_manager();
 			$imm = 1; //set $imm to be 1 (=true) since it is present.
 		}
 		else
@@ -560,4 +563,11 @@ void io_register_size_validator() { //validates the current status of the i/o re
 			exit(1);
 		}
 	}
+}
+
+void clk_manager() {
+	if (io_line[clks] == 0xffffffff)
+		io_line[clks] = 0;
+	else
+		io_line[clks]++;
 }
