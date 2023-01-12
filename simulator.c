@@ -28,16 +28,12 @@ void upload_hard_disk_to_diskout(char*);
 void download_irq2(char*);
 void simulator(char*,char*, char*, char*);
 void update_leds_display_file(char*, int);
-
-//NEW ADDS ADD ME AFTER DEBUGGING
 void timer_manager();
 void hard_disk_manager(int*);
 void monitor_manager();
 void irq2_manager();
 void isr_operation(int*);
 void update_hwregtrace_file(char*, int, int);
-//END OF REMOVE ME
-
 
 int main(int argc, char* argv[]) { 
 	
@@ -61,10 +57,9 @@ int main(int argc, char* argv[]) {
 	12	monitor.txt
 	*/
 
-	//display = init_monitor();
+	display = init_monitor();
 	download_memin_to_ram(argv[1]); //DOWNLOAD MEMIN TO AN INTERNAL ARRAY.
 	download_diskin_to_hard_disk(argv[2]);
-
 	download_irq2(argv[3]);
 	simulator(argv[6], argv[7], argv[9], argv[10]); //ACTIVATE THE SIMULATOR AND GENERATE TRACE.TXT and HWREGTRACE.TXT.
 
@@ -84,8 +79,8 @@ int main(int argc, char* argv[]) {
 	fclose(fptr_cycles);
 	
 
-	//monitor_to_txt(display, argv[12]);
-	//free_monitor(display);
+	monitor_to_txt(display, argv[12]);
+	free_monitor(display);
 
 	return 0;
 }
@@ -388,10 +383,10 @@ void simulator(char* trace_path, char* hwregtrace_path, char* leds_path, char* d
 	}
 	fclose(fptr_display7reg);
 
-	int isr_active = 0;
+	int isr_active = 0, dma_start_cycle = 0;
 	for (int $imm = 0, halt = 0; !halt; trace_line[0] = next_pc, $imm = 0) { //while halt was not asserted, update to the next PC and and execute its command.
 		cycles++; //load instruction from memory, increase 1 cycle.
-		//isr_operation(&isr_active); //check if there are interrupts, if there are than it will update pc (trace_line[0]) accordingly.
+		isr_operation(&isr_active); //check if there are interrupts, if there are than it will update pc (trace_line[0]) accordingly.
 		instruction inst = parse_instruction(ram[trace_line[0]]); //convert it to the instruction structure.
 		trace_line[1] = (inst.opcode << 12) + (inst.rd << 8) + (inst.rs << 4) + inst.rt; //update the instruction "register".
 		if (inst.rs == 1 || inst.rt == 1 || inst.rd == 1) { //$imm is present in the command, load ivalue from memory, increase 1 cycle.
@@ -404,6 +399,11 @@ void simulator(char* trace_path, char* hwregtrace_path, char* leds_path, char* d
 		printf("instruction = %X \t PC = %X \t %s, %s, %s, %s %d\n\n rd = %d\t rs = %d\t rt = %d\n", trace_line[1], trace_line[0], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3], trace_line[2 + inst.rd], trace_line[2 + inst.rs], trace_line[2 + inst.rt]); //TEST
 		update_trace_file(trace_path); //print out trace_line to trace.txt
 		opcode_operation(inst, &halt, $imm, hwregtrace_path, leds_path, display7reg_path); //do the instruction.
+		//IO REGISTERS MANAGERS
+		monitor_manager();
+		timer_manager();
+		hard_disk_manager(&dma_start_cycle);
+		irq2_manager();
 	}
 }
 
@@ -460,7 +460,7 @@ void hard_disk_manager(int* dma_start_cycle) {
 		io_line[diskstatus] = 1; //set dma to busy.
 		*dma_start_cycle = cycles; //save the moment we've started the transaction.
 	}
-	else if (cycles - *dma_start_cycle == DMA_ACTIVE_DURATION) {
+	else if (cycles - *dma_start_cycle >= DMA_ACTIVE_DURATION) {
 
 		if (io_line[diskbuffer] + SECTOR_SIZE >= MEM_MAX_SIZE){
 			printf("Overflowing alocatted RAM size\n");

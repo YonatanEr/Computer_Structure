@@ -1,0 +1,2113 @@
+instruction = 901 	 PC = 0 	 add, $t2, $zero, $imm 1
+
+ rd = 0	 rs = 0	 rt = 1
+instruction = 14901 	 PC = 2 	 out, $t2, $zero, $imm 2
+
+ rd = 1	 rs = 0	 rt = 2
+instruction = 6E91 	 PC = 4 	 sll, $sp, $t2, $imm 11
+
+ rd = 0	 rs = 1	 rt = 11
+instruction = 901 	 PC = 6 	 add, $t2, $zero, $imm 59
+
+ rd = 1	 rs = 0	 rt = 59
+instruction = 14901 	 PC = 8 	 out, $t2, $zero, $imm 6
+
+ rd = 59	 rs = 0	 rt = 6
+instruction = 10301 	 PC = A 	 lw, $a0, $zero, $imm 256
+
+ rd = 0	 rs = 0	 rt = 256
+instruction = FF10 	 PC = C 	 jal, $ra, $imm, $zero 17
+
+ rd = 0	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2048	 rs = 2048	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 0	 rs = 2045	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 14	 rs = 2045	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 7	 rs = 2045	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 59	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 7	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 7	 rs = 7	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 14	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2045	 rs = 2045	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 0	 rs = 2042	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2042	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 6	 rs = 2042	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 6	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 6	 rs = 6	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2042	 rs = 2042	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 0	 rs = 2039	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2039	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 5	 rs = 2039	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 5	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 5	 rs = 5	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2039	 rs = 2039	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 0	 rs = 2036	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2036	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 4	 rs = 2036	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 4	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 4	 rs = 4	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2036	 rs = 2036	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 0	 rs = 2033	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2033	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 3	 rs = 2033	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 3	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 3	 rs = 3	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2033	 rs = 2033	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 0	 rs = 2030	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2030	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 2	 rs = 2030	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 2	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 2	 rs = 2	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2030	 rs = 2030	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 0	 rs = 2027	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2027	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2027	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 1	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 0	 rs = 1	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2027	 rs = 2027	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 0	 rs = 1	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 1	 rs = 1	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 65536	 rs = 65536	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 65537	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 0	 rs = 1	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2030	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 2	 rs = 2	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2030	 rs = 2030	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2027	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2027	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 0	 rs = 2027	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 0	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 1	 rs = 0	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2027	 rs = 2027	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 65537	 rs = 0	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 0	 rs = 0	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 0	 rs = 0	 rt = 0
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 0	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 0	 rs = 0	 rt = 1
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 0	 rs = 2030	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2030	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2030	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2030	 rs = 2030	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 0	 rs = 2	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 2	 rs = 2	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 131072	 rs = 131072	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 131073	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 0	 rs = 1	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 2	 rs = 2033	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 3	 rs = 3	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2033	 rs = 2033	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2030	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2030	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2030	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 1	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 1	 rs = 1	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2030	 rs = 2030	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 131073	 rs = 1	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 1	 rs = 1	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 65536	 rs = 65536	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 65537	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 1	 rs = 1	 rt = 1
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2033	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2033	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2033	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2033	 rs = 2033	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 65537	 rs = 3	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 3	 rs = 3	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 196608	 rs = 196608	 rt = 2
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 196610	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 0	 rs = 2	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 3	 rs = 2036	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 4	 rs = 4	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2036	 rs = 2036	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 2	 rs = 2033	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2033	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 2	 rs = 2033	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 2	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 2	 rs = 2	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 43	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2033	 rs = 2033	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 2	 rs = 2030	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2030	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2030	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 1	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 2	 rs = 1	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2030	 rs = 2030	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 196610	 rs = 1	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 1	 rs = 1	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 65536	 rs = 65536	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 65537	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 2	 rs = 1	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2033	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 2	 rs = 2	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2033	 rs = 2033	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2030	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2030	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 0	 rs = 2030	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 0	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 1	 rs = 0	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2030	 rs = 2030	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 65537	 rs = 0	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 0	 rs = 0	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 0	 rs = 0	 rt = 0
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 0	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 0	 rs = 0	 rt = 1
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 0	 rs = 2033	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2033	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2033	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2033	 rs = 2033	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 0	 rs = 2	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 2	 rs = 2	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 131072	 rs = 131072	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 131073	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 1	 rs = 1	 rt = 2
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 2	 rs = 2036	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2036	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 2	 rs = 2036	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2036	 rs = 2036	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 131073	 rs = 4	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 4	 rs = 4	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 262144	 rs = 262144	 rt = 3
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 262147	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 0	 rs = 3	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 4	 rs = 2039	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 5	 rs = 5	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2039	 rs = 2039	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 3	 rs = 2036	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2036	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 3	 rs = 2036	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 3	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 3	 rs = 3	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 43	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2036	 rs = 2036	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 3	 rs = 2033	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2033	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 2	 rs = 2033	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 2	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 2	 rs = 2	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2033	 rs = 2033	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 3	 rs = 2030	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2030	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2030	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 1	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 3	 rs = 1	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2030	 rs = 2030	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 262147	 rs = 1	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 1	 rs = 1	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 65536	 rs = 65536	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 65537	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 3	 rs = 1	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2033	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 2	 rs = 2	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2033	 rs = 2033	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2030	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2030	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 0	 rs = 2030	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 0	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 1	 rs = 0	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2030	 rs = 2030	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 65537	 rs = 0	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 0	 rs = 0	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 0	 rs = 0	 rt = 0
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 0	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 0	 rs = 0	 rt = 1
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 0	 rs = 2033	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2033	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2033	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2033	 rs = 2033	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 0	 rs = 2	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 2	 rs = 2	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 131072	 rs = 131072	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 131073	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 3	 rs = 1	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 2	 rs = 2036	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 3	 rs = 3	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2036	 rs = 2036	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2033	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2033	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2033	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 1	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 1	 rs = 1	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2033	 rs = 2033	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 131073	 rs = 1	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 1	 rs = 1	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 65536	 rs = 65536	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 65537	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 1	 rs = 1	 rt = 1
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2036	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2036	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2036	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2036	 rs = 2036	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 65537	 rs = 3	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 3	 rs = 3	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 196608	 rs = 196608	 rt = 2
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 196610	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 2	 rs = 2	 rt = 3
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 3	 rs = 2039	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2039	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 3	 rs = 2039	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2039	 rs = 2039	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 196610	 rs = 5	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 5	 rs = 5	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 327680	 rs = 327680	 rt = 5
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 327685	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 0	 rs = 5	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 5	 rs = 2042	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 6	 rs = 6	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2042	 rs = 2042	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 5	 rs = 2039	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2039	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 4	 rs = 2039	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 4	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 4	 rs = 4	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 43	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2039	 rs = 2039	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 5	 rs = 2036	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2036	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 3	 rs = 2036	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 3	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 3	 rs = 3	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2036	 rs = 2036	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 5	 rs = 2033	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2033	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 2	 rs = 2033	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 2	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 2	 rs = 2	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2033	 rs = 2033	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 5	 rs = 2030	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2030	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2030	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 1	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 5	 rs = 1	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2030	 rs = 2030	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 327685	 rs = 1	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 1	 rs = 1	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 65536	 rs = 65536	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 65537	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 5	 rs = 1	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2033	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 2	 rs = 2	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2033	 rs = 2033	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2030	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2030	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 0	 rs = 2030	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 0	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 1	 rs = 0	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2030	 rs = 2030	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 65537	 rs = 0	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 0	 rs = 0	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 0	 rs = 0	 rt = 0
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 0	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 0	 rs = 0	 rt = 1
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 0	 rs = 2033	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2033	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2033	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2033	 rs = 2033	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 0	 rs = 2	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 2	 rs = 2	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 131072	 rs = 131072	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 131073	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 5	 rs = 1	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 2	 rs = 2036	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 3	 rs = 3	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2036	 rs = 2036	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2033	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2033	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2033	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 1	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 1	 rs = 1	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2033	 rs = 2033	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 131073	 rs = 1	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 1	 rs = 1	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 65536	 rs = 65536	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 65537	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 1	 rs = 1	 rt = 1
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2036	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2036	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2036	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2036	 rs = 2036	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 65537	 rs = 3	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 3	 rs = 3	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 196608	 rs = 196608	 rt = 2
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 196610	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 5	 rs = 2	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 3	 rs = 2039	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 4	 rs = 4	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2039	 rs = 2039	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 2	 rs = 2036	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2036	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 2	 rs = 2036	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 2	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 2	 rs = 2	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 43	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2036	 rs = 2036	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 2	 rs = 2033	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2033	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2033	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 1	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 2	 rs = 1	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2033	 rs = 2033	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 196610	 rs = 1	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 1	 rs = 1	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 65536	 rs = 65536	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 65537	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 2	 rs = 1	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2036	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 2	 rs = 2	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2036	 rs = 2036	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2033	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2033	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 0	 rs = 2033	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 0	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 1	 rs = 0	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2033	 rs = 2033	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 65537	 rs = 0	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 0	 rs = 0	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 0	 rs = 0	 rt = 0
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 0	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 0	 rs = 0	 rt = 1
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 0	 rs = 2036	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2036	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2036	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2036	 rs = 2036	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 0	 rs = 2	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 2	 rs = 2	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 131072	 rs = 131072	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 131073	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 1	 rs = 1	 rt = 2
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 2	 rs = 2039	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2039	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 2	 rs = 2039	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2039	 rs = 2039	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 131073	 rs = 4	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 4	 rs = 4	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 262144	 rs = 262144	 rt = 3
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 262147	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 3	 rs = 3	 rt = 5
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 4	 rs = 2042	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2042	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 5	 rs = 2042	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2042	 rs = 2042	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 262147	 rs = 6	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 6	 rs = 6	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 393216	 rs = 393216	 rt = 8
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 393224	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 0	 rs = 8	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 6	 rs = 2045	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 7	 rs = 7	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2045	 rs = 2045	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 8	 rs = 2042	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2042	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 5	 rs = 2042	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 5	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 5	 rs = 5	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 43	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2042	 rs = 2042	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 8	 rs = 2039	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2039	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 4	 rs = 2039	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 4	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 4	 rs = 4	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2039	 rs = 2039	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 8	 rs = 2036	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2036	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 3	 rs = 2036	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 3	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 3	 rs = 3	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2036	 rs = 2036	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 8	 rs = 2033	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2033	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 2	 rs = 2033	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 2	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 2	 rs = 2	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2033	 rs = 2033	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 8	 rs = 2030	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2030	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2030	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 1	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 8	 rs = 1	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2030	 rs = 2030	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 393224	 rs = 1	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 1	 rs = 1	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 65536	 rs = 65536	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 65537	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 8	 rs = 1	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2033	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 2	 rs = 2	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2033	 rs = 2033	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2030	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2030	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 0	 rs = 2030	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 0	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 1	 rs = 0	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2030	 rs = 2030	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 65537	 rs = 0	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 0	 rs = 0	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 0	 rs = 0	 rt = 0
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 0	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 0	 rs = 0	 rt = 1
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 0	 rs = 2033	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2033	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2033	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2033	 rs = 2033	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 0	 rs = 2	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 2	 rs = 2	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 131072	 rs = 131072	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 131073	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 8	 rs = 1	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 2	 rs = 2036	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 3	 rs = 3	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2036	 rs = 2036	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2033	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2033	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2033	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 1	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 1	 rs = 1	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2033	 rs = 2033	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 131073	 rs = 1	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 1	 rs = 1	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 65536	 rs = 65536	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 65537	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 1	 rs = 1	 rt = 1
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2036	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2036	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2036	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2036	 rs = 2036	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 65537	 rs = 3	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 3	 rs = 3	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 196608	 rs = 196608	 rt = 2
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 196610	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 8	 rs = 2	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 3	 rs = 2039	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 4	 rs = 4	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2039	 rs = 2039	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 2	 rs = 2036	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2036	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 2	 rs = 2036	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 2	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 2	 rs = 2	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 43	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2036	 rs = 2036	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 2	 rs = 2033	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2033	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2033	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 1	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 2	 rs = 1	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2033	 rs = 2033	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 196610	 rs = 1	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 1	 rs = 1	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 65536	 rs = 65536	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 65537	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 2	 rs = 1	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2036	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 2	 rs = 2	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2036	 rs = 2036	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2033	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2033	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 0	 rs = 2033	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 0	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 1	 rs = 0	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2033	 rs = 2033	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 65537	 rs = 0	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 0	 rs = 0	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 0	 rs = 0	 rt = 0
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 0	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 0	 rs = 0	 rt = 1
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 0	 rs = 2036	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2036	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2036	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2036	 rs = 2036	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 0	 rs = 2	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 2	 rs = 2	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 131072	 rs = 131072	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 131073	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 1	 rs = 1	 rt = 2
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 2	 rs = 2039	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2039	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 2	 rs = 2039	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2039	 rs = 2039	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 131073	 rs = 4	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 4	 rs = 4	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 262144	 rs = 262144	 rt = 3
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 262147	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 8	 rs = 3	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 4	 rs = 2042	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 5	 rs = 5	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2042	 rs = 2042	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 3	 rs = 2039	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2039	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 3	 rs = 2039	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 3	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 3	 rs = 3	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 43	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2039	 rs = 2039	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 3	 rs = 2036	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2036	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 2	 rs = 2036	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 2	 rt = 1
+instruction = 1331 	 PC = 20 	 sub, $a0, $a0, $imm 1
+
+ rd = 2	 rs = 2	 rt = 1
+instruction = FF10 	 PC = 22 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2036	 rs = 2036	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 3	 rs = 2033	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 36	 rs = 2033	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2033	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 1	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 3	 rs = 1	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2033	 rs = 2033	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 262147	 rs = 1	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 1	 rs = 1	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 65536	 rs = 65536	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 65537	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 3	 rs = 1	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2036	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 2	 rs = 2	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2036	 rs = 2036	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2033	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2033	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 0	 rs = 2033	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 0	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 1	 rs = 0	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq, $imm, $zero, $zero 50
+
+ rd = 50	 rs = 0	 rt = 0
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2033	 rs = 2033	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 65537	 rs = 0	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 0	 rs = 0	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 0	 rs = 0	 rt = 0
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 0	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 43	 rs = 0	 rt = 0
+instruction = 22A 	 PC = 2B 	 add, $vo, $vo, $s0 0
+
+ rd = 0	 rs = 0	 rt = 1
+instruction = 103E1 	 PC = 2C 	 lw, $a0, $sp, $imm 0
+
+ rd = 0	 rs = 2036	 rt = 0
+instruction = 10FE1 	 PC = 2E 	 lw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2036	 rt = 1
+instruction = 10AE1 	 PC = 30 	 lw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2036	 rt = 2
+instruction = EE1 	 PC = 32 	 add, $sp, $sp, $imm 3
+
+ rd = 2036	 rs = 2036	 rt = 3
+instruction = 730 	 PC = 34 	 add, $t0, $a0, $zero 0
+
+ rd = 0	 rs = 2	 rt = 0
+instruction = 6771 	 PC = 35 	 sll, $t0, $t0, $imm 16
+
+ rd = 2	 rs = 2	 rt = 16
+instruction = 772 	 PC = 37 	 add, $t0, $t0, $vo 0
+
+ rd = 131072	 rs = 131072	 rt = 1
+instruction = 14701 	 PC = 38 	 out, $t0, $zero, $imm 10
+
+ rd = 131073	 rs = 0	 rt = 10
+instruction = 9F00 	 PC = 3A 	 beq, $ra, $zero, $zero 0
+
+ rd = 36	 rs = 0	 rt = 0
+instruction = A20 	 PC = 24 	 add, $s0, $vo, $zero 0
+
+ rd = 3	 rs = 1	 rt = 0
+instruction = 103E1 	 PC = 25 	 lw, $a0, $sp, $imm 0
+
+ rd = 2	 rs = 2039	 rt = 0
+instruction = 1331 	 PC = 27 	 sub, $a0, $a0, $imm 2
+
+ rd = 3	 rs = 3	 rt = 2
+instruction = FF10 	 PC = 29 	 jal, $ra, $imm, $zero 17
+
+ rd = 36	 rs = 17	 rt = 0
+instruction = EE1 	 PC = 11 	 add, $sp, $sp, $imm -3
+
+ rd = 2039	 rs = 2039	 rt = -3
+instruction = 11AE1 	 PC = 13 	 sw, $s0, $sp, $imm 2
+
+ rd = 1	 rs = 2036	 rt = 2
+instruction = 11FE1 	 PC = 15 	 sw, $ra, $sp, $imm 1
+
+ rd = 43	 rs = 2036	 rt = 1
+instruction = 113E1 	 PC = 17 	 sw, $a0, $sp, $imm 0
+
+ rd = 1	 rs = 2036	 rt = 0
+instruction = 901 	 PC = 19 	 add, $t2, $zero, $imm 1
+
+ rd = 1	 rs = 0	 rt = 1
+instruction = C139 	 PC = 1B 	 bgt, $imm, $a0, $t2 32
+
+ rd = 32	 rs = 1	 rt = 1
+instruction = 230 	 PC = 1D 	 add, $vo, $a0, $zero 0
+
+ rd = 1	 rs = 1	 rt = 0
+instruction = 9100 	 PC = 1E 	 beq

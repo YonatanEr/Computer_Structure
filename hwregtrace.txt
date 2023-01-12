@@ -1,0 +1,5 @@
+190 WRITE monitoraddr 00000001
+192 WRITE monitordata 000000FF
+194 WRITE monitorcmd 00000001
+200 WRITE monitoraddr 00000002
+202 WRITE monitordata 000000FE
