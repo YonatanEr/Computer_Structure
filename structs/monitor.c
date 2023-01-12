@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <math.h>
 #define MONITOR_DIM 256
 
 typedef struct monitor {
@@ -34,11 +35,16 @@ monitor* init_monitor(){
 
 
 int get_pixel(monitor* disp, int i, int j){
+    assert(0<=i && i<MONITOR_DIM);
+    assert(0<=j && j<MONITOR_DIM);
     return disp->matrix[i][j];    
 }
 
 
 void set_pixel(monitor* disp, int i, int j, int p){
+    assert(0<=i && i<MONITOR_DIM);
+    assert(0<=j && j<MONITOR_DIM);
+    assert(0<=p && j<256);
     disp->matrix[i][j] = p;
 }
 
@@ -47,7 +53,7 @@ void display_monitor(monitor* dispaly){
     int i, j;
     for(i=0; i<MONITOR_DIM; i++){
         for(j=0; j<MONITOR_DIM; j++){
-            printf("%0x", get_pixel(dispaly, i, j));
+            printf("%02x", get_pixel(dispaly, i, j));
         }
         printf("\n");
     }
@@ -60,7 +66,7 @@ void monitor_to_txt(monitor* dispaly, char* monitor_path){
     int i, j;
     for(i=0; i<MONITOR_DIM; i++){
         for(j=0; j<MONITOR_DIM; j++){
-            fprintf(fptr, "%0x\n", get_pixel(dispaly, i, j));
+            fprintf(fptr, "%02x\n", get_pixel(dispaly, i, j));
         }
     }
 	fclose(fptr);

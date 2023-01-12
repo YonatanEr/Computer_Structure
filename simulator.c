@@ -173,7 +173,7 @@ void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_pa
 		next_pc += 2;
 	else //R-format
 		next_pc += 1;
-
+	
 	switch (inst.opcode) {
 	case 0: //add
 		trace_line[rd] = rs + rt;
@@ -375,9 +375,8 @@ void simulator(char* trace_path, char* hwregtrace_path, char* leds_path, char* d
 		exit(1);
 	}
 	fclose(fptr_leds);
-
 	FILE* fptr_display7reg = fopen(display7reg_path, "w"); //init file.
-	if (fptr_leds == NULL) {
+	if (fptr_display7reg == NULL) {
 		printf("Error, couldn't open %s\n", display7reg_path);
 		exit(1);
 	}

@@ -1,7 +1,17 @@
 .word   0x100   50                          #upper left point of the square
 .word   0x100   10                          #length of all the sqaure edges 
-lw		$t0,	$zero,	$imm,	0x100		#load 1 to $t1.
-lw		$t1,	$zero,	$imm,	0x101		#load 1 to $t1.
+lw		$s0,	$zero,	$imm,	0x100		#load 0x100 to $s0, start
+lw		$s1,	$zero,	$imm,	0x101		#load 0x101 to $s1, len
+add     $s2,    $s1,    $imm,   65535       #t0 = s1*256
+add		$t0,	$t0,	$s0,	0	    	#
+add		$t0,	$t0,	$s0,	0	    	#
+
+
+mul		$s2,	$zero,	$imm,	0x7ffff		#bigger number will cause overflow.
+
+
+z = a + len + len*256               
+
 ROW:
 bgt $imm, $a0, $t2, L1				# jump to L1 if x > 1
 
@@ -26,3 +36,6 @@ sw		$t1,	$zero,	$gp,	0			#store $t1 in the next row of the memory.
 add		$gp,	$gp,	$s1,	0			#increment gp by 1 (gp++).
 bne		$imm,	$zero,	$s1,	Fib			#we set $s1 to 1 so always branches back to Fib.
 .word	0x101	0x1							#load 1 to address 257, address 256 will hold 0 by default and the fibo series will start from there. 
+
+HALT:
+halt	$zero,	$zero,	$zero,	0			#Termination
