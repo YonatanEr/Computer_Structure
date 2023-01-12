@@ -43,8 +43,9 @@ int main(int argc, char* argv[]) {
 			continue;
 		}
 		parse_asm_line(asm_line, parsed_asm); //parse it correctly and store it in parsed_asm.
-		if (format_checker(asm_line) == word) {//if it finds a .word command it will store the correlated data into its address index.
+		if (!strcmp(parsed_asm[0],".word")) {//if it finds a .word command it will store the correlated data into its address index.
 			words_data[hex_or_dec_string_to_int(parsed_asm[1])] = hex_or_dec_string_to_int(parsed_asm[2]);
+			//printf("\ndata = %d, address = %d, words_data[address] = %d\n", hex_or_dec_string_to_int(parsed_asm[2]), hex_or_dec_string_to_int(parsed_asm[1]), words_data[hex_or_dec_string_to_int(parsed_asm[1])]);
 			memin_size--;
 			continue;
 		}
@@ -164,7 +165,6 @@ int format_checker(char* line) { //input is a line from the .asm file and output
 		if (line[0] == '.' && line[1] == 'w' && line[2] == 'o' && line[3] == 'r' && line[4] == 'd')
 			return word;
 	}
-	
 	for (int i = 0; i < strlen(line); i++) {
 		if (line[i] == ':')
 			return label;
