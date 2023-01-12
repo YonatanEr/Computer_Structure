@@ -5,7 +5,6 @@
 int trace_line[TRACE_OFFSET + NUM_OF_REGISTERS] = {0}; // {pc, instruction, -all 16 registers sorted-}
 int io_line[NUM_OF_IO_REGISTERS]; //input/output registers.
 enum io_register { irq0enable, irq1enable, irq2enable, irq0status, irq1status, irq2status, irqhandler, irqreturn, clks, leds, display7reg, timerenable, timercurrent, timermax, diskcmd, disksector, diskbuffer, diskstatus, reserved0, reserved1, monitoraddr, monitordata, monitorcmd };
-int io_register_size[23] = {1, 1, 1, 1, 1, 1, 12, 12, 32, 32, 32, 1, 32, 32, 2, 7, 12, 1, 0, 0, 16, 8, 1};
 char ram[MEM_MAX_SIZE][INSTRUCTION_BYTES + 1];
 char hard_disk[HARD_DISK_SIZE][INSTRUCTION_BYTES + 1];
 char* io_registers[NUM_OF_IO_REGISTERS] = { "irq0enable","irq1enable","irq2enable","irq0status","irq1status","irq2status","irqhandler","irqreturn","clks","leds","display7reg","timerenable","timercurrent","timermax","diskcmd","disksector","diskbuffer","diskstatus","reserved","reserved","monitoraddr","monitordata","monitorcmd" };
@@ -305,18 +304,18 @@ void update_trace_file(char* trace_path) {
 			if (trace_line[i] == 0)
 				fprintf(fptr, "%s", "000 ");
 			else {
-				for (int j = 0x100; j > trace_line[i]; j = j >> 4)  //Biggest number is 
-					fprintf(fptr, "%d", 0); //Will print the missing 0 in the hex representation
-				fprintf(fptr, "%X ", trace_line[i]); //Space is added here and not \t or \n.
+				//for (int j = 0x100; j > trace_line[i]; j = j >> 4)  //Biggest number is 
+					//fprintf(fptr, "%d", 0); //Will print the missing 0 in the hex representation
+				fprintf(fptr, "%03X ", trace_line[i]); //Space is added here and not \t or \n.
 			}
 		}
 		else if (i == 1) { //Instruction with 5 bytes.
 			if (trace_line[i] == 0)
 				fprintf(fptr, "%s", "00000 ");
 			else {
-				for (int j = 0x10000; j > trace_line[i]; j = j >> 4)
-					fprintf(fptr, "%d", 0);
-				fprintf(fptr, "%X ", trace_line[i]);
+				//for (int j = 0x10000; j > trace_line[i]; j = j >> 4)
+					//fprintf(fptr, "%d", 0);
+				fprintf(fptr, "%05X ", trace_line[i]);
 			}
 		}
 		else { //All the registers with 8 bytes.
@@ -332,24 +331,24 @@ void update_trace_file(char* trace_path) {
 			}
 			else if (trace_line[i] < 0) { //sign extension is guranteed for negatives.
 				if (i != NUM_OF_REGISTERS + 1)
-					fprintf(fptr, "%X ", trace_line[i]);
+					fprintf(fptr, "%08X ", trace_line[i]);
 				else {
-					if (trace_line[1] < 0x15000)
-						fprintf(fptr, "%X\n", trace_line[i]); //last register need to print thus going down a line.
+					if (trace_line[1] < 0x15000) //if instruction is halt aka last instruction.
+						fprintf(fptr, "%08X\n", trace_line[i]); //last register need to print thus going down a line.
 					else
-						fprintf(fptr, "%X\n", trace_line[i]); //last register need to print thus going down a line.
+						fprintf(fptr, "%08X\n", trace_line[i]); //last register need to print thus going down a line.
 				}
 			}
 			else {
-				for (int j = 0x10000000; j > trace_line[i]; j = j >> 4)
-					fprintf(fptr, "%d", 0);
+				//for (int j = 0x10000000; j > trace_line[i]; j = j >> 4)
+					//fprintf(fptr, "%d", 0);
 				if (i != NUM_OF_REGISTERS + 1)
-					fprintf(fptr, "%X ", trace_line[i]);
+					fprintf(fptr, "%08X ", trace_line[i]);
 				else {
-					if (trace_line[1] < 0x15000)
-						fprintf(fptr, "%X\n", trace_line[i]); //last register need to print thus going down a line.
+					if (trace_line[1] < 0x15000) //if instruction is halt aka last instruction.
+						fprintf(fptr, "%08X\n", trace_line[i]); //last register need to print thus going down a line.
 					else
-						fprintf(fptr, "%X", trace_line[i]); //last register need to print thus going down a line.
+						fprintf(fptr, "%08X", trace_line[i]); //last register need to print thus going down a line.
 
 				}
 			}
@@ -428,17 +427,17 @@ void regout_file_generator(char* regout_path) {
 		}
 		else if (trace_line[i] < 0) { //sign extension to 32b is guaranteed by the C compiler.
 			if (i == TRACE_OFFSET + NUM_OF_REGISTERS - 1)
-				fprintf(fptr, "%X", trace_line[i]);
+				fprintf(fptr, "%08X", trace_line[i]);
 			else
-				fprintf(fptr, "%X\n",trace_line[i]);
+				fprintf(fptr, "%08X\n",trace_line[i]);
 		}
 		else {
-			for (int j = 0x10000000; j > trace_line[i]; j = j >> 4)
-				fprintf(fptr, "%d", 0);
+			//for (int j = 0x10000000; j > trace_line[i]; j = j >> 4)
+				//fprintf(fptr, "%d", 0);
 			if (i == TRACE_OFFSET + NUM_OF_REGISTERS - 1)
-				fprintf(fptr, "%X", trace_line[i]); //last register.
+				fprintf(fptr, "%08X", trace_line[i]); //last register.
 			else
-				fprintf(fptr, "%X\n", trace_line[i]); 
+				fprintf(fptr, "%08X\n", trace_line[i]); 
 		}
 	}
 	fclose(fptr);
@@ -527,14 +526,12 @@ void isr_operation(int* isr_active) { //assuming the proccess is:  check irq -> 
 	}
 }
 
-
 void update_leds_display_file(char* path, int io_reg) { //updates either the leds.txt or the display7seg.txt 
 	FILE* fptr = fopen(path, "a");
 	assert(fptr);
 	fprintf(fptr, "%d %08X\n", cycles, io_line[io_reg]);
 	fclose(fptr);
 }
-
 
 void update_hwregtrace_file(char* hwregtrace_path, int opcode, int hwregister_index) { //updates hwregtrace.txt file.
 	FILE* fptr_hwregtrace = fopen(hwregtrace_path, "a");
@@ -554,6 +551,7 @@ void update_hwregtrace_file(char* hwregtrace_path, int opcode, int hwregister_in
 }
 
 void io_register_size_validator() { //validates the current status of the i/o registers.
+	int io_register_size[23] = { 1, 1, 1, 1, 1, 1, 12, 12, 32, 32, 32, 1, 32, 32, 2, 7, 12, 1, 0, 0, 16, 8, 1 };
 	for (int i = 0; i < NUM_OF_IO_REGISTERS; i++) {
 		if (0x1 << io_register_size[i] < io_line[i] && io_register_size[i] != 32) { //checks if the current status is bigger than whats allowed.
 			printf("Error, size of i/o register '%s' is %d while current register status is %X, terminating!", io_registers[i], io_register_size[i], io_line[i]);
