@@ -19,7 +19,6 @@ int main(int argc, char* argv[]) {
 
 	char* parsed_asm[INSTRUCTION_BYTES];
 	char asm_line[MAX_LINE_SIZE];
-
 	label_element* head_of_label_list = init_labels(argv[1]); //Iterate over the .asm file the first time and "indexsize" the labels.
 
 	FILE* fptr_asm = fopen(argv[1], "r");
@@ -83,7 +82,7 @@ int* asm_line_to_ml(char* asm_line[INSTRUCTION_BYTES], int* $imm_present) {
 	int* result = (int*) malloc (2*sizeof(int)); //output
 	assert(result);
 	*$imm_present = 0; //default is 0 (= false).
-	//printf("input is %s, %s, %s, %s, %s\n", asm_line[0], asm_line[1], asm_line[2], asm_line[3], asm_line[4]);
+	printf("input is %s, %s, %s, %s, %s\n", asm_line[0], asm_line[1], asm_line[2], asm_line[3], asm_line[4]);
 
 	for (int opcode_index = 0; opcode_index < NUM_OF_OPCODES; opcode_index++) { //Takes care of the 8 MSB of the ml.
 		//printf("compare %s with %s \n", asm_line[0], opcodes[opcode_index]); 

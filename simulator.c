@@ -27,9 +27,9 @@ void download_diskin_to_hard_disk(char*);
 void upload_hard_disk_to_diskout(char*);
 void download_irq2(char*);
 void simulator(char*,char*, char*, char*);
+void update_leds_display_file(char*, int);
 
 //NEW ADDS ADD ME AFTER DEBUGGING
-void update_leds_display_file(char*);
 void timer_manager();
 void hard_disk_manager(int*);
 void monitor_manager();
@@ -253,11 +253,19 @@ void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_pa
 
 	case 16: //lw
 		cycles++; //load value from memory, increase 1 cycle.
+		if (rs + rt >= MEM_MAX_SIZE || rs + rt < 0) {
+			printf("Error, memory request RAM[%d] out of bounds, Exiting.", rs + rt);
+			exit(1);
+		}
 		trace_line[rd] = hex_string_to_int_signed(ram[rs + rt]); 
 		break;
 
 	case 17: //sw
 		cycles++; //store value in memory, increase 1 cycle.
+		if (rs + rt >= MEM_MAX_SIZE || rs + rt < 0) {
+			printf("Error, memory request RAM[%d] out of bounds, Exiting.", rs + rt);
+			exit(1);
+		}
 		sprintf(ram[rs + rt], "%05X", 0x000fffff & trace_line[rd]); //i want to copy only the 20lsb.
 		break;
 
@@ -273,10 +281,10 @@ void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_pa
 	case 20: //out
 		io_line[rs + rt] = trace_line[rd];
 		if (rs + rt == leds){
-			update_leds_display_file(leds_path);
+			update_leds_display_file(leds_path, leds);
 		}
 		if (rs + rt == display7reg){
-			update_leds_display_file(display7reg_path);
+			update_leds_display_file(display7reg_path, display7reg);
 		}
 		update_hwregtrace_file(hwregtrace_path, inst.opcode, rs + rt);
 		break;
@@ -508,10 +516,10 @@ void isr_operation(int* isr_active) { //assuming the proccess is: fetch instruct
 }
 
 
-void update_leds_display_file(char* path) { //NEED TO ADD AN OPPCODE ARGUMENT SO WE WOULD KNOW WHEN TO PRINT INTO DISPLAY FILE AND WHEN TO LEDS FILE. 
+void update_leds_display_file(char* path, int io_reg) { //NEED TO ADD AN OPPCODE ARGUMENT SO WE WOULD KNOW WHEN TO PRINT INTO DISPLAY FILE AND WHEN TO LEDS FILE. 
 	FILE* fptr = fopen(path, "a");
 	assert(fptr);
-	fprintf(fptr, "%d %08X\n", cycles, io_line[leds]);
+	fprintf(fptr, "%d %08X\n", cycles, io_line[io_reg]);
 	fclose(fptr);
 }
 
