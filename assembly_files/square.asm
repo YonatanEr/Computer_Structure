@@ -2,8 +2,7 @@
 .word   0x100   10                          #length of all the sqaure edges 
 lw		$s0,	$zero,	$imm,	0x100		#load 0x100 to $t0.
 lw		$s1,	$zero,	$imm,	0x101		#load 0x101 to $t1.
-add		$t0,	$zero,	$imm,	65535		#set $s1 = 1
-
+lw		$s0,	$zero,	$imm,	65535		#load 0x101 to $s0.
 
 
 z = a + len + len*256
