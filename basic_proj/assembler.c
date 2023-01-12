@@ -183,6 +183,7 @@ int format_checker(char* line) { //input is a line from the .asm file and output
 label_element* init_labels(char* path) { 
 	//Given a path to an assembly file, itterates over it and counts the "pc lines" in order
 	//to correspond them to the labels.
+
 	bool first_label = true;
 	int pc_line_counter = 0;
 	char line[MAX_LINE_SIZE + 1];
@@ -190,6 +191,7 @@ label_element* init_labels(char* path) {
 	label_element* head_of_label_list = NULL;
 
 	FILE* f = fopen(path, "r");
+
 	while (fgets(line, MAX_LINE_SIZE, f) != NULL) {
 		int format = format_checker(line);
 		if (format == label) {

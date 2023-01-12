@@ -66,7 +66,7 @@ int main(int argc, char* argv[]) {
 		else
 			fprintf(fptr_memin, "00000\n");
 	}
-
+	
 	fclose(fptr_memin);
 	fclose(fptr_asm);
 
