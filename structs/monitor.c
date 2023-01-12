@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <math.h>
 #define MONITOR_DIM 256
 
 typedef struct monitor {
@@ -34,11 +35,13 @@ monitor* init_monitor(){
 
 
 int get_pixel(monitor* disp, int i, int j){
+    assert(abs(i)<MONITOR_DIM && abs(j)<MONITOR_DIM);
     return disp->matrix[i][j];    
 }
 
 
 void set_pixel(monitor* disp, int i, int j, int p){
+    assert(abs(i)<MONITOR_DIM && abs(j)<MONITOR_DIM);
     disp->matrix[i][j] = p;
 }
 

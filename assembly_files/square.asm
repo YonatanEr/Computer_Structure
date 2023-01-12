@@ -1,7 +1,9 @@
 .word   0x100   50                          #upper left point of the square
 .word   0x100   10                          #length of all the sqaure edges 
-lw		$t0,	$zero,	$imm,	0x100		#load 1 to $t1.
-lw		$t1,	$zero,	$imm,	0x101		#load 1 to $t1.
+lw		$s0,	$zero,	$imm,	0x100		#load 0x100 to $t0.
+lw		$s1,	$zero,	$imm,	0x101		#load 0x101 to $t1.
+add		$t0,	$zero,	$imm,	65535		#set $s1 = 1
+
 ROW:
 bgt $imm, $a0, $t2, L1				# jump to L1 if x > 1
 
