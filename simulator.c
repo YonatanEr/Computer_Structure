@@ -3,22 +3,23 @@
 
 // int pc = 0, inst = 0, $zero = 0, $imm = 0, $vo = 0, $a0 = 0, $a1 = 0, $a2 = 0, $a3 = 0, $t0 = 0, $t1 = 0, $t2 = 0, $s0 = 0, $s1 = 0, $s2 = 0, $gp = 0, $sp = 0, $ra = 0;
 int trace_line[TRACE_OFFSET + NUM_OF_REGISTERS] = {0}; // {pc, instruction, -all 16 registers sorted-}
-int io_line[IO_SIZE]; //input/output registers.
+int io_line[NUM_OF_IO_REGISTERS]; //input/output registers.
 enum io_register { irq0enable, irq1enable, irq2enable, irq0status, irq1status, irq2status, irqhandler, irqreturn, clks, leds, display7reg, timerenable, timercurrent, timermax, diskcmd, disksector, diskbuffer, diskstatus, reserved0, reserved1, monitoraddr, monitordata, monitorcmd };
+int io_register_size[23] = {1, 1, 1, 1, 1, 1, 12, 12, 32, 32, 32, 1, 32, 32, 2, 7, 12, 1, 0, 0, 16, 8, 1};
 char ram[MEM_MAX_SIZE][INSTRUCTION_BYTES + 1];
 char hard_disk[HARD_DISK_SIZE][INSTRUCTION_BYTES + 1];
-char* io_registers[IO_SIZE] = { "irq0enable","irq1enable","irq2enable","irq0status","irq1status","irq2status","irqhandler","irqreturn","clks","leds","display7reg","timerenable","timercurrent","timermax","diskcmd","disksector","diskbuffer","diskstatus","reserved","reserved","monitoraddr","monitordata","monitorcmd" };
+char* io_registers[NUM_OF_IO_REGISTERS] = { "irq0enable","irq1enable","irq2enable","irq0status","irq1status","irq2status","irqhandler","irqreturn","clks","leds","display7reg","timerenable","timercurrent","timermax","diskcmd","disksector","diskbuffer","diskstatus","reserved","reserved","monitoraddr","monitordata","monitorcmd" };
 linked_list* irq2_list = NULL;
 monitor* display;
 int next_pc = 0;
-int cycles = 0;
+int cycles = 0; 
 
 //FOR DEBBUGGING.
 char* registers[NUM_OF_REGISTERS] = { "$zero", "$imm", "$vo", "$a0", "$a1", "$a2", "$a3", "$t0", "$t1", "$t2", "$s0", "$s1", "$s2", "$gp", "$sp", "$ra" };
 char* opcodes[NUM_OF_OPCODES] = { "add", "sub", "mul","and" , "or" ,"xor", "sll", "sra", "srl", "beq", "bne", "blt", "bgt", "ble", "bge", "jal", "lw", "sw", "reti", "in", "out", "halt" }; //halt = 0x15000
 //END
 
-void opcode_operation(instruction, int*, int, char*, char*, char*);
+void opcode_operation(instruction, int*, int, char*, char*, char*, int*);
 void update_trace_file(char*);
 void regout_file_generator(char*);
 void download_memin_to_ram(char*);
@@ -34,6 +35,7 @@ void monitor_manager();
 void irq2_manager();
 void isr_operation(int*);
 void update_hwregtrace_file(char*, int, int);
+void io_register_size_validator();
 
 int main(int argc, char* argv[]) { 
 	
@@ -158,7 +160,7 @@ void upload_hard_disk_to_diskout(char* diskout_path) {
 	fclose(fptr_diskout);
 }
 
-void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_path, char* leds_path, char* display7reg_path) {
+void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_path, char* leds_path, char* display7reg_path, int* isr_active) {
 
 	int rd = TRACE_OFFSET + inst.rd; //Initilizes rd as the "address" to the desired register.
 	int rs = trace_line[TRACE_OFFSET + inst.rs]; //Initilizes rs as the value inside the register.
@@ -170,9 +172,9 @@ void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_pa
 	}
 
 	if ($imm) //if $imm != 0 // I-format
-		next_pc += 2;
+		next_pc = trace_line[0] + 2; //increment pc by 2
 	else //R-format
-		next_pc += 1;
+		next_pc = trace_line[0] + 1; //increment pc by 1
 	
 	switch (inst.opcode) {
 	case 0: //add
@@ -265,7 +267,8 @@ void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_pa
 		break;
 
 	case 18: //reti
-		next_pc = io_line[irqreturn]; 
+		next_pc = io_line[irqreturn];
+		*isr_active = 0;
 		break;
 
 	case 19: //in
@@ -384,25 +387,29 @@ void simulator(char* trace_path, char* hwregtrace_path, char* leds_path, char* d
 
 	int isr_active = 0, dma_start_cycle = 0;
 	for (int $imm = 0, halt = 0; !halt; trace_line[0] = next_pc, $imm = 0) { //while halt was not asserted, update to the next PC and and execute its command.
-		cycles++; //load instruction from memory, increase 1 cycle.
 		isr_operation(&isr_active); //check if there are interrupts, if there are than it will update pc (trace_line[0]) accordingly.
+		cycles++; //load instruction from memory, increase 1 cycle.
 		instruction inst = parse_instruction(ram[trace_line[0]]); //convert it to the instruction structure.
 		trace_line[1] = (inst.opcode << 12) + (inst.rd << 8) + (inst.rs << 4) + inst.rt; //update the instruction "register".
 		if (inst.rs == 1 || inst.rt == 1 || inst.rd == 1) { //$imm is present in the command, load ivalue from memory, increase 1 cycle.
 			trace_line[3] = hex_string_to_int_signed(ram[trace_line[0] + 1]); //load I-value to $imm, C compiler will preform sign extension auto.
+			//printf("$imm found, equal to %d\n", trace_line[3]); //TEST
 			cycles++;
-			$imm++; //set $imm to be 1 (=true) since it is present.
+			$imm = 1; //set $imm to be 1 (=true) since it is present.
 		}
 		else
 			trace_line[3] = 0;
-		printf("instruction = %X \t PC = %X \t %s, %s, %s, %s %d\n\n rd = %d\t rs = %d\t rt = %d\n", trace_line[1], trace_line[0], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3], trace_line[2 + inst.rd], trace_line[2 + inst.rs], trace_line[2 + inst.rt]); //TEST
 		update_trace_file(trace_path); //print out trace_line to trace.txt
-		opcode_operation(inst, &halt, $imm, hwregtrace_path, leds_path, display7reg_path); //do the instruction.
+		printf("instruction = %X \t PC = %X \t %s, %s, %s, %s %d\n\n rd = %d\t rs = %d\t rt = %d\n\n", trace_line[1], trace_line[0], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3], trace_line[2 + inst.rd], trace_line[2 + inst.rs], trace_line[2 + inst.rt]); //TEST
+		opcode_operation(inst, &halt, $imm, hwregtrace_path, leds_path, display7reg_path, &isr_active); //do the instruction.
+
 		//IO REGISTERS MANAGERS
+		io_register_size_validator();
 		monitor_manager();
 		timer_manager();
 		hard_disk_manager(&dma_start_cycle);
 		irq2_manager();
+		printf("irqstatus0/1/2 = %d/%d/%d \t timercurrent = %d, cycles = %d\n\n", io_line[3], io_line[4], io_line[5], io_line[12], cycles); //TEST
 	}
 }
 
@@ -442,7 +449,7 @@ void timer_manager() {
 		io_line[irq0enable] = 1; //set irq0 high when timerenable is high.
 
 		if (io_line[timercurrent] == io_line[timermax]) { //when currenttimer reached timermax.
-			io_line[irq0status] = 1; //send a irq0status pulse.
+			io_line[irq0status] = 1; //set irq0status.
 			io_line[timercurrent] = 0; //reset timer
 		}
 		else {
@@ -450,18 +457,18 @@ void timer_manager() {
 		}
 	}
 	else
-		io_line[irq0enable] = 0; //if timerenable is not on, reset interrupts. 
+		io_line[irq0enable] = 0; //if timerenable is not on, reset interrupt. 
 }
 
-void hard_disk_manager(int* dma_start_cycle) {
+void hard_disk_manager(int* dma_start_cycle) { //updates the hard disk status.
 	int i;
 	if (!io_line[diskstatus] && io_line[diskcmd]) { // if diskstatus == 0  and diskcmd != 0, as in not busy and requesting transaction.
 		io_line[diskstatus] = 1; //set dma to busy.
 		*dma_start_cycle = cycles; //save the moment we've started the transaction.
 	}
-	else if (cycles - *dma_start_cycle >= DMA_ACTIVE_DURATION) {
+	else if (cycles - *dma_start_cycle >= DMA_ACTIVE_DURATION) { //if 1024 clock cyles had passed since the DMA started, finish transaction.
 
-		if (io_line[diskbuffer] + SECTOR_SIZE >= MEM_MAX_SIZE){
+		if (io_line[diskbuffer] + SECTOR_SIZE >= MEM_MAX_SIZE){ //making sure we didnt overflow.
 			printf("Overflowing alocatted RAM size\n");
 			assert(NULL);
 		}
@@ -481,41 +488,47 @@ void hard_disk_manager(int* dma_start_cycle) {
 	}
 }
 
-void monitor_manager(){
+void monitor_manager(){ //updates the monitor current status.
 	if (io_line[monitorcmd])
 		set_pixel(display, io_line[monitoraddr]/MONITOR_DIM, io_line[monitoraddr]%MONITOR_DIM, io_line[monitordata]);
 }
 
-void irq2_manager(){
-	if (irq2_list != NULL)
+void irq2_manager(){ //updates the linked list that holds all the interrupts from irq2 file.
+	if (irq2_list != NULL) //if we havent reached the end of the file = end of the linked list.
 		if (cycles >= irq2_list->data) {
-			io_line[irq2enable] = io_line[irq2status] = 1;
-			irq2_list = irq2_list->next; //NEED TO CHECK WETHER THIS IS RALLY HAPPENING
+			io_line[irq2status] = 1;
+			irq2_list = irq2_list->next;
 		}
 	}
 
-void isr_operation(int* isr_active) { //assuming the proccess is: fetch instruction -> check irq (before execution of the new isntruction as instructed) ->handle irq ->fetch same instruction.
-	//maybe not needed, int irq = ((io_line[irq0enable] & io_line[irq0status]) | (io_line[irq1enable] & io_line[irq1status]) | (io_line[irq2enable] & io_line[irq2status]));
-	if (trace_line[0] == io_line[irqreturn]) //if current pc is back at the address stored in register irqreturn than that means the interrupt has been handled.
-		*isr_active = 0;
+void isr_operation(int* isr_active) { //assuming the proccess is:  check irq -> fetch irqhandler instruction -> handle IRQ ->fetch irqreturn instruction.
 	if (!(*isr_active)) { //check 1 status at a time and handle them seperately.
 		if ((io_line[irq0enable] & io_line[irq0status])) {
 			io_line[irq0status] = 0;
+			*isr_active = 1;
+			io_line[irqreturn] = trace_line[0]; //saves current pc in irqreturn register.
+			trace_line[0] = io_line[irqhandler]; //sets current pc to address set inside irqhandler.
+			printf("######################ISR STARTED#####################\n");//FOR TEST
 		}
 		else if (io_line[irq1enable] & io_line[irq1status]) {
 			io_line[irq1status] = 0;
+			*isr_active = 1;
+			io_line[irqreturn] = trace_line[0]; 
+			trace_line[0] = io_line[irqhandler];
+			printf("######################ISR STARTED#####################\n");//FOR TEST
 		}
 		else if (io_line[irq2enable] & io_line[irq2status]) { 
 			io_line[irq2status] = 0;
+			*isr_active = 1;
+			io_line[irqreturn] = trace_line[0]; 
+			trace_line[0] = io_line[irqhandler]; 
+			printf("######################ISR STARTED#####################\n"); //FOR TEST
 		}
-		*isr_active = 1;
-		io_line[irqreturn] = trace_line[0]; //save current pc in irqreturn register.
-		trace_line[0] = io_line[irqhandler]; //set current pc to address set inside irqhandler.
 	}
 }
 
 
-void update_leds_display_file(char* path, int io_reg) { //NEED TO ADD AN OPPCODE ARGUMENT SO WE WOULD KNOW WHEN TO PRINT INTO DISPLAY FILE AND WHEN TO LEDS FILE. 
+void update_leds_display_file(char* path, int io_reg) { //updates either the leds.txt or the display7seg.txt 
 	FILE* fptr = fopen(path, "a");
 	assert(fptr);
 	fprintf(fptr, "%d %08X\n", cycles, io_line[io_reg]);
@@ -523,7 +536,7 @@ void update_leds_display_file(char* path, int io_reg) { //NEED TO ADD AN OPPCODE
 }
 
 
-void update_hwregtrace_file(char* hwregtrace_path, int opcode, int hwregister_index) { //taking into account that a hweregtrace was created beforehand and updates it accordingly.
+void update_hwregtrace_file(char* hwregtrace_path, int opcode, int hwregister_index) { //updates hwregtrace.txt file.
 	FILE* fptr_hwregtrace = fopen(hwregtrace_path, "a");
 	if (fptr_hwregtrace == NULL) {
 		printf("Error, couldn't open %s\n", hwregtrace_path);
@@ -536,6 +549,15 @@ void update_hwregtrace_file(char* hwregtrace_path, int opcode, int hwregister_in
 	else //in
 		strcpy(operation, "READ");
 
-	fprintf(fptr_hwregtrace, "%d %s %s %08X\n", cycles, operation, io_registers[hwregister_index], io_line[hwregister_index]);
+	fprintf(fptr_hwregtrace, "%d %s %s %08X\n", cycles, operation, io_registers[hwregister_index], io_line[hwregister_index]); //format as instructed by the project instructions.
 	fclose(fptr_hwregtrace);
+}
+
+void io_register_size_validator() { //validates the current status of the i/o registers.
+	for (int i = 0; i < NUM_OF_IO_REGISTERS; i++) {
+		if (0x1 << io_register_size[i] < io_line[i] && io_register_size[i] != 32) { //checks if the current status is bigger than whats allowed.
+			printf("Error, size of i/o register '%s' is %d while current register status is %X, terminating!", io_registers[i], io_register_size[i], io_line[i]);
+			exit(1);
+		}
+	}
 }

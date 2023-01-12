@@ -55,12 +55,12 @@ int main(int argc, char* argv[]) {
 	}
 	for (; memin_size < MEM_MAX_SIZE; memin_size++) {//appeneds 00000 line till the end of the file.
 		if (words_data[memin_size]) { //if its not 0, append the data from .word.
-			for (int i = 0x10000; i > words_data[memin_size]; i = i >> 4)
-				fprintf(fptr_memin, "%d", 0);
+			//for (int i = 0x10000; i > words_data[memin_size]; i = i >> 4)
+				//fprintf(fptr_memin, "%d", 0);
 			if (memin_size == MEM_MAX_SIZE - 1)
-				fprintf(fptr_memin, "%X", words_data[memin_size]);
+				fprintf(fptr_memin, "%05X", words_data[memin_size]);
 			else
-				fprintf(fptr_memin, "%X\n", words_data[memin_size]);
+				fprintf(fptr_memin, "%05X\n", words_data[memin_size]);
 		}
 		else if (memin_size == MEM_MAX_SIZE - 1) //if were at the end of the file.
 			fprintf(fptr_memin, "00000");
@@ -109,7 +109,7 @@ int* asm_line_to_ml(char* asm_line[INSTRUCTION_BYTES], int* $imm_present) {
 	}
 	imm_value = hex_or_dec_string_to_int(asm_line[INSTRUCTION_BYTES - 1]); //converts decimal strings to integers.
 
-	//printf("inside the function we got %X and %X \n", ml_line, imm_value);
+	printf("inside the function we got %X and %X \n", ml_line, imm_value);
 	result[0] = ml_line;
 	result[1] = imm_value;
 	return result;
@@ -119,21 +119,21 @@ void update_memin_file(char** parsed_asm, FILE* fptr, int* memin_size) {
 	int $imm_present = 0;
 	int* ml_representation = asm_line_to_ml(parsed_asm, &$imm_present);
 
-	for (int i = 0x10000; i > ml_representation[0]; i = i >> 4)  //Biggest number is 0x15FFF
-		fprintf(fptr, "%d", 0); //Will print the missing 0 in the hex representation
-	fprintf(fptr, "%X\n", ml_representation[0]);
+	//for (int i = 0x10000; i > ml_representation[0]; i = i >> 4)  //Biggest number is 0x15FFF
+		//fprintf(fptr, "%d", 0); //Will print the missing 0 in the hex representation
+	fprintf(fptr, "%05X\n", ml_representation[0]);
 
 	if (ml_representation[1] < 0) { //Only if were in I-Format - sign extention.
 		ml_representation[1] = twos_compliment_inversion(abs(ml_representation[1])); //twos compliment takes a positive number and spits out its negative one in 20b.
-		for (int i = 0x10000; i > ml_representation[1]; i = i >> 4)
-			fprintf(fptr, "%d", 0);
-		fprintf(fptr, "%X\n", ml_representation[1]);
+		//for (int i = 0x10000; i > ml_representation[1]; i = i >> 4)
+			//fprintf(fptr, "%d", 0);
+		fprintf(fptr, "%05X\n", ml_representation[1]);
 		(*memin_size)++; //by adding ivalue line we are increasing the data size inside of memin.
 	}
 	else if (ml_representation[1] > 0) {
-		for (int i = 0x10000; i > ml_representation[1]; i = i >> 4)
-			fprintf(fptr, "%d", 0);
-		fprintf(fptr, "%X\n", ml_representation[1]);
+		//for (int i = 0x10000; i > ml_representation[1]; i = i >> 4)
+			//fprintf(fptr, "%d", 0);
+		fprintf(fptr, "%05X\n", ml_representation[1]);
 		(*memin_size)++; //by adding ivalue line we are increasing the data size inside of memin.
 	}
 	else if ($imm_present) {
