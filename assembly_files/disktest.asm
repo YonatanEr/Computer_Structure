@@ -20,10 +20,10 @@ bne		$imm,	$t0,	$zero,	DMA2			# keep checking if dma is busy, if yes then wait, 
 lw		$t0,	$zero,	$imm,	0x100			# load first sum to $t0.
 lw		$t1,	$zero,	$imm,	0x101			# load second sum to $t1.
 bgt		$imm,	$t0,	$t1,	Correct			# if first sum is greater than second sum, branch to Correct.
-sw		$t1,	$zero,	$imm,	0x102			# we didn't branch to "Correct" meaning the second sum is greater, store and halt.
+sw		$t1,	$zero,	$gp,	0				# we didn't branch to "Correct" meaning the second sum is greater, store and halt.
 halt	$zero,	$zero,	$zero,	0
 Correct:
-sw		$t0,	$zero,	$imm,	0x102			# store and halt
+sw		$t0,	$zero,	$gp,	0				# store and halt
 halt	$zero,	$zero,	$zero,	0
 ISR:
 add		$t0,	$zero,	$zero,	0				# t0 = 0
