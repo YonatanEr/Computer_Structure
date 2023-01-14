@@ -21,12 +21,6 @@ out     $t1,    $zero,  $imm,   22			                 # draw pixel
 SetLine:
 add		$t1,	$t0,	$imm,	0	    	                 #t1 = t0 = line_start_drawing_pixel
 add		$t2,	$t0,	$s1,	0	    	                 #t2 = t0 + s1 = line_stop_drawing_pixel
-#t0 = line_start_drawing_pixel
-#t1 = running_index:                    t0 <= t1 < t2
-#t2 = line_stop_drawing_pixel
-#s0 = square_pixels_per_line
-#s1 = len
-#s2 = max_square_pixel
 Draw:               
 out     $t1,    $zero,  $imm,   20			                 # update address
 add     $t1,    $t1,    $imm,   1                            # t1 = t1 + 1
