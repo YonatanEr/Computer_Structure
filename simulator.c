@@ -264,6 +264,7 @@ void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_pa
 			exit(1);
 		}
 		sprintf(ram[rs + rt], "%05X", 0x000fffff & trace_line[rd]); //i want to copy only the 20lsb.
+		printf("ram[%d + %d] = %s\n",rs, rt, ram[rs + rt]);
 		break;
 
 	case 18: //reti

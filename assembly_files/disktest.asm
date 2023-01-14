@@ -29,7 +29,7 @@ ISR:
 add		$t0,	$zero,	$zero,	0				# t0 = 0
 add		$t2,	$zero,	$zero,	0				# t2 = 0
 Calculate:
-lw		$t1,	$t1,	$s1,	0				# $t1 = ram[$s1 + $t0], $s1 holds diskbuffer.
+lw		$t1,	$t0,	$s1,	0				# $t1 = ram[$s1 + $t0], $s1 holds diskbuffer.
 add		$t2,	$t2,	$t1,	0				# $t2 += $t1
 add		$t0,	$t0,	$imm,	1				# $t0++
 blt		$imm,	$t0,	$s0,	Calculate		# while i<8 keep computing the sum of the first 8 words.	
