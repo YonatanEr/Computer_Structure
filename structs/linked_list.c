@@ -21,7 +21,8 @@ linked_list* create_new_element(int new_data) {
 }
 
 void free_linked_list(linked_list* head) {
-	if (head->next != NULL)
+	if (head != NULL)
 		free_linked_list(head->next);
 	free(head);
+	head = NULL;
 }

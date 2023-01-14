@@ -463,25 +463,23 @@ void timer_manager() {
 }
 
 void hard_disk_manager(int* dma_start_cycle) { //updates the hard disk status.
-	int i;
 	if (!io_line[diskstatus] && io_line[diskcmd]) { // if diskstatus == 0  and diskcmd != 0, as in not busy and requesting transaction.
 		io_line[diskstatus] = 1; //set dma to busy.
 		*dma_start_cycle = cycles; //save the moment we've started the transaction.
 	}
-	else if (cycles - *dma_start_cycle >= DMA_ACTIVE_DURATION) { //if 1024 clock cyles had passed since the DMA started, finish transaction.
+	else if (cycles - *dma_start_cycle >= DMA_ACTIVE_DURATION && io_line[diskstatus]) { //if 1024 clock cyles had passed since the DMA started, finish transaction.
 
 		if (io_line[diskbuffer] + SECTOR_SIZE >= MEM_MAX_SIZE){ //making sure we didnt overflow.
 			printf("Overflowing alocatted RAM size\n");
 			assert(NULL);
 		}
 		if (io_line[diskcmd] == 1) { //read HD -> RAM
-			for (i = 0; i < SECTOR_SIZE; i++) {
+			for (int i = 0; i < SECTOR_SIZE; i++) {
 				sprintf(ram[io_line[diskbuffer] + i], "%s", hard_disk[SECTOR_SIZE*io_line[disksector] + i]);
 			}
 		}
 		else if (io_line[diskcmd] == 2) { //write RAM -> HD
-			//write to hard disk from memory?
-			for (i = 0; i < SECTOR_SIZE; i++){
+			for (int i = 0; i < SECTOR_SIZE; i++){
 				sprintf(hard_disk[SECTOR_SIZE*io_line[disksector] + i], "%s", ram[io_line[diskbuffer] + i]);
 			}
 		}
