@@ -84,8 +84,6 @@ int main(int argc, char* argv[]) {
 
 	free_monitor(display);
 
-	printf("FINISHED ALL TASKS");
-
 	return 0;
 }
 
