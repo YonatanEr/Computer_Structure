@@ -77,7 +77,7 @@ void free_monitor(monitor* disp){
     int i, j;
     for (i=0; i<MONITOR_DIM; i++){
         free(disp->matrix[i]);
-        disp->matrix = NULL;
+        disp->matrix[i] = NULL;
     }
     free(disp->matrix);
     disp->matrix = NULL;

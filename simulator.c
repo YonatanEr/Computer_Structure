@@ -81,7 +81,7 @@ int main(int argc, char* argv[]) {
 	}
 	fprintf(fptr_cycles, "%d", cycles);
 	fclose(fptr_cycles);
-
+		
 	return 0;
 }
 
