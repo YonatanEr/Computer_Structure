@@ -72,6 +72,7 @@ int main(int argc, char* argv[]) {
 	upload_hard_disk_to_diskout(argv[11]);
 	regout_file_generator(argv[5]);
 	monitor_to_txt(display, argv[12]);
+	display_monitor(display);
 	free_monitor(display);
 
 	FILE* fptr_cycles = fopen(argv[8], "w");
