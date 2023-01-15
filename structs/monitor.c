@@ -35,6 +35,9 @@ monitor* init_monitor(){
 
 
 int get_pixel(monitor* disp, int i, int j){
+    // returns the pixel on the location requested
+    // validating the pixel is inside the monitor
+
     assert(0<=i && i<MONITOR_DIM);
     assert(0<=j && j<MONITOR_DIM);
     return disp->matrix[i][j];    
@@ -42,6 +45,9 @@ int get_pixel(monitor* disp, int i, int j){
 
 
 void set_pixel(monitor* disp, int i, int j, int p){
+    // returns the pixel on the location requested
+    // validating the pixel is inside the monitor
+    
     assert(0<=i && i<MONITOR_DIM);
     assert(0<=j && j<MONITOR_DIM);
     assert(0<=p && j<256);
@@ -50,6 +56,9 @@ void set_pixel(monitor* disp, int i, int j, int p){
 
 
 void display_monitor(monitor* dispaly){
+    // returns the pixel on the location requested
+    // validating the pixel is inside the monitor
+    
     int i, j;
     for(i=0; i<MONITOR_DIM; i++){
         for(j=0; j<MONITOR_DIM; j++){
@@ -61,6 +70,8 @@ void display_monitor(monitor* dispaly){
 
 
 void monitor_to_txt(monitor* dispaly, char* monitor_path){
+    // creates a txt file containing the monitors pixels
+    
     FILE* fptr = fopen(monitor_path, "w");
     assert(fptr);
     int i, j;
@@ -74,6 +85,8 @@ void monitor_to_txt(monitor* dispaly, char* monitor_path){
 
 
 void free_monitor(monitor* disp){
+    // free allocated memory for the monitor
+
     int i, j;
     for (i=0; i<MONITOR_DIM; i++){
         free(disp->matrix[i]);
