@@ -80,13 +80,13 @@ int main(int argc, char* argv[]) {
 		printf("Error, couldn't open %s\n", argv[5]);
 		exit(1);
 	}
-	fprintf(fptr_cycles, "%d", cycles);
+	fprintf(fptr_cycles, "%u", cycles);
 	fclose(fptr_cycles);
 		
 	return 0;
 }
 
-void download_irq2(char* irq2_path) {
+void download_irq2(char* irq2_path) { //downloads the contents of the irq2in input file into a linked list for easier use.
 	FILE* fptr_irq2 = fopen(irq2_path, "r");
 	if (fptr_irq2 == NULL) {
 		printf("Error, couldn't open %s\n", irq2_path);
@@ -94,13 +94,13 @@ void download_irq2(char* irq2_path) {
 	}
 	linked_list* new_element = NULL;
 	int data;
-	while(!feof(fptr_irq2)) {
+	while(!feof(fptr_irq2)) { //while we haven't reach the end of the file, keep going.
 		fscanf(fptr_irq2, "%d", &data);
 		new_element = create_new_element(data);
-		if (irq2_list == NULL)
+		if (irq2_list == NULL) //if the list is empty, the list is now created.
 			irq2_list = new_element;
 		else
-			append_to_linked_list(irq2_list, new_element);
+			append_to_linked_list(irq2_list, new_element); //if its not empty, append the next element.
 	}
 	fclose(fptr_irq2);
 }
@@ -129,7 +129,7 @@ void download_diskin_to_hard_disk(char* diskin_path) { //downloads the entirety 
 	fclose(fptr_diskin);
 }
 
-void upload_ram_to_memout(char* memout_path) {
+void upload_ram_to_memout(char* memout_path) { //uploads the content of the ram into memout.txt
 	FILE* fptr_memout = fopen(memout_path, "w");
 	if (fptr_memout == NULL) {
 		printf("Error, couldn't open %s\n", memout_path);
@@ -144,7 +144,7 @@ void upload_ram_to_memout(char* memout_path) {
 	fclose(fptr_memout);
 }
 
-void upload_hard_disk_to_diskout(char* diskout_path) {
+void upload_hard_disk_to_diskout(char* diskout_path) { //uploads the content of the hd into memout.txt
 	FILE* fptr_diskout = fopen(diskout_path, "w");
 	if (fptr_diskout == NULL) {
 		printf("Error, couldn't open %s\n", diskout_path);
@@ -160,7 +160,7 @@ void upload_hard_disk_to_diskout(char* diskout_path) {
 }
 
 void opcode_operation(instruction inst, int* halt, int $imm, char* hwregtrace_path, char* leds_path, char* display7reg_path, int* isr_active) {
-
+	//The heart of the simulator, recieves a parsed instruction and executes it.
 	int rd = TRACE_OFFSET + inst.rd; //Initilizes rd as the "address" to the desired register.
 	int rs = trace_line[TRACE_OFFSET + inst.rs]; //Initilizes rs as the value inside the register.
 	int rt = trace_line[TRACE_OFFSET + inst.rt]; //Initilizes rt as the value inside the register.
@@ -306,8 +306,6 @@ void update_trace_file(char* trace_path) {
 			if (trace_line[i] == 0)
 				fprintf(fptr, "%s", "000 ");
 			else {
-				//for (int j = 0x100; j > trace_line[i]; j = j >> 4)  //Biggest number is 
-					//fprintf(fptr, "%d", 0); //Will print the missing 0 in the hex representation
 				fprintf(fptr, "%03X ", trace_line[i]); //Space is added here and not \t or \n.
 			}
 		}
@@ -315,8 +313,6 @@ void update_trace_file(char* trace_path) {
 			if (trace_line[i] == 0)
 				fprintf(fptr, "%s", "00000 ");
 			else {
-				//for (int j = 0x10000; j > trace_line[i]; j = j >> 4)
-					//fprintf(fptr, "%d", 0);
 				fprintf(fptr, "%05X ", trace_line[i]);
 			}
 		}
@@ -342,8 +338,6 @@ void update_trace_file(char* trace_path) {
 				}
 			}
 			else {
-				//for (int j = 0x10000000; j > trace_line[i]; j = j >> 4)
-					//fprintf(fptr, "%d", 0);
 				if (i != NUM_OF_REGISTERS + 1)
 					fprintf(fptr, "%08X ", trace_line[i]);
 				else {
@@ -351,7 +345,6 @@ void update_trace_file(char* trace_path) {
 						fprintf(fptr, "%08X\n", trace_line[i]); //last register need to print thus going down a line.
 					else
 						fprintf(fptr, "%08X", trace_line[i]); //last register need to print thus going down a line.
-
 				}
 			}
 		}
@@ -360,7 +353,8 @@ void update_trace_file(char* trace_path) {
 	return;
 }
 
-void simulator(char* trace_path, char* hwregtrace_path, char* leds_path, char* display7reg_path) {
+void simulator(char* trace_path, char* hwregtrace_path, char* leds_path, char* display7reg_path) { 
+	//simulates the proccessor, inside of it it will fetch an instruction, decode it and execute it with the help of opcode_operation().
 	FILE* fptr_trace = fopen(trace_path, "w"); //init file.
 	if (fptr_trace == NULL) {
 		printf("Error, couldn't open %s\n", trace_path);
@@ -403,7 +397,7 @@ void simulator(char* trace_path, char* hwregtrace_path, char* leds_path, char* d
 		else
 			trace_line[3] = 0;
 		update_trace_file(trace_path); //print out trace_line to trace.txt
-		printf("instruction = %X \t PC = %X \t %s, %s, %s, %s %d\n\n rd = %d\t rs = %d\t rt = %d\n\n", trace_line[1], trace_line[0], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3], trace_line[2 + inst.rd], trace_line[2 + inst.rs], trace_line[2 + inst.rt]); //TEST
+		//printf("instruction = %X \t PC = %X \t %s, %s, %s, %s %d\n\n rd = %d\t rs = %d\t rt = %d\n\n", trace_line[1], trace_line[0], opcodes[inst.opcode], registers[inst.rd], registers[inst.rs], registers[inst.rt], trace_line[3], trace_line[2 + inst.rd], trace_line[2 + inst.rs], trace_line[2 + inst.rt]); //TEST
 		opcode_operation(inst, &halt, $imm, hwregtrace_path, leds_path, display7reg_path, &isr_active); //do the instruction.
 
 		//IO REGISTERS MANAGERS
@@ -412,7 +406,7 @@ void simulator(char* trace_path, char* hwregtrace_path, char* leds_path, char* d
 		timer_manager();
 		hard_disk_manager(&dma_start_cycle);
 		irq2_manager();
-		printf("irqstatus0/1/2 = %d/%d/%d \t timercurrent = %d, cycles = %d\n\n", io_line[3], io_line[4], io_line[5], io_line[12], cycles); //TEST
+		//printf("irqstatus0/1/2 = %d/%d/%d \t timercurrent = %d, cycles = %d\n\n", io_line[3], io_line[4], io_line[5], io_line[12], cycles); //TEST
 	}
 }
 
@@ -436,8 +430,6 @@ void regout_file_generator(char* regout_path) {
 				fprintf(fptr, "%08X\n",trace_line[i]);
 		}
 		else {
-			//for (int j = 0x10000000; j > trace_line[i]; j = j >> 4)
-				//fprintf(fptr, "%d", 0);
 			if (i == TRACE_OFFSET + NUM_OF_REGISTERS - 1)
 				fprintf(fptr, "%08X", trace_line[i]); //last register.
 			else
@@ -447,7 +439,7 @@ void regout_file_generator(char* regout_path) {
 	fclose(fptr);
 }
 
-void timer_manager() {
+void timer_manager() { //will maintain irq0 and all the timer-relevent registers.
 	if (io_line[timerenable]) {
 		io_line[irq0enable] = 1; //set irq0 high when timerenable is high.
 
@@ -463,7 +455,7 @@ void timer_manager() {
 		io_line[irq0enable] = 0; //if timerenable is not on, reset interrupt. 
 }
 
-void hard_disk_manager(int* dma_start_cycle) { //updates the hard disk status.
+void hard_disk_manager(int* dma_start_cycle) { //updates the hard disk status and maintains the HD-relevent registers.
 	if (!io_line[diskstatus] && io_line[diskcmd]) { // if diskstatus == 0  and diskcmd != 0, as in not busy and requesting transaction.
 		io_line[diskstatus] = 1; //set dma to busy.
 		*dma_start_cycle = cycles; //save the moment we've started the transaction.
@@ -484,12 +476,12 @@ void hard_disk_manager(int* dma_start_cycle) { //updates the hard disk status.
 				sprintf(hard_disk[SECTOR_SIZE*io_line[disksector] + i], "%s", ram[io_line[diskbuffer] + i]);
 			}
 		}
-		io_line[diskstatus] = io_line[diskcmd] = 0;
-		io_line[irq1status] = 1;
+		io_line[diskstatus] = io_line[diskcmd] = 0; //DMA done, reset registers.
+		io_line[irq1status] = 1; //assert interrupt.
 	}
 }
 
-void monitor_manager(){ //updates the monitor current status.
+void monitor_manager(){ //updates the monitor current status and maintains its relvent registers.
 	if (io_line[monitorcmd])
 		set_pixel(display, io_line[monitoraddr]/MONITOR_DIM, io_line[monitoraddr]%MONITOR_DIM, io_line[monitordata]);
 }
@@ -502,28 +494,30 @@ void irq2_manager(){ //updates the linked list that holds all the interrupts fro
 		}
 	}
 
-void isr_operation(int* isr_active) { //assuming the proccess is:  check irq -> fetch irqhandler instruction -> handle IRQ ->fetch irqreturn instruction.
+void isr_operation(int* isr_active) { 
+	//assuming the proccess is:  check irq -> fetch irqhandler instruction -> handle IRQ ->fetch irqreturn instruction.
+	//this function maintains the interrupt-relvent registers and if ISR is not busy and an IRQ is set it will handle it.
 	if (!(*isr_active)) { //check 1 status at a time and handle them seperately.
 		if ((io_line[irq0enable] & io_line[irq0status])) {
-			io_line[irq0status] = 0;
-			*isr_active = 1;
+			io_line[irq0status] = 0; //reset irq0status
+			*isr_active = 1; //set the ISR active for future proding.
 			io_line[irqreturn] = trace_line[0]; //saves current pc in irqreturn register.
 			trace_line[0] = io_line[irqhandler]; //sets current pc to address set inside irqhandler.
-			printf("######################ISR STARTED#####################\n");//FOR TEST
+			//printf("######################ISR STARTED#####################\n");//FOR TEST
 		}
 		else if (io_line[irq1enable] & io_line[irq1status]) {
 			io_line[irq1status] = 0;
 			*isr_active = 1;
 			io_line[irqreturn] = trace_line[0]; 
 			trace_line[0] = io_line[irqhandler];
-			printf("######################ISR STARTED#####################\n");//FOR TEST
+			//printf("######################ISR STARTED#####################\n");//FOR TEST
 		}
 		else if (io_line[irq2enable] & io_line[irq2status]) { 
 			io_line[irq2status] = 0;
 			*isr_active = 1;
 			io_line[irqreturn] = trace_line[0]; 
 			trace_line[0] = io_line[irqhandler]; 
-			printf("######################ISR STARTED#####################\n"); //FOR TEST
+			//printf("######################ISR STARTED#####################\n"); //FOR TEST
 		}
 	}
 }
@@ -531,7 +525,7 @@ void isr_operation(int* isr_active) { //assuming the proccess is:  check irq -> 
 void update_leds_display_file(char* path, int io_reg) { //updates either the leds.txt or the display7seg.txt 
 	FILE* fptr = fopen(path, "a");
 	assert(fptr);
-	fprintf(fptr, "%d %08X\n", cycles, io_line[io_reg]);
+	fprintf(fptr, "%u %08X\n", cycles, io_line[io_reg]);
 	fclose(fptr);
 }
 
@@ -552,7 +546,7 @@ void update_hwregtrace_file(char* hwregtrace_path, int opcode, int hwregister_in
 	fclose(fptr_hwregtrace);
 }
 
-void io_register_size_validator() { //validates the current status of the i/o registers.
+void io_register_size_validator() { //validates the current status of the i/o registers according to their instructed size.
 	int io_register_size[23] = { 1, 1, 1, 1, 1, 1, 12, 12, 32, 32, 32, 1, 32, 32, 2, 7, 12, 1, 0, 0, 16, 8, 1 };
 	for (int i = 0; i < NUM_OF_IO_REGISTERS; i++) {
 		if (0x1 << io_register_size[i] < io_line[i] && io_register_size[i] != 32) { //checks if the current status is bigger than whats allowed.
@@ -562,7 +556,7 @@ void io_register_size_validator() { //validates the current status of the i/o re
 	}
 }
 
-void clk_manager() {
+void clk_manager() { //maintains and updates the clks registers each cycle.
 	if (io_line[clks] == 0xffffffff)
 		io_line[clks] = 0;
 	else

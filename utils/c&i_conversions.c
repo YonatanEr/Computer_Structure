@@ -54,17 +54,7 @@ int dec_string_to_int(char* input) {
 	return (pow(-1, negative_number) * result); //if negative_number = 0 will return pos, and if 1 will return neg.
 }
 
-
-//char* convert_to_standard_imm_format(char* ivalue) { //takes a hex/dec string and converts it to standard dec string.
-	//if (ivalue[0] == '0' && (ivalue[1] == 'x' || ivalue[1] == 'X')) {
-	//	int int_ivalue = hex_string_to_int_signed(ivalue);
-	//	return dec_int_to_string(int_ivalue); 
-	//}
-	//return ivalue;
-//}
-
-
-int twos_compliment_inversion(int input) { //recieves a positive number an negates it.
+int twos_compliment_inversion(int input) { //recieves a positive number and negates it.
 	int mask = 0xFFF00000; //Size of int is 4bytes, need to mask only the 20 lsb.
 	int result = (~(mask | input) + 1); //Invert all the bits and add one to the result
 	return result;
