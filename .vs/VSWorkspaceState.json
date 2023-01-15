@@ -2,7 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\assembly_files",
-    "\\structs"
+    "\\structs",
+    "\\utils"
   ],
+  "SelectedNode": "\\assembly_files\\disktest.asm",
   "PreviewInSolutionExplorer": false
 }
