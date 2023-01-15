@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\assembly_files",
-    "\\structs",
     "\\utils"
   ],
-  "SelectedNode": "\\assembly_files\\disktest.asm",
+  "SelectedNode": "\\irq2in.txt",
   "PreviewInSolutionExplorer": false
 }

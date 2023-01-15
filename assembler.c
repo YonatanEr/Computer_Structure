@@ -83,7 +83,7 @@ int* asm_line_to_ml(char* asm_line[INSTRUCTION_BYTES], int* $imm_present) {
 	int* result = (int*) malloc (2*sizeof(int)); //output
 	assert(result);
 	*$imm_present = 0; //default is 0 (= false).
-	printf("input is %s, %s, %s, %s, %s\n", asm_line[0], asm_line[1], asm_line[2], asm_line[3], asm_line[4]);
+	//printf("input is %s, %s, %s, %s, %s\n", asm_line[0], asm_line[1], asm_line[2], asm_line[3], asm_line[4]);
 
 	for (int opcode_index = 0; opcode_index < NUM_OF_OPCODES; opcode_index++) { //Takes care of the 8 MSB of the ml.
 		//printf("compare %s with %s \n", asm_line[0], opcodes[opcode_index]); 
@@ -109,7 +109,7 @@ int* asm_line_to_ml(char* asm_line[INSTRUCTION_BYTES], int* $imm_present) {
 	}
 	imm_value = hex_or_dec_string_to_int(asm_line[INSTRUCTION_BYTES - 1]); //converts decimal strings to integers.
 
-	printf("inside the function we got %X and %X \n", ml_line, imm_value);
+	//printf("inside the function we got %X and %X \n", ml_line, imm_value);
 	result[0] = ml_line;
 	result[1] = imm_value;
 	return result;

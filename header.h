@@ -24,7 +24,7 @@
 
 
 ///Utilities///
-#include "utils/hex_string&char_to_int.c"
+#include "utils/c&i_conversions.c"
 
 ////Data Types///
 #include "structs/instruction.c"
